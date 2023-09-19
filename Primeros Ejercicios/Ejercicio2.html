@@ -11,21 +11,21 @@
 
 
 
-    <image id="imagenCambiar" src="images/1.png" onclick="cambiarFoto()">
+    <image id="imagenCambiar" src="images/imagen1.png" onclick="cambiarFoto()">
 
     </image>
 
     <script>
         function cambiarFoto(){
-            var imagen = document.getElementById('imagenCambiar')
-            if (imagen.src.match('1')){
-                imagen.src="images/2.png";
-            }else if (imagen.src.match('2')){
-                imagen.src="images/3.png";
-            }else if(imagen.src.match('3')){
-                imagen.src="images/4.png";
-            }else{
-                imagen.src="images/1.png";
+            var imagen = document.getElementById('imagenCambiar');
+            if (imagen.src.match("imagen1")){
+                imagen.src="images/imagen2.png";
+            }else if (imagen.src.match("imagen2")){
+                imagen.src="images/imagen3.png";
+            }else if(imagen.src.match("imagen3")){
+                imagen.src="images/imagen4.png";
+            }else if(imagen.src.match("imagen4")){
+                imagen.src="images/imagen1.png";
             }
         }
     </script>
