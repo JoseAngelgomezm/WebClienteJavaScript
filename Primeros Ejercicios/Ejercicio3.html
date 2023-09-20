@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="p1">La memoria RAM es una forma de almacenamiento permanente</p>
+    <button onclick="verdaderoOFalso(p1, 'verdadero')">Verdadero</button>
+    <button onclick="verdaderoOFalso(p1, 'falsoCorrecto')">Falso</button>
+    
+
+    <p id="p2">El sistema operativo Linux es de código abierto. </p>
+    <button onclick="verdaderoOFalso(p2, 'verdaderoCorrecto')">Verdadero</button>
+    <button onclick="verdaderoOFalso(p2, 'falso')">Falso</button>
+    
+
+    <p id="p3">Un firewall es un tipo de software antivirus.</p>
+    <button onclick="verdaderoOFalso(p3, 'verdadero')">Verdadero</button>
+    <button onclick="verdaderoOFalso(p3, 'falsoCorrecto')">Falso</button>
+    
+
+    <p id="p4">Los archivos en formato MP3 son principalmente utilizados para imágenes.</p>
+    <button onclick="verdaderoOFalso(p4, 'verdadero')">Verdadero</button>
+    <button onclick="verdaderoOFalso(p4, 'falsoCorrecto')">Falso</button>
+    
+
+    <p id="p5">El protocolo HTTP garantiza una conexión segura y cifrada al navegar por sitios web.</p>
+    <button onclick="verdaderoOFalso(p5, 'verdadero')">Verdadero</button>
+    <button onclick="verdaderoOFalso(p5, 'falsoCorrecto')">Falso</button>
+    
+
+    <p id="p6">Los sistemas operativos Windows y Mac son igualmente seguros contra amenazas cibernéticas.</p>
+    <button onclick="verdaderoOFalso(p6, 'verdadero')">Verdadero</button>
+    <button onclick="verdaderoOFalso(p6, 'falsoCorrecto')">Falso</button>
+    
+    <p id="p7"> El término "phishing" se refiere a intentos de engañar a las personas para que revelen información
+        confidencial,
+        como contraseñas o números de tarjeta de crédito, a través de comunicaciones falsas.</p>
+    <button onclick="verdaderoOFalso(p7, 'verdaderoCorrecto')">Verdadero</button>
+    <button onclick="verdaderoOFalso(p7, 'falso')">Falso</button>
+   
+    <script>
+        function verdaderoOFalso(parrafo, boton) {
+            if(boton.match('Correcto')){
+                parrafo.style.color = "green";
+            }else{
+                parrafo.style.color = "red";
+            }
+        }
+    </script>
+</body>
+
+</html>

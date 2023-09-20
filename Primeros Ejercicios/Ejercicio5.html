@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="cambiarParrafoIngles()">Generar Mensaje Inglés</button>
+    <button onclick="cambiarParrafoEspañol()">Generar Mensaje Español</button>
+    <button onclick="cambiarParrafoRuso()">Generar Mensaje Ruso</button>
+    <p id="parrafo">Bienvenido a la pagina, pulsa un boton para cambiar el mensaje de idioma</p>
+    <script>
+        function cambiarParrafoIngles(){
+            var parrafo = document.getElementById("parrafo");
+            parrafo.innerHTML = "Welcome to the website, press a button to change the language message";
+        }
+
+        function cambiarParrafoEspañol(){
+            var parrafo = document.getElementById("parrafo");
+            parrafo.innerHTML = "Bienvenido a la pagina, pulsa un boton para cambiar el mensaje de idioma";
+        }
+
+        function cambiarParrafoRuso(){
+            var parrafo = document.getElementById("parrafo");
+            parrafo.innerHTML = "Добро пожаловать на сайт. Нажмите кнопку, чтобы изменить языковое сообщение.";
+        }
+    </script>
+</body>
+</html>
