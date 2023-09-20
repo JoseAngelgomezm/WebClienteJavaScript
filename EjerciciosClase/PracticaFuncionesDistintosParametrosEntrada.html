@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        
+        function operaciones(cubo, multiplicacion, suma) {
+            if (multiplicacion == undefined && suma === undefined) {
+                return cubo * cubo * cubo
+            } else if (suma == undefined) {
+                return cubo * multiplicacion
+            } else {
+                return cubo + multiplicacion + suma
+            }
+        }
+        
+        console.log(operaciones(5))
+        console.log(operaciones(5,10))
+        console.log(operaciones(5,10,15))
+
+
+    </script>
+</body>
+
+</html>
