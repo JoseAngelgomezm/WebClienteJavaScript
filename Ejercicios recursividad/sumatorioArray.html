@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="resultado"></p>
+
+    <script>
+        let array = [10, 10, 10, 15, 5];
+
+        function sumatorio(posicion) {
+            // caso base, cuando la posicion llegue a 0
+            if (posicion == 0) {
+                // devolvera un 0
+                return 0;
+            
+            // mientras la posicion no llegue a cero, obtendremos el valor
+            // el valor de la posicion y la sumaremos con lo que devuelva 
+            // la llamada siguiente de la posicion anterior
+            } else {
+
+                return array[posicion - 1] + sumatorio(posicion - 1);
+            }
+        }
+
+        document.getElementById("resultado").innerHTML = sumatorio(array.length);
+    </script>
+</body>
+
+</html>

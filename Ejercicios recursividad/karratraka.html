@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="resultado"></p>
+
+    <script>
+        function karratraka(numero) {
+            if (numero < 3) {
+                return 1;
+            } else {
+
+                return karratraka(numero - 1) + karratraka(numero - 2) + 1;
+            }
+        }
+
+
+        for (let i = 1; i < 7; i++) {
+            let parrafo = document.getElementById("resultado");
+            parrafo.innerHTML = parrafo.innerHTML + " " + karratraka(i);
+        }
+
+
+    </script>
+</body>
+
+</html>

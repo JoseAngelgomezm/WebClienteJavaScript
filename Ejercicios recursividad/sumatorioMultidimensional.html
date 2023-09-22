@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>RECURSIVIDAD</title>
+</head>
+
+<body>
+    <p>let array = [1,2,3,4];
+        Array.isArray(array); // true
+    </p>
+    <script>
+        let numeros = [1, [2, 3, 4], [8, 15, [5, 1]], 27];
+        console.log(numeros)
+
+        // ESCRIBE TU CÓDIGO AQUÍ
+        // quedarme con el tamaño del array
+        let posicion = numeros.length;
+
+        function suma(numeros, posicion) {
+            // creamos variable para ir sumando valores
+            let sumatodo = 0;
+
+            // caso base, si estamos en la posicion 0
+            // devolvemos la suma
+            if (posicion == 0) {
+                return sumatodo;
+            // si la posicion que estamos mirando, contiene otro array
+            } else if (Array.isArray(numeros[posicion])) {
+                // quedarme con ese array
+                let arrayDeDentro = numeros[posicion];
+                // volver a llamarme para comprobar si hay un nuevo array
+                // dentro de este array
+                suma(arrayDeDentro, arrayDeDentro.length -1);
+
+
+            // si no tiene un array dentro, sumar el valor a sumatodo
+            }else{
+                sumatodo = sumatodo + numeros[posicion];
+            }
+
+
+        }
+        
+        console.log(suma(numeros, numeros.length));
+
+    </script>
+</body>
+
+</html>
