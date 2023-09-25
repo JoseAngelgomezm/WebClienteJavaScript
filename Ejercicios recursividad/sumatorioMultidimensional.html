@@ -11,38 +11,34 @@
     </p>
     <script>
         let numeros = [1, [2, 3, 4], [8, 15, [5, 1]], 27];
-        console.log(numeros)
+        console.log(numeros);
 
         // ESCRIBE TU CÓDIGO AQUÍ
-        // quedarme con el tamaño del array
-        let posicion = numeros.length;
-
-        function suma(numeros, posicion) {
-            // creamos variable para ir sumando valores
-            let sumatodo = 0;
-
-            // caso base, si estamos en la posicion 0
-            // devolvemos la suma
-            if (posicion == 0) {
-                return sumatodo;
-            // si la posicion que estamos mirando, contiene otro array
-            } else if (Array.isArray(numeros[posicion])) {
-                // quedarme con ese array
-                let arrayDeDentro = numeros[posicion];
-                // volver a llamarme para comprobar si hay un nuevo array
-                // dentro de este array
-                suma(arrayDeDentro, arrayDeDentro.length -1);
-
-
-            // si no tiene un array dentro, sumar el valor a sumatodo
-            }else{
-                sumatodo = sumatodo + numeros[posicion];
-            }
-
-
-        }
         
-        console.log(suma(numeros, numeros.length));
+        function suma(arrayNumeros) {
+            let sumaTodo = 0;
+            // recorrer el array principal
+            for (let i = 0; i < arrayNumeros.length; i++) {
+                // si la posicion que miramos contiene un array
+                if (Array.isArray(arrayNumeros[i])) {
+                    // volver a llamar a la funcion, para recorrer el nuevo array
+                    // sumando el resultado que devuelva a nuestra variable
+                    // que contiene el resultado de la suma total
+                    sumaTodo += suma(arrayNumeros[i]);
+                // si la posicion que miramos no contiene un array 
+                // añadir el valor de la posicion a la suma
+                } else {
+                    sumaTodo += arrayNumeros[i];
+                }
+
+                
+            }
+            // cuando termine de recorrer cada uno de los array, devolver la suma
+            return sumaTodo;
+
+           
+        }
+        console.log(suma(numeros));
 
     </script>
 </body>
