@@ -14,30 +14,20 @@
         let arr5 = [1, 1, 1];
         /*INCLUYE TU CÓDIGO AQUÍ*/
 
-        function vampus(posicion, array) {
-            let j = array.length - 1; // ultima posicion del array
+        function vampus(array, inicio, final) {
+            let i = inicio;
+            let j = final - 1;
             let resultado = false;
-            // recorrer el array
-            for (let i = posicion; i < array.length; i++) {
-                // si las posiciones opuestas son iguales
-                // asignar el resultado a verdadero
-                if (array[i] == array[j]) {
-                    resultado = true;
-
-                } else { // si no lo son, asignarlas a falsas
-                    resultado = false;
-                }
-                j--;
-
-            }
-            return resultado;
+            
+            
         }
 
-        console.log(vampus(0, arr));
-        console.log(vampus(0, arr2));
-        console.log(vampus(0, arr3));
-        console.log(vampus(0, arr4));
-        console.log(vampus(0, arr5));
+            console.log(vampus(arr, 0, arr.length));
+            console.log(vampus(arr2, 0, arr.length));
+            console.log(vampus(arr3, 0, arr.length));
+            console.log(vampus(arr4, 0, arr.length));
+            console.log(vampus(arr5, 0, arr.length));
+
     </script>
 </body>
 

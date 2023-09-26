@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>RECURSIVIDAD</title>
+</head>
+
+<body>
+    <p>let array = [1,2,3,4];
+        Array.isArray(array); // true
+    </p>
+    <script>
+        let numeros = [1, [2, 3, 4], [8, 15, [5, 1]], 27];
+        let numeros2 = [1, [2, 5, 4], [8, 5, [5, 1]], 5];
+        console.log(numeros);
+
+        // ESCRIBE TU CÓDIGO AQUÍ
+        
+        function cuentaNumeros(arrayNumeros, numero) {
+            let cantidadNumeros = 0;
+            // recorrer el array principal
+            for (let i = 0; i < arrayNumeros.length; i++) {
+                // si la posicion que miramos contiene un array
+                if (Array.isArray(arrayNumeros[i])) {
+                    // volver a llamar a la funcion, para recorrer el nuevo array
+                    cantidadNumeros += cuentaNumeros(arrayNumeros[i], numero);
+                // si la posicion que miramos no contiene un array 
+                // mirar si es el numero que estamos buscando
+                } else if(arrayNumeros[i] == numero) {
+                   cantidadNumeros ++;
+                }
+
+                
+            }
+
+            // cuando termine de recorrer cada uno de los array, devolver la cantidad de numeros
+            return cantidadNumeros;
+
+        }
+        
+        console.log(cuentaNumeros(numeros,8));
+        console.log(cuentaNumeros(numeros2,5));
+
+    </script>
+</body>
+
+</html>
