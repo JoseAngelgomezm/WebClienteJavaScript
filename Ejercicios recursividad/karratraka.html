@@ -12,15 +12,18 @@
 
     <script>
         function karratraka(numero) {
+            // si el numero es menor que 3 terminar devolviendo 1
             if (numero < 3) {
                 return 1;
+            
+            // sino llamar llamar a karratra de -1 y -2 sumandole 1 
             } else {
 
                 return karratraka(numero - 1) + karratraka(numero - 2) + 1;
             }
         }
 
-
+        // mostrar cada uno de los karratraca (en este caso 6 numeros)
         for (let i = 1; i < 7; i++) {
             let parrafo = document.getElementById("resultado");
             parrafo.innerHTML = parrafo.innerHTML + " " + karratraka(i);
