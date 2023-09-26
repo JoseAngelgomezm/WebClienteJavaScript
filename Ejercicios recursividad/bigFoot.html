@@ -30,20 +30,37 @@
             let arr = ["O", "F", "O", "O", "S", "T", "O", "F", "O", "O", "O", "T", "O", "F", "O", "O", "O", "O", "O", "T"];
             // ESCRIBE TU CÓDIGO AQUÍ
 
-            function bigFoot(array) {
-                // variable para contar las 'O'
-                let sumaDeO = 0;
-                // empezar a recorrer el array desde el final, para quedarnos con el mas grande
-                for (let i = array.length; i > 0; i--) {
-                  
+            function bigFoot(array, numeroPosiciones) {
+                // caso base, cuando el numero de posicion sea 3, dejar de buscar y devolver 0
+                if (numeroPosiciones == 3) {
+                    return 0;
+                } else {
+                    // recorrer el array
+                    for (let i = 0; i < array.length - numeroPosiciones + 1; i++) {
+                        // obtener 2 punteros, uno para encontrar la f y otro para ir buscado la palabara
+                        let posicioni = i;
+                        let posicionj = i;
+                        // si la posicion que miramos tiene una f
+                        if (array[i] == "F")
+                            // mientras que la posicion siguiente a la que miramos sea una O
+                            while (posicionj < array.length && array[posicionj + 1] === "O") {
+                                posicionj++;
+                                // si la siguiente posicion de la O es una T
+                                if (array[posicionj + 1] == "T")
+                                    // si contiene 2 'O' o mas y coincide con el numero de posicion que miramos
+                                    // devolvemos el numero de 0 que contiene
+                                    if ((posicionj - posicioni + 2) == numeroPosiciones)
+                                        return numeroPosiciones;
+                            }
+                    }
 
+                    return bigFoot(array, numeroPosiciones - 1);
                 }
-
 
             }
 
+            console.log("El bigfoot mas grande es de: " + bigFoot(arr, arr.length));
 
-            bigFoot(arr);
         </script>
 </body>
 
