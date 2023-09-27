@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Minevancic color</title>
+</head>
+
+<body>
+
+    <p id="txt">
+    <p>
+
+        <script>
+            let parrafo = document.getElementById("txt");
+            var biocenosis = [['P', 'P', 'G', 'H', 'H', 'R'],
+            ['P', 'P', 'G', 'H', 'H', 'G'],
+            ['P', 'G', 'R', 'H', 'H', 'G'],
+            ['G', 'R', 'R', 'H', 'G', 'G'],
+            ['R', 'R', 'H', 'H', 'G', 'P']];
+
+            const mostrarMatriz = (matriz) => {
+                for (let i = 0; i < biocenosis.length; i++) {
+                    for (let j = 0; j < biocenosis[i].length; j++) {
+                        parrafo.innerHTML += biocenosis[i][j] + "&nbsp";
+                    }
+                    parrafo.innerHTML += "<br>"
+                }
+                parrafo.innerHTML += "<br>"
+            }
+
+            const comprobarVecinas = (x, y) => {
+                
+
+
+            }
+
+            const mostrarInfeccion = (x, y) => {
+                // señalamos la coordenada infectada
+                biocenosis[x][y] = "A";
+                // señalar las vecinas infectadas
+                comprobarVecinas(x, y)
+                // mostrar la matriz modificada con el señalamiento
+                mostrarMatriz(biocenosis);
+
+
+            }
+
+            const pandemic = (x, y) => {
+                // restarle 1 a las coordeandas, porque empezaremos a contar desde la 1
+                x -= 1;
+                y -= 1;
+
+                // lo primero que hacemos es mostrar la infeccion
+                mostrarInfeccion(x, y);
+
+                // luego mostrar el panel con los elementos borrados
+
+            }
+
+
+            mostrarMatriz(biocenosis);
+
+            pandemic(3, 4);
+
+
+
+        </script>
+
+</body>
+
+</html>
