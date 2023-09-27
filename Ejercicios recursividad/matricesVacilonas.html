@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id ="resultado"></p>
+    <script>
+        // crear la funcion que genera la matriz
+        function matrizVacilona(tamaño) {
+            // definir la matriz
+            let matriz = new Array(tamaño);
+            for (let i = 0; i < matriz.length; i++) {
+                // añadir un array a cada posicion de la matriz para rellenar
+                matriz[i] = new Array(tamaño);
+                for (let j = 0; j < matriz[i].length; j++) {
+                    // por cada elemento, llamar a la funcion que lo genera
+                    matriz[i][j]= generarElemento(matriz, i, j);
+                }
+                
+
+            }
+            return matriz;
+        }
+
+        function generarElemento(matriz , fila, columna){
+           if(fila == 0 || columna == 0){
+            return 1;
+           }else{
+            
+           }
+        }
+
+        console.log(matrizVacilona(5));
+
+        
+    </script>
+</body>
+
+</html>
