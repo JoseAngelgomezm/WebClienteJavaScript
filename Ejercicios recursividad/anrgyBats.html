@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Minevancic color</title>
+</head>
+
+<body>
+
+    <p id="txt">
+    <p>
+
+        <script>
+            let parrafo = document.getElementById("txt");
+            let biocenosis = [['P', 'P', 'G', 'H', 'H', 'R'], ['P', 'P', 'G', 'H', 'H', 'G'], ['P', 'G', 'R', 'H', 'H', 'G'], ['G', 'R', 'R', 'H', 'G', 'G'], ['R', 'R', 'H', 'H', 'G', 'P']];
+
+            // mostrar la matriz original
+            for (let i = 0; i < biocenosis.length; i++) {
+                for (let j = 0; j < biocenosis[i].length; j++) {
+                    parrafo.innerHTML += biocenosis[i][j] + " ";
+                }
+                parrafo.innerHTML += "<br>"
+            }
+
+
+            const pandemic = (x, y) => {
+                parrafo.innerHTML += "<br>"
+                // caso base, que las posiciones que mira, no son ni R ni H
+                if (biocenosis[x][y] !== "R" || biocenosis[x][y] !== "H") {
+                    return biocenosis[x][y];
+                  
+                }
+
+                
+            }
+
+
+            
+
+
+            pandemic(3, 4);
+
+
+        </script>
+
+</body>
+
+</html>

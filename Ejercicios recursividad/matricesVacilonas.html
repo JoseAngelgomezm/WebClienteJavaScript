@@ -11,7 +11,7 @@
     <p id ="resultado"></p>
     <script>
         // crear la funcion que genera la matriz
-        function matrizVacilona(tamaño) {
+        const matrizVacilona = (tamaño) => {
             // definir la matriz
             let matriz = new Array(tamaño);
             for (let i = 0; i < matriz.length; i++) {
@@ -21,22 +21,24 @@
                     // por cada elemento, llamar a la funcion que lo genera
                     matriz[i][j]= generarElemento(matriz, i, j);
                 }
-                
-
             }
             return matriz;
         }
 
-        function generarElemento(matriz , fila, columna){
+        const generarElemento = (matriz , fila, columna) =>{
+            // caso base
            if(fila == 0 || columna == 0){
             return 1;
+            // sino llamar a la funcion nuevamente con el de la columna anterior
+            // mas el elemento de la fila anterior
            }else{
-            
+            return generarElemento(matriz, fila -1, columna) + generarElemento(matriz, fila, columna-1);
            }
         }
 
+        console.log(matrizVacilona(3));
         console.log(matrizVacilona(5));
-
+        console.log(matrizVacilona(6));
         
     </script>
 </body>
