@@ -11,6 +11,8 @@
     <p>
 
         <script>
+
+
             let parrafo = document.getElementById("txt");
             var biocenosis = [['P', 'P', 'G', 'H', 'H', 'R'],
             ['P', 'P', 'G', 'H', 'H', 'G'],
@@ -28,41 +30,44 @@
                 parrafo.innerHTML += "<br>"
             }
 
-            const comprobarVecinas = (x, y) => {
-                
-
-
-            }
-
-            const mostrarInfeccion = (x, y) => {
-                // señalamos la coordenada infectada
-                biocenosis[x][y] = "A";
-                // señalar las vecinas infectadas
-                comprobarVecinas(x, y)
-                // mostrar la matriz modificada con el señalamiento
-                mostrarMatriz(biocenosis);
-
-
-            }
-
             const pandemic = (x, y) => {
                 // restarle 1 a las coordeandas, porque empezaremos a contar desde la 1
-                x -= 1;
-                y -= 1;
-
-                // lo primero que hacemos es mostrar la infeccion
-                mostrarInfeccion(x, y);
-
-                // luego mostrar el panel con los elementos borrados
-
+                
+                // comprobar que no se salga del rango
+                if (x >= 0 && y >= 0 && x < biocenosis.length && y < biocenosis[0].length) {
+                   
+                    // comprobar que lo que le paso es una h o una r
+                    if (biocenosis[x][y] === "H" || biocenosis[x][y] === "R") {
+                        // si la posicion es una h la borra
+                        if (biocenosis[x][y] === "H") {
+                            biocenosis[x][y] = " ";
+                            pandemic(x, y + 1);
+                            pandemic(x, y - 1);
+                            pandemic(x + 1, y);
+                            pandemic(x - 1, y);
+                           
+                            
+                        }
+                        // si la posicion es una r, infecta , comprobar si a sus lados hay una h
+                        if (biocenosis[x][y] === "R") {
+                            biocenosis[x][y] = "I";
+                            pandemic(x, y + 1);
+                            pandemic(x, y - 1);
+                            pandemic(x + 1, y);
+                            pandemic(x - 1, y);
+                            
+                        }
+                        
+                    }
+                }
             }
 
-
+            
             mostrarMatriz(biocenosis);
-
-            pandemic(3, 4);
-
-
+            // llamamos a pandemic
+            pandemic(4, 2);
+            // mostrar de nuevo la matriz modificada
+            mostrarMatriz(biocenosis);
 
         </script>
 
