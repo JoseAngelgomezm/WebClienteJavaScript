@@ -47,21 +47,66 @@
             function resuelve() {
                 //función que resuelve el juego
                 // recorrer cada celda del tablero
-                for(let i = 0; i<tablero.length;i++){
-                    for(let j = 0; j<tablero[i].length; j++){
+                for (let i = 0; i < tablero.length; i++) {
+                    for (let j = 0; j < tablero[i].length; j++) {
                         // si la posicion que miramos es una 'S'
-                        if(tablero[i][j] == "S"){
-                            // contorlar que no se salga del rango
-                            if(i-1 >= 0 ){
+                        if (tablero[i][j] == "S") {
+                            // controlar que no se salga del rango al mirar el izquierdo y derecho
+                            if (j - 1 >= 0 && j + 1 < tablero[j].length) {
+                                // mirar la contigua y su opuesta
+                                if (tablero[i][j - 1] == "O" && tablero[i][j + 1] == "O") {
+                                    // si se cumple, se ha encontrado OSO, borrar las 3
+                                    tablero[i][j] = " ";
+                                    tablero[i][j + 1] = " ";
+                                    tablero[i][j - 1] = " ";
+                                }
+                                // si se sale del rango no hacer nada
+                            } else {
 
                             }
-                            // mirar la contigua y su opuesta
-                            if(tablero[i+1][j] == "O" && tablero[i-1][j] == "O"){
-                                // si se cumple, se ha encontrado OSO, borrar las 3
-                                tablero[i][j] = " ";
-                                tablero[i+1][j] = " ";
-                                tablero[i-1][j] = " ";
+                            // controlar que no se salga del rango al mirar arriba y abajo
+                            if (i - 1 >= 0 && i + 1 < tablero.length) {
+                                // mirar la contigua y su opuesta
+                                if (tablero[i - 1][j] == "O" && tablero[i + 1][j] == "O") {
+                                    // si se cumple, se ha encontrado OSO, borrar las 3
+                                    tablero[i][j] = " ";
+                                    tablero[i - 1][j] = " ";
+                                    tablero[i + 1][j] = " ";
+                                }
+                                // si se sale del rango no hacer nada
+                            } else {
+
                             }
+
+                            // controlar que no se salga del rango al mirar diagonal izquierda
+                            if (i - 1 >= 0 && j - 1 >= 0 && i + 1 < tablero.length && j + 1 < tablero[i].length) {
+                                // mirar la contigua y su opuesta
+                                if (tablero[i - 1][j - 1] == "O" && tablero[i + 1][j + 1] == "O") {
+                                    // si se cumple, se ha encontrado OSO, borrar las 3
+                                    tablero[i][j] = " ";
+                                    tablero[i - 1][j - 1] = " ";
+                                    tablero[i + 1][j + 1] = " ";
+                                }
+                                // si se sale del rango no hacer nada
+                            } else {
+
+                            }
+
+                            // controlar que no se salga del rango al mirar diagonal derecha
+                            if (i - 1 >= 0 && j - 1 >= 0 && i + 1 < tablero.length && j + 1 < tablero[i].length) {
+                                // mirar la contigua y su opuesta
+                                if (tablero[i - 1][j - 1] == "O" && tablero[i + 1][j + 1] == "O") {
+                                    // si se cumple, se ha encontrado OSO, borrar las 3
+                                    tablero[i][j] = " ";
+                                    tablero[i + 1][j - 1] = " ";
+                                    tablero[i - 1][j + 1] = " ";
+                                }
+                                // si se sale del rango no hacer nada
+                            } else {
+
+                            }
+
+
                         }
                     }
                 }
