@@ -12,9 +12,9 @@
 
         <script>
 
-
             let parrafo = document.getElementById("txt");
-            var biocenosis = [['P', 'P', 'G', 'H', 'H', 'R'],
+            var biocenosis = 
+            [['P', 'P', 'G', 'H', 'H', 'R'],
             ['P', 'P', 'G', 'H', 'H', 'G'],
             ['P', 'G', 'R', 'H', 'H', 'G'],
             ['G', 'R', 'R', 'H', 'G', 'G'],
@@ -31,38 +31,28 @@
             }
 
             const pandemic = (x, y) => {
-                // restarle 1 a las coordeandas, porque empezaremos a contar desde la 1
-                
                 // comprobar que no se salga del rango
-                if (x >= 0 && y >= 0 && x < biocenosis.length && y < biocenosis[0].length) {
-                   
-                    // comprobar que lo que le paso es una h o una r
+                if (x >= 0 && y >= 0 && x < biocenosis.length && y < biocenosis[x].length) {
+                    // comprobar que la posicion que mira es una h o una r
                     if (biocenosis[x][y] === "H" || biocenosis[x][y] === "R") {
                         // si la posicion es una h la borra
                         if (biocenosis[x][y] === "H") {
                             biocenosis[x][y] = " ";
+                            // elemento derecha
                             pandemic(x, y + 1);
+                            // elemento izquierda
                             pandemic(x, y - 1);
+                            // elemento abajo
                             pandemic(x + 1, y);
+                            // elemento arriba
                             pandemic(x - 1, y);
-                           
-                            
-                        }
-                        // si la posicion es una r, infecta , comprobar si a sus lados hay una h
-                        if (biocenosis[x][y] === "R") {
-                            biocenosis[x][y] = "I";
-                            pandemic(x, y + 1);
-                            pandemic(x, y - 1);
-                            pandemic(x + 1, y);
-                            pandemic(x - 1, y);
-                            
                         }
                         
                     }
                 }
             }
 
-            
+            // mostramos la matriz original
             mostrarMatriz(biocenosis);
             // llamamos a pandemic
             pandemic(4, 2);
