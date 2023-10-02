@@ -34,9 +34,23 @@
         /*
         COMPLETA EL CÓDIGO EN ESTA SECCIÓN DEL PROGRAMA.
         */
-        
-        
-       
+        // recorrer el primer array
+        for (i; i < arr1.length;) {
+            // si el elemento del array 1 es menor o igual que el del array 2, añadir el del array 1
+            // y luego el del array 2 sino, añadir primero el del array 2 y luego el del uno
+            if (arr1[i] <= arr2[j]) {
+                arr3.push(arr1[i]);
+                arr3.push(arr2[j]);
+                i++
+                j++
+            } else {
+                arr3.push(arr2[j]);
+                arr3.push(arr1[i]);
+                j++;
+                i++;
+            }
+        }
+
         document.getElementById("demo").innerHTML = arr3;
     </script>
 </body>
