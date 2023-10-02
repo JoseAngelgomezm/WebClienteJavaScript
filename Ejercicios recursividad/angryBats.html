@@ -13,12 +13,12 @@
         <script>
 
             let parrafo = document.getElementById("txt");
-            var biocenosis = 
-            [['P', 'P', 'G', 'H', 'H', 'R'],
-            ['P', 'P', 'G', 'H', 'H', 'G'],
-            ['P', 'G', 'R', 'H', 'H', 'G'],
-            ['G', 'R', 'R', 'H', 'G', 'G'],
-            ['R', 'R', 'H', 'H', 'G', 'P']];
+            var biocenosis =
+                [['P', 'P', 'G', 'H', 'H', 'R'],
+                ['P', 'P', 'G', 'H', 'H', 'G'],
+                ['P', 'G', 'R', 'H', 'H', 'G'],
+                ['G', 'R', 'R', 'H', 'G', 'G'],
+                ['R', 'R', 'H', 'H', 'G', 'P']];
 
             const mostrarMatriz = (matriz) => {
                 for (let i = 0; i < biocenosis.length; i++) {
@@ -34,30 +34,38 @@
                 // comprobar que no se salga del rango
                 if (x >= 0 && y >= 0 && x < biocenosis.length && y < biocenosis[x].length) {
                     // comprobar que la posicion que mira es una h o una r
-                    if (biocenosis[x][y] === "H" || biocenosis[x][y] === "R") {
-                        // si la posicion es una h la borra
-                        if (biocenosis[x][y] === "H") {
-                            biocenosis[x][y] = " ";
-                            // elemento derecha
-                            pandemic(x, y + 1);
-                            // elemento izquierda
-                            pandemic(x, y - 1);
-                            // elemento abajo
-                            pandemic(x + 1, y);
-                            // elemento arriba
-                            pandemic(x - 1, y);
-                        }
-                        
+                    // si es una R, se propaga y se infecta
+                    if (biocenosis[x][y] === "R") {
+                        biocenosis[x][y] = "I";
+                        // elemento derecha
+                        pandemic(x, y + 1);
+                        // elemento izquierda
+                        pandemic(x, y - 1);
+                        // elemento abajo
+                        pandemic(x + 1, y);
+                        // elemento arriba
+                        pandemic(x - 1, y);
                     }
+                    // si es una h, borra el elemento
+                    if (biocenosis[x][y] === "H") {
+                        biocenosis[x][y] = " ";
+                        // elemento derecha
+                        pandemic(x, y + 1);
+                        // elemento izquierda
+                        pandemic(x, y - 1);
+                        // elemento abajo
+                        pandemic(x + 1, y);
+                        // elemento arriba
+                        pandemic(x - 1, y);
+                        }
                 }
             }
-
-            // mostramos la matriz original
-            mostrarMatriz(biocenosis);
-            // llamamos a pandemic
-            pandemic(4, 2);
-            // mostrar de nuevo la matriz modificada
-            mostrarMatriz(biocenosis);
+                // mostramos la matriz original
+                mostrarMatriz(biocenosis);
+                // llamamos a pandemic
+                pandemic(4, 2);
+                // mostrar de nuevo la matriz modificada
+                mostrarMatriz(biocenosis);
 
         </script>
 
