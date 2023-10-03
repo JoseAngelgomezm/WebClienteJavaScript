@@ -21,33 +21,26 @@
         let j = 0;
         let k = 0;
 
-        do {// mientras la suma de i, j y k sea menor que la suma del tamaño de los 3 arrays
-            for (i; i < arr1.length; i++) {
-                for (j; j < arr2.length; j++) {
-                    for (k; k < arr3.length; k++) {
-                        // comparar el valor del arr1 con los otros 2
-                        // si es el mas pequeño añadirlo
-                        if (arr1[i] <= arr2[j] && arr1[i] <= arr3[k]) {
-                            arr4.push(arr1[i]);
-                            i++;
-                        } else {
-                            if (arr2[j] <= arr3[k]) {
-                                arr4.push(arr2[j]);
-                                j++;
-                            }else{
-                                arr4.push(arr3[k]);
-                                k++;
-                            }
-                        }
-                    }
-                }
+        // mientras la suma de i, j y k sea menor que la suma del tamaño de los 3 arrays
+        while ((i + j + k) < (arr1.length + arr2.length + arr3.length)) {
+            // comparar el valor del arr1 con los otros 2
+            // si es el mas pequeño añadirlo
+            if (arr1[i] <= arr2[j] && arr1[i] <= arr3[k]) {
+                arr4.push(arr1[i]);
+                i++;
+                // sino, comparar el 2 con el 3, si el 2 es mas pequeño, añadirlo
+            } else if (arr2[j] <= arr3[k]) {
+                arr4.push(arr2[j]);
+                j++;
+                // sino añadir el 3
+            } else {
+                arr4.push(arr3[k]);
+                k++;
             }
-        } while ((i + j + k) < (arr1.length + arr2.length + arr3.length))
+        }
 
-
-
-        /*AQUÍ VA TU CÓDIGO*/
-        document.getElementById("demo").innerHTML = arr4;
+            /*AQUÍ VA TU CÓDIGO*/
+            document.getElementById("demo").innerHTML = arr4;
     </script>
 </body>
 
