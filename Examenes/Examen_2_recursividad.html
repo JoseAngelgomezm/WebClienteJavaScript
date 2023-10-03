@@ -12,23 +12,23 @@
             "elias", "jeremias", "dimas", "dimas", "gestas", "gestas", "gestas", "jose", "jose"];
         console.log(people)
         // ESCRIBE TU CÓDIGO AQUÍ
-        let numeroVeces = 0;
+       
         const FindMyGuy = (array, nombreBuscar, posicionBuscar) => {
-
+            let numeroVeces = 0;
             // caso base, que llegue al final del array
             if (posicionBuscar > array.length) {
-                return numeroVeces;
+                return 0;
             }
             // si encuentra un nombre en la posicion que buscamos
             if (array[posicionBuscar] === nombreBuscar) {
                 // sumar uno al numero de veces que lo ha encontrado y volver a 
                 // llamarse con la siguiente posicion
                 numeroVeces++;
-                FindMyGuy(array, nombreBuscar, posicionBuscar + 1);
+                return numeroVeces+= FindMyGuy(array, nombreBuscar, posicionBuscar + 1);
 
                 // si no lo encuentra volverse a llamar con la siguiente posicion
             } else {
-                FindMyGuy(array, nombreBuscar, posicionBuscar + 1)
+                return numeroVeces+= FindMyGuy(array, nombreBuscar, posicionBuscar + 1)
             }
 
             // devolver en numero de veces que lo ha encontrado al acabar
