@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <h1>STALINGRADO</h1>
+    <p id="matriz"></p>
+    <h2 id="ganador"></h2>
+
+    <script>
+        let battlefield = [
+            ["A", "A", "*", "*", "R", "*", "*", "*", "*"],
+            ["A", "A", "*", "*", "R", "*", "*", "*", "*"],
+            ["*", "*", "*", "*", "R", "*", "*", "*", "*"],
+            ["*", "*", "*", "*", "R", "*", "*", "*", "*"],
+            ["R", "R", "R", "R", "R", "*", "*", "*", "*"],
+            ["*", "*", "*", "*", "*", "*", "*", "*", "*"],
+            ["*", "*", "*", "*", "*", "*", "*", "*", "*"],
+            ["*", "*", "*", "*", "*", "*", "*", "A", "A"],
+            ["*", "*", "*", "*", "*", "*", "*", "A", "A"]
+        ];
+
+        const mostrarMatriz = (matriz) => {
+            let stringMatriz = "";
+            for(let i = 0 ; i<matriz.length ; i++){
+                for(let j = 0 ; j<matriz[i].length ; j++){
+                    stringMatriz+= matriz[i][j] + "&nbsp";
+                }
+                stringMatriz += "<br>";
+            }
+            return stringMatriz
+        }
+
+        const quienGana = (matriz) => {
+            // recorrer el array
+            for(let i = 0; i<matriz.length ; i++){
+                for(let j = 0 ; i<matriz[i].length ; i++){
+
+                }
+            }
+
+        }
+
+        let parrafo = document.getElementById("matriz");
+        parrafo.innerHTML = mostrarMatriz(battlefield);
+
+
+
+    </script>
+
+</body>
+
+</html>
