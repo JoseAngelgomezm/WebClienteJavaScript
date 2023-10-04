@@ -23,17 +23,16 @@
             if (array[posicionBuscar] === nombreBuscar) {
                 // sumar uno al numero de veces que lo ha encontrado y volver a 
                 // llamarse con la siguiente posicion
-                numeroVeces++;
-                return numeroVeces+= FindMyGuy(array, nombreBuscar, posicionBuscar + 1);
-
-                // si no lo encuentra volverse a llamar con la siguiente posicion
-            } else {
-                return numeroVeces+= FindMyGuy(array, nombreBuscar, posicionBuscar + 1)
+                numeroVeces++;   
             }
+            
+            // lo encuentre o no lo encuentre, se va a volver a llamar y parara
+            // cuando la posicion llegue a 0
+            return numeroVeces + FindMyGuy(array, nombreBuscar, posicionBuscar + 1)
+            
 
             // devolver en numero de veces que lo ha encontrado al acabar
             return numeroVeces;
-
         }
 
         console.log(FindMyGuy(people, "jose", 0));
