@@ -1,0 +1,80 @@
+array.
+Por ejemplo con el array: [5, 4, 6, 5, 6, 4, 3, O, S, O]
+mostrará:
+656
+46564
+OSO
+
+STARTER CODE:
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CAPICUA</title>
+</head>
+
+<body>
+    <p id="txt"></p>
+
+    <br><br>
+    Crea un programa con una función recursiva que muestre todos los
+    números/letras capicúas encontrados en un array. Se entiende por capicúa
+    cuando tiene al menos 3 posiciones del array.
+    Por ejemplo con el array: 5 4 6 5 6 4 3 O S O<br><br>
+    mostrará: <br>
+    656<br>
+    46564<br>
+    OSO
+    <p>
+    <p>Pista:
+        const animals = ['ant', 'bison', 'camel', 'duck', 'elephant'];
+        console.log(animals.slice(2));
+        // expected output: Array ["camel", "duck", "elephant"]
+        console.log(animals.slice(2, 4));
+        // expected output: Array ["camel", "duck"]
+        console.log(animals.slice(2, 4).reverse());
+        // expected output: Array ["duck","camel"]
+    </p>
+    <script>
+        let arr = ["5", "4", "6", "5", "6", "4", "3", "F", "O", "O", "O", "T", "O", "F", "O", "O", "R", "O", "O", "T", "O"];
+        // ESCRIBE TU CÓDIGO AQUÍ
+        console.log(arr);
+        const capicua = (array, tamaño) => {
+            // dividir el array por el tamaño
+            arrayCopia = []
+            arrayDividido = []
+            let resultado;
+            
+            if (tamaño > array.length) {
+
+            } else {
+                // bucle para sacar todos los arrays divididos
+                for (let i = 0; i < array.length - tamaño + 1; i++) {
+                    arrayCopia = [].concat(array)
+                    arrayDividido = arrayCopia.slice(i, tamaño + i)
+                    let punteroFinal = arrayDividido.length - 1
+                    // por cada array dividido, comprobar si es capicua o no
+                    for(let j = 0; j<arrayDividido.length;j++){
+                        if(arrayDividido[j]===arrayDividido[punteroFinal]){
+                            resultado = true;
+                            punteroFinal--;
+                        }else{
+                            resultado = false;
+                            break;
+                        }
+                        
+                    }
+                    console.log(arrayDividido + " " + resultado + " " + arrayDividido.length)
+                }
+            }
+
+            capicua(array, tamaño +1)
+        }
+
+        console.log(capicua(arr, 3));
+
+
+    </script>
+</body>
+
+</html>
