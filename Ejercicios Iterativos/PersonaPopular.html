@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="resultado"></p>
+</body>
+
+<script>
+    let arrayPersonas = ["francisco", "julia", "pepe", "francisco", "julio", "pepe", "pepe", "julia", "julia", "julia"]
+    
+    const buscarPersona = (arrayBuscar) => {
+        let resultado = "";
+        let parrafo = document.getElementById("resultado")
+        parrafo.innerHTML += "Los nombres del array son: " + "<br/>" + arrayBuscar + "<br/><br/>"
+        let contadorDelMayor = 0;
+        let personaMasAparece ="";
+        // recorrer el array
+        for (let i = 0; i < arrayBuscar.length; i++) {
+            // quedarnos con la persona que vamos a buscar y crear un contador
+            let personaBuscar = arrayBuscar[i]
+            let contadorPersona = 0;
+            // recorrer el array con cada nombre para compararlo y ver cuantas veces aparece
+            for (let j = 0; j < arrayBuscar.length; j++) {
+                // si la persona a buscar es encontrada y no es undefined
+                if (personaBuscar == arrayBuscar[j] && personaBuscar != undefined) {
+                    // contarla
+                    contadorPersona++
+                    // borrar la persona encontrada
+                    delete (arrayBuscar[j])
+                }
+            }
+            // si la persona aparece mas veces
+            if(contadorPersona > contadorDelMayor){
+                // asignar el contador del que mas aparece como el actual
+                contadorDelMayor = contadorPersona
+                // asignar la persona actual como la que mas aparece
+                personaMasAparece = personaBuscar
+            }
+           
+        }
+        parrafo.innerHTML += "La perosna mas popular es: " + "<strong>" + personaMasAparece + "</strong>"
+    }
+    buscarPersona(arrayPersonas)
+</script>
+
+</html>
