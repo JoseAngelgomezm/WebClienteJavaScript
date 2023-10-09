@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="resultado"></p>
+</body>
+
+<script>
+    let arrayPersonas = ["fran", "joel", "joel", "joel", "joel", "joel", "joel", "joel", "pepe", "pepe", "pepe"]
+
+    const buscarPersona = (arrayBuscar) => {
+        let resultado = "";
+        let parrafo = document.getElementById("resultado")
+        parrafo.innerHTML += "Los nombres del array son: " + "<br/>" + arrayBuscar + "<br/><br/>"
+        let contadorDelMayor1 = 0;
+        let contadorDelMayor2 = 0;
+        let contadorDelMayor3 = 0;
+        let personaMasAparece1 = "";
+        let personaMasAparece2 = "";
+        let personaMasAparece3 = "";
+        // recorrer el array
+        for (let i = 0; i < arrayBuscar.length; i++) {
+            // quedarnos con la persona que vamos a buscar y crear un contador
+            let personaBuscar = arrayBuscar[i]
+            let contadorPersona = 0;
+            // recorrer el array con cada nombre para compararlo y ver cuantas veces aparece
+            for (let j = 0; j < arrayBuscar.length; j++) {
+                // si la persona a buscar es encontrada y no es undefined
+                if (personaBuscar == arrayBuscar[j] && personaBuscar != undefined) {
+                    // contarla
+                    contadorPersona++
+                    // borrar la persona encontrada
+                    delete (arrayBuscar[j])
+                }
+            }
+            // si la persona aparece mas veces asignar el valor del contador
+            if (contadorPersona > contadorDelMayor1 || contadorPersona > contadorDelMayor2 || contadorPersona > contadorDelMayor3) {
+                if (contadorPersona > contadorDelMayor1 && contadorPersona < contadorDelMayor2 && contadorPersona > contadorDelMayor3) {
+                    contadorDelMayor1 = contadorPersona
+                    personaMasAparece1 = personaBuscar
+                }else if (contadorPersona > contadorDelMayor2 && contadorPersona < contadorDelMayor1 && contadorPersona < contadorDelMayor3) {
+                    contadorDelMayor2 = contadorPersona
+                    personaMasAparece2 = personaBuscar
+                }else  if (contadorPersona > contadorDelMayor3 && contadorPersona < contadorDelMayor1 && contadorPersona < contadorDelMayor2) {
+                    contadorDelMayor3 = contadorPersona
+                    personaMasAparece3 = personaBuscar
+                }         
+            }
+        }
+        parrafo.innerHTML += "Las personas mas populares son: " + "<strong>" + personaMasAparece1 + ", " + "</strong>" + "<strong>" + personaMasAparece2 + " y " + "</strong>" + "<strong>" + personaMasAparece3 + "</strong>"
+    }
+    buscarPersona(arrayPersonas)
+</script>
+
+</html>
