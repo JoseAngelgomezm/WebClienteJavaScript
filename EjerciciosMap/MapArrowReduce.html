@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <p id="resultado">Tenemos el array definido de la siguiente manera:
+        let numeros = [1, 2, 3, 4, 5, 6, 7]; cuando pulses el botón aquí
+        aparecerán los mismos números incrementados en uno</p>
+    <button onclick="dale()">ejecuta</button>
+    <script>
+        let numeros = [1, 2, 3, 4, 5, 6, 7];
+        function dale() {
+            let obj = document.getElementById("resultado")
+            obj.innerHTML = numeros.map(function (valor) { return valor + 1; }); // no se utiliza, forma antigua
+            obj.innerHTML = numeros.map((v, i) => v + i); 
+            obj.innerHTML = numeros.map((v, i) => { return (v + i) });
+
+            // primer parametro elemento que obtiene del array, segundo parametro el indice que va recorriendo
+            // 
+
+            // map para modificar todo el array
+            // filter para obtener un grupo del array que cumpla una condicion
+            // find para encontra un valor en el array
+
+            /* map irá ejecutando la función incluida como parámetro la cual no
+            tiene nombre porque no es necesario. Esta función tomará como parámetro
+            valor (el valor de esa posición del array) y devolverá dicho valor
+            aumentado en uno. La función map devuelve otro array con el resultado
+            de aplicar la función anterior a los elementos de todo el array */
+        }
+    </script>
+</body>
+
+</html>

@@ -56,33 +56,8 @@
         }
 
         const quienGana = (matriz, fila, columna) => {
-            // que llegue al final
-            let resultado = false;
-            let arrayR = [];
-            if (fila >= matriz.length || columna >= matriz[fila].length) {
-                return resultado;
-            }
-            // si encuentra una R
-            if (matriz[fila][columna] === "R") {
-                // quedarnos con su posicion
-                arrayR.push([fila,columna])
-                // si la siguiente posicion es un asterisco o una A y la anterior tambien
-                if (matriz[fila][columna + 1] === "*" || matriz[fila][columna + 1] === "A" && matriz[fila][columna - 1] === "*" || matriz[fila][columna - 1] === "A") {
-                    // mirar hacia abajo si no se sale
-                    if (fila +1 < matriz.length) {
-                        // si hacia abajo si hay una R, comprobar todas hasta el final
-                        if (matriz[fila + 1][columna] == "R") {
-                            quienGana(matriz, fila + 1, columna)
-                            // recorrer el array de posiciones
-                            for(let i =0 ; i < arrayR.length; i++){
-                                console.log(arrayR[i]);
-                            }
-                        }
-                    }
-                }
-            } else {
-                quienGana(matriz, fila, columna + 1)
-            }
+            
+            
             
         }
 
