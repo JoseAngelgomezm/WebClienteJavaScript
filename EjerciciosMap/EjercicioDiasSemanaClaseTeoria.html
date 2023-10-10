@@ -17,17 +17,20 @@
 
         <script>
            
-            var txt = "";
-            const muestra = (valor, index, array) => {
-                txt += index + ": " + valor + " ";
-                console.log(txt)
-            }
             var dias = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sabado', 'domingo'];
             let numeros = [1, 2, 3, 4, 5, 6, 7];
 
             // mostrar todos los dias de la semana que sean mayores a 6 letras 
             console.log(dias.filter((v) => v.length > 6))
             console.log(dias.filter((v) => { return (v.length > 6) }))
+
+            // LO MISMO PERO CON 2 ARRAYS, usamos flat para sacar los arrays de dentro del array
+            var dias2 = ['lunes', 'martes', 'miércoles', ['jueves', 'viernes'], 'sabado', 'domingo'];
+            let numeros2 = [1, 2, 3, 4, 5, 6, 7];
+
+            // mostrar todos los dias de la semana que sean mayores a 6 letras de un array bidimensional
+            console.log(dias2.flat().filter((v) => v.length > 6))
+            console.log(dias2.flat().filter((v) => { return (v.length > 6) }))
 
             
 

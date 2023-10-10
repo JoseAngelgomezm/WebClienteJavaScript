@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <label for="codPostal"></label>
+    <input type="text" name="codPostal" id="codPostal"></input>
+    <p name="resultado" id="resultado"></p>
+    <button name="buscar" id="buscar" onclick="buscarCodPostal(ciudades)">Buscar</button>
+    
+</body>
+
+<script>
+// string con json de ciudades
+let ciudades =  [{codPostal:"28924",ciudad:"Estepona"},
+                {codPostal:"29601",ciudad:"Marbella"},
+                {codPostal:"11369",ciudad:"Taraguilla"},
+                {codPostal:"11368",ciudad:"Estacion San Roque"}]; 
+
+
+
+// funcion que recibe un JSON y busca en el lo que hay en el input
+const buscarCodPostal = (JsonCiudades) =>{
+    // obtener el parrafo 
+    let parrafo = document.getElementById("resultado")
+    // obtener el valor introducido en el input
+    let input = document.getElementById("codPostal").value
+    // el resultado sera el objeto completo que contiene el codigo postal y el input
+    let resultado = JsonCiudades.find((c) => c.codPostal == input).ciudad
+    // en el parrafo poner el resutlado accediendo a la ciudad del objeto completo
+    parrafo.innerHTML = resultado
+}
+</script>
+
+</html>
