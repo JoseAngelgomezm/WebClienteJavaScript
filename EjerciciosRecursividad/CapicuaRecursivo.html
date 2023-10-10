@@ -40,19 +40,19 @@ STARTER CODE:
         // ESCRIBE TU CÓDIGO AQUÍ
         console.log(arr);
         const capicua = (array, tamaño) => {
-            // dividir el array por el tamaño
-            arrayCopia = []
-            arrayDividido = []
-            let resultado;
-            
+            arrayCopia = [] // contendra una copia del array
+            arrayDividido = [] // contendra el array dividio en partes
+            let resultado; // contendra true o false, para saber si es capicua o no
+
+            // condicion de parada, que el tamaño sea mas grande que el tamaño del array
             if (tamaño > array.length) {
 
             } else {
                 // bucle para sacar todos los arrays divididos
-                for (let i = 0; i < array.length - tamaño + 1; i++) {
-                    arrayCopia = [].concat(array)
-                    arrayDividido = arrayCopia.slice(i, tamaño + i)
-                    let punteroFinal = arrayDividido.length - 1
+                for (let i = 0; i < array.length - tamaño + 1; i++) {// se recorre hasta length - tamaño para que coga todo los posibles y +1 para obtener el ultimo
+                    arrayCopia = [].concat(array)// copiar el array completo
+                    arrayDividido = arrayCopia.slice(i, tamaño + i)// dividir el array desde el tamaño hasta el doble (primera llamada desde 3, hasta 6)
+                    let punteroFinal = arrayDividido.length - 1 // para empezar a movernos por la ultima posicion del array dividido
                     // por cada array dividido, comprobar si es capicua o no
                     for(let j = 0; j<arrayDividido.length;j++){
                         if(arrayDividido[j]===arrayDividido[punteroFinal]){
@@ -66,12 +66,11 @@ STARTER CODE:
                     }
                     console.log(arrayDividido + " " + resultado + " " + arrayDividido.length)
                 }
+                capicua(array, tamaño +1)
             }
-
-            capicua(array, tamaño +1)
         }
 
-        console.log(capicua(arr, 3));
+        capicua(arr, 3);
 
 
     </script>
