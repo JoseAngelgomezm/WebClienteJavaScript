@@ -4,46 +4,51 @@
 <body>
 
     <h1>STALINGRADO</h1>
+    <h2>MATRIZ ORIGINAL</h2>
     <p id="matriz"></p>
+    <h2>MATRIZ MODIFICADA</h2>
+    <p id="matrizModificada"></p>
     <h2 id="ganador"></h2>
 
     <script>
-        let battlefield = [
-            ["A", "A", "*", "*", "R", "*", "*", "*", "*"],
-            ["A", "A", "*", "*", "R", "*", "*", "*", "*"],
-            ["*", "*", "*", "*", "R", "*", "*", "*", "*"],
-            ["*", "*", "*", "*", "R", "*", "*", "*", "*"],
-            ["*", "*", "*", "*", "R", "*", "*", "*", "*"],
-            ["*", "*", "*", "*", "R", "*", "*", "*", "*"],
-            ["*", "*", "*", "*", "R", "*", "*", "*", "*"],
-            ["*", "*", "*", "*", "R", "*", "*", "A", "A"],
-            ["*", "*", "*", "*", "R", "*", "*", "A", "A"]
+        let battlefield1 = [
+            ["A", "A", " ", " ", "R", " ", " ", " ", " "],
+            ["A", "A", " ", " ", "R", " ", " ", " ", " "],
+            [" ", " ", " ", " ", "R", " ", " ", " ", " "],
+            [" ", " ", " ", " ", "R", " ", " ", " ", " "],
+            [" ", " ", " ", " ", "R", " ", " ", " ", " "],
+            [" ", " ", " ", " ", "R", " ", " ", " ", " "],
+            [" ", " ", " ", " ", "R", " ", " ", " ", " "],
+            [" ", " ", " ", " ", "R", " ", " ", "A", "A"],
+            [" ", " ", " ", " ", "R", " ", " ", "A", "A"]
+
         ];
 
         let battlefield2 = [
-            ["A", "A", "*", "*", "R", "*", "*", "*", "*"],
-            ["A", "A", "*", "*", "R", "*", "*", "*", "*"],
-            ["*", "*", "*", "*", "R", "*", "*", "*", "*"],
-            ["*", "*", "*", "*", "R", "*", "*", "*", "*"],
-            ["R", "R", "R", "R", "R", "*", "*", "*", "*"],
-            ["*", "*", "*", "*", "*", "*", "*", "*", "*"],
-            ["*", "*", "*", "*", "*", "*", "*", "*", "*"],
-            ["*", "*", "*", "*", "*", "*", "*", "A", "A"],
-            ["*", "*", "*", "*", "*", "*", "*", "A", "A"]
+            ["A", "A", " ", " ", "R", " ", " ", " ", " "],
+            ["A", "A", " ", " ", "R", " ", " ", " ", " "],
+            [" ", " ", " ", " ", "R", " ", " ", " ", " "],
+            [" ", " ", " ", " ", "R", " ", " ", " ", " "],
+            ["R", "R", "R", "R", "R", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " ", "A", "A"],
+            [" ", " ", " ", " ", " ", " ", " ", "A", "A"]
         ];
 
         let battlefield3 = [
-            ["A", "A", "*", "*", "R", "*", "*", "*", "*"],
-            ["A", "A", "*", "*", "R", "*", "*", "*", "*"],
-            ["*", "*", "*", "*", "R", "*", "*", "*", "*"],
-            ["*", "*", "*", "*", "R", "*", "*", "*", "*"],
-            ["R", "R", "*", "R", "R", "*", "*", "*", "*"],
-            ["*", "*", "*", "*", "*", "*", "*", "*", "*"],
-            ["*", "*", "*", "*", "*", "*", "*", "*", "*"],
-            ["*", "*", "*", "*", "*", "*", "*", "A", "A"],
-            ["*", "*", "*", "*", "*", "*", "*", "A", "A"]
+            ["A", "A", " ", " ", "R", " ", " ", " ", " "],
+            ["A", "A", " ", " ", "R", " ", " ", " ", " "],
+            [" ", " ", " ", " ", "R", " ", " ", " ", " "],
+            [" ", " ", " ", " ", "R", " ", " ", " ", " "],
+            ["R", "R", " ", "R", "R", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " ", "A", "A"],
+            [" ", " ", " ", " ", " ", " ", " ", "A", "A"]
         ];
 
+        // solo muestra la matriz
         const mostrarMatriz = (matriz) => {
             let stringMatriz = "";
             for (let i = 0; i < matriz.length; i++) {
@@ -55,21 +60,40 @@
             return stringMatriz
         }
 
-        const quienGana = (matriz, fila, columna) => {
-            
-            
-            
+        // modifica la matriz recursivamente si encuentra un espacio en blanco o una "A" en los alrededores hasta que se sale del rango
+        const modificarMatriz = (matriz, columna, fila) => {
+            // condicion de parada, que se salga de la matriz
+            if (fila > matriz.length - 1 || fila < 0 || columna > matriz[fila].length - 1 || columna < 0) {
+
+            } else {
+                // si encuentra una A o un " ", modificarlo a una x y volver a llamarse mirando a los 4 lados
+                if (matriz[columna][fila] == "A" || matriz[columna][fila] == " ") {
+                    matriz[columna][fila] = "x"
+                    modificarMatriz(matriz, columna + 1, fila)
+                    modificarMatriz(matriz, columna - 1, fila)
+                    modificarMatriz(matriz, columna, fila + 1)
+                    modificarMatriz(matriz, columna, fila - 1)
+                }
+            }
         }
 
+        // busca una por toda la matriz, si la encuentra ganaran los rusos sino los alemanes
+        const quienGana = (unaMatriz) => {
+            for (let i = 0; i < unaMatriz.length; i++) {
+                for (let j = 0; j < unaMatriz[i].length; j++) {
+                    if (unaMatriz[i][j] == "A") {
+                        return "Ganan los RUSOS";
+                    }
+                }
+            }
+            return "Ganan los ALEMANES"
 
+        }
 
-        let parrafo = document.getElementById("matriz");
-        parrafo.innerHTML = mostrarMatriz(battlefield) + "<br>";
-        parrafo.innerHTML += mostrarMatriz(battlefield2) + "<br>";
-        parrafo.innerHTML += mostrarMatriz(battlefield3) + "<br>";
-        quienGana(battlefield, 0, 0)
-
-
+        document.getElementById("matriz").innerHTML = mostrarMatriz(battlefield1)
+        modificarMatriz(battlefield1, 0, 0)
+        document.getElementById("matrizModificada").innerHTML = mostrarMatriz(battlefield1)
+        document.getElementById("ganador").innerHTML = quienGana(battlefield1)
     </script>
 
 </body>
