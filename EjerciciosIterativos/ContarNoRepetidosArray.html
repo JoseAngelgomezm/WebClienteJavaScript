@@ -11,7 +11,9 @@
         let arr2 = [2, 3, 4, 5, 6]
         /*Tienes que contar cuantos elementos del array 1 no están en el array 2. Muestra el resultado por consola*/
         let contador = 0;
+        // recorrer el array 1
         for(let i = 0; i<arr1.length; i++){
+            // si en el arr2 no esta incluido el elemento del array1 que estamos , lo cuenta
             if(!arr2.includes(arr1[i])){
                 contador++;
             }
