@@ -30,10 +30,15 @@ const buscarCodPostal = (JsonCiudades) =>{
     let parrafo = document.getElementById("resultado")
     // obtener el valor introducido en el input
     let input = document.getElementById("codPostal").value
-    // el resultado sera el objeto completo que contiene el codigo postal y el input
-    let resultado = JsonCiudades.find((c) => c.codPostal == input).ciudad
+    // el resultado sera el objeto completo que contiene el codigo postal del el input
+    let resultado = JsonCiudades.find((c) => c.codPostal == input)
     // en el parrafo poner el resutlado accediendo a la ciudad del objeto completo
-    parrafo.innerHTML = resultado
+    if(resultado === undefined){
+       parrafo.innerHTML = "No existe el dni"
+    }else{
+        parrafo.innerHTML = resultado.ciudad
+    }
+    
 }
 </script>
 
