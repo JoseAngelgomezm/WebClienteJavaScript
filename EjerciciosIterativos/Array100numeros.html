@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="resultado"></p>
+
+    <script>
+        const obtenerRandomInteger = (min, max) => {
+            // redondear hacia abajo el minimo y el maximo hacia arriba
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min) + min);
+
+            // el minimo esta incluido y el maximo excluido
+        }
+
+        // obtener el parrafo
+        let parrafo = document.getElementById("resultado");
+        arrayNumeros = [] // array que contendra los numeros que van saliendo
+        // sacar 100 numeros
+        for (let i = 1; i < 101; i++) {
+            // sacar el numero
+            let numeroAleatorio = obtenerRandomInteger(1, 1001)
+            // comprobar si el numero esta en el array
+            if (arrayNumeros.includes(numeroAleatorio)) {
+                // si esta, quitar 1 a la i para volver a sacar otro
+                i--;
+            } else {
+                // añadirlo al array
+                arrayNumeros.push(numeroAleatorio)
+            }
+        }
+
+        // mostrar el array con todos los numeros
+        for(let i = 0; i<arrayNumeros.length ; i++){
+            parrafo.innerHTML += "<p> Numero " + i + ": " + arrayNumeros[i] + "</p>"
+        }
+        console.log(arrayNumeros)
+
+
+    </script>
+</body>
+
+</html>

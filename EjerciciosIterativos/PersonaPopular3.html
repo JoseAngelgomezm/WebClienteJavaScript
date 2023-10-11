@@ -39,19 +39,9 @@
                     delete (arrayBuscar[j])
                 }
             }
-            // si la persona aparece mas veces asignar el valor del contador
-            if (contadorPersona > contadorDelMayor1 || contadorPersona > contadorDelMayor2 || contadorPersona > contadorDelMayor3) {
-                if (contadorPersona > contadorDelMayor1 && contadorPersona < contadorDelMayor2 && contadorPersona > contadorDelMayor3) {
-                    contadorDelMayor1 = contadorPersona
-                    personaMasAparece1 = personaBuscar
-                }else if (contadorPersona > contadorDelMayor2 && contadorPersona < contadorDelMayor1 && contadorPersona < contadorDelMayor3) {
-                    contadorDelMayor2 = contadorPersona
-                    personaMasAparece2 = personaBuscar
-                }else  if (contadorPersona > contadorDelMayor3 && contadorPersona < contadorDelMayor1 && contadorPersona < contadorDelMayor2) {
-                    contadorDelMayor3 = contadorPersona
-                    personaMasAparece3 = personaBuscar
-                }         
-            }
+            // 
+            contadorDelMayor1 = contadorPersona
+            personaMasAparece1 = personaBuscar
         }
         parrafo.innerHTML += "Las personas mas populares son: " + "<strong>" + personaMasAparece1 + ", " + "</strong>" + "<strong>" + personaMasAparece2 + " y " + "</strong>" + "<strong>" + personaMasAparece3 + "</strong>"
     }
