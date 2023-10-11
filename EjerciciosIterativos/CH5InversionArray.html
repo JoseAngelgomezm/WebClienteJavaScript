@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const invertirString = (cadenaTexto) =>{
+            let arrayPalabras = cadenaTexto.split(" ")
+            let cadenaInvertida = ""
+            // acceder a cada una de las palabras
+            for(let i = 0; i<arrayPalabras.length; i++){
+                // por cada palabra, recorrerla
+                let palabra = arrayPalabras[i]
+                let palabraInvertida ="" // contendra la palabra dada la vuelta
+                for(let j = 0; j<palabra.length; j++){
+                    // cada una de las letras, la vamos añadiendo al pricipio del string
+                    palabraInvertida = palabra[j] + palabraInvertida
+                }
+                // cuando le demos la vuelta a la palabra, añadirla a un string nuevo
+                cadenaInvertida = cadenaInvertida + palabraInvertida + " " 
+            }
+            // devolver el array de palabras invertidas
+            return cadenaInvertida
+        }
+
+        console.log(invertirString("buenos dias hoy es lunes"))
+    </script>
+</body>
+
+</html>
