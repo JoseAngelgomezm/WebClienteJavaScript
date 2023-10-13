@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<title>Myfpschool</title>
+
+<head>
+
+</head>
+
+<body>
+    <input type="number" id="numero" value="5" min="1" max="10" />
+    <p id="parrafo"></p>
+    <input type="button" onclick="dale()" value="dale">
+    <script>
+        
+        function dale() {
+            let gradoPiramide = document.getElementById("numero").value;
+            let parrafo = document.getElementById("parrafo");
+            let piramide = "";
+            let fila = 1;
+            let numeroEspacios = gradoPiramide;
+            // el grado sera el numero de filas que tendra
+            for(let i = 0; i<gradoPiramide; i++){
+                    // dejar un espacio en blanco, igual al grado de la piramide
+                    for(let k = 0; k<numeroEspacios; k++){
+                        piramide = piramide + "-";
+                    }
+                numeroEspacios --;
+                // por cada fila , rellenar
+                for(let j = 0; j<fila;j++){ 
+                    // en la primera y la ultima poner un 1
+                    if(j === 0 || j === fila-1){
+                        piramide = piramide + 1;
+                    // en las impares poner un espacio en blanco
+                    }else if(j % 2 === 1){
+                        piramide = piramide + " ";
+                    // si no es la primera ni la ultima ni es la impar
+                    }else{
+                        piramide = piramide + "" + (fila-3);
+                    }
+                }
+                // el tamaño de la fila incrementa de 2 en 2
+                fila += 2
+                piramide = piramide + "<br/>"
+                
+            }
+            parrafo.innerHTML = piramide
+        }
+        
+    </script>
+</body>
+
+</html>
