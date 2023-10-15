@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Matriz Orginal</h1>
+    <p id="original"></p>
+    <h1>Matriz Modificada</h1>
+    <p id="modificada"></p>
+
+
+    <script>
+
+        let minas = [
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0]
+        ];
+
+        // funcion que recibe una matriz y el id de un parrafo para mostrar una matriz
+        const mostrarMatriz = (matriz, parrafoMostrar) => {
+            let parrafo = document.getElementById(parrafoMostrar)
+            for (let i = 0; i < matriz.length; i++) {
+                for (let j = 0; j < matriz[i].length; j++) {
+                    parrafo.innerHTML += matriz[i][j] + " "
+                }
+                parrafo.innerHTML += "<br/>"
+            }
+        }
+
+        // funcion que recibe un matriz, modifica la matriz poniendo minas
+        const modificarMatriz = (matriz, fila, columna) => {
+            
+            // parar cuando me salga
+           if(fila > matriz.length - 1 || fila < 0 || columna > matriz[fila].length - 1 || columna < 0){
+
+           }
+
+
+           
+
+        }
+
+
+        mostrarMatriz(minas, "original")
+        modificarMatriz(minas, 0, 0)
+        mostrarMatriz(minas, "modificada")
+
+    </script>
+</body>
+
+</html>
