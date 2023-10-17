@@ -1,0 +1,56 @@
+<html>
+
+<head>
+    <title>retos JavaScript</title>
+</head>
+
+<body>
+    <h1>retos JavaScript</h1>
+    
+    <script>
+        var cars = ["Saab", "Volvo", "BMW", ["Honda", "Toyota", ["Lexus", "Mercedes", "Lada"], "Hyunday"]];
+        var carrakos = ["Chevrolet", "Tesla", "BMW", ["Honda", "Infiniti", ["Lexus", "Mercedes", "Kia"], "Hyunday"], ["Mazda", "Mercedes", "Jeep", ["KTM", "Nissan", "Isuzu"]]];
+        //Alguien sabe hacer una lista única de coches con los dos arrays (sin repeticiones)?
+        
+        // aplana los 2 arrays los concatena y lo ordena unido
+        let arrayUnico = cars.flat(Infinity).concat(carrakos.flat(Infinity)).sort();
+        // el array 
+        arrayUnico = arrayUnico.map((valor,indice,array) => {
+            if(indice == 0) return valor;
+            if(indice > 0 && valor != array[indice-1]) return valor;
+            if(indice > 0 && valor == array[indice -1]) return undefined;
+        }).filter(valor=> valor != undefined)
+
+        console.log(arrayUnico)
+
+        //Alguien sabría decirme los coches de carrakos que no estén en cars?
+        let arrayCarrakosNoCars = carrakos.flat(Infinity).map(valor => {
+            let aux = cars.find(valor2 => valor == valor2)
+            if(aux == undefined) return valor
+        }).filter(f => f!= undefined)
+        console.log(arrayCarrakosNoCars)
+
+        var cars = ["Saab", "Volvo", "BMW", ["Honda", "Toyota", ["Lexus", "Mercedes", "Lada"], "Hyunday"]];
+        var buddies = [{ firstName: "Chuck", lastName: "Norris", car: "Honda" }, { firstName: "Yakie", lastName: "Chang", car: "BMW" }, { firstName: "Bruce", lastName: "Lee", car: "Honda" }, { firstName: "Steven", lastName: "Seagal", car: "Lada" }];
+        
+        //-Nombre y apellidos de los buddies que usan un Honda
+       let buddiesHonda = buddies.filter(valor => valor.car == "Honda")
+       console.log(buddiesHonda.map(valor => valor.firstName + valor.lastName))
+
+        //-Marcas utilizadas por los buddies
+        console.log(buddies.map(valor => valor.car))
+        
+        //-Marcas no utilizadas por los buddies.
+        
+
+        //-Cuantas marcas han sido utilizadas
+       
+
+
+        //-Cuantas marcas no han sido utilizadas
+       
+
+    </script>
+</body>
+
+</html>
