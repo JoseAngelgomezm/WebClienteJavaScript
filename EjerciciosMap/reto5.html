@@ -13,13 +13,17 @@
         let tropicales = ["aguacate", "mango", "litchi", "nispero"];
         let tropicStock = [{ fruta: "aguacate", stock: 50 }, { fruta: "mango", stock: 10 }, { fruta: "litchi", stock: 20 }, { fruta: "nispero", stock: 25 }];
         // frutas del array frutas que sean tropicales
-        console.log(frutas.filter((f) => tropicales.find((f2) => f == f2)))
+        let frutasTropicales = frutas.filter((f) => tropicales.find((f2) => f == f2))
 
         // frutas del array frutas que NO sean tropicales
-        console.log(frutas.filter((f) => !tropicales.find((f2) => f == f2)))
+        let frutasNoTropicales = frutas.filter((f) => !tropicales.find((f2) => f == f2))
 
         //Nombre de las frutas con un stock mayor de 21
-        console.log(tropicStock.filter((f) => f.stock > 21))
+        let arrayStock = tropicStock.filter((f) => f.stock > 21)
+
+        console.log(frutasTropicales)
+        console.log(frutasNoTropicales)
+        console.log(arrayStock)
 
     </script>
 
