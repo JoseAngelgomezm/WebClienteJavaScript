@@ -45,8 +45,14 @@
             ]
         };
 
-        let alumnos =  valumnos.alumnos.map(n => n.nombre)
-        let notas = valumnos.alumnos.map(n => n.notas)
+        let alumnosNotas =  valumnos.alumnos.map(valorActual =>{
+           return valorActual.nombre + " " + JSON.stringify(valorActual.notas)
+        })
+        
+        console.log(alumnosNotas)
+
+        
+
         
     </script>
 </body>

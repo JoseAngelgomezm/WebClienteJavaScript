@@ -52,10 +52,17 @@
         
         
         
-        console.log(valumnos.alumnos.reduce((valorAnterior, valorActual) => {
-            return  valorActual.notas.DWEC
-        }))
+        let arraySuma = valumnos.alumnos.reduce((acumulador, valorActual) =>{
+            return acumulador + valorActual.notas.DWEC 
+        }, 0)
 
+        let notas = valumnos.alumnos.map(valorActual => valorActual.notas)
+
+        
+        let mediaNotas = arraySuma / valumnos.alumnos.map(valorActual => valorActual.nombre).length
+
+        console.log("La suma total es: " + arraySuma)
+        console.log("La meida de las notas de DWEC es: " + mediaNotas)
 
     </script>
 </body>
