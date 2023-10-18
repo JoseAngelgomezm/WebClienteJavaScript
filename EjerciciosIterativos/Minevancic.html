@@ -9,9 +9,9 @@
 
 <body>
     <h1>Matriz Orginal</h1>
-    <p id = "original"></p>
+    <p id="original"></p>
     <h1>Matriz Modificada</h1>
-    <p id = "modificada"></p>
+    <p id="modificada"></p>
 
 
     <script>
@@ -26,62 +26,58 @@
         ];
 
         // funcion que recibe una matriz y el id de un parrafo para mostrar una matriz
-        const mostrarMatriz = (matriz, parrafoMostrar) =>{
+        const mostrarMatriz = (matriz, parrafoMostrar) => {
             let parrafo = document.getElementById(parrafoMostrar)
-            for(let i = 0; i< matriz.length; i++){
-                for(let j = 0; j< matriz[i].length; j++){
+            for (let i = 0; i < matriz.length; i++) {
+                for (let j = 0; j < matriz[i].length; j++) {
                     parrafo.innerHTML += matriz[i][j] + " "
                 }
                 parrafo.innerHTML += "<br/>"
             }
         }
 
-        // matriz que recibe una matriz con una fila y una columna y dice si hay mina o no
-        const hayMina = (matriz, fila, columna) =>{
-            // si se sale de la matriz
-            if(fila < 0 || fila > matriz.length -1 || columna < 0 || columna > matriz[fila].length -1){
-                return false
-            }else if(matriz[fila][columna] == 1){
-                return true
-            }else{
-                return false
+        const comprobarLimite = (matriz, fila, columna) => {
+            if (fila < matriz.length && fila > 0 && columna < matriz[fila].length && columna > 0) {
+                return true;
+            } else {
+                return false;
             }
         }
 
         // funcion que recibe un matriz, y devuelve una matriz modificada con las minas puestas
-        const modificarMatriz = (matriz) =>{
-            let matrizConMinas = []
-        
+        const modificarMatriz = (matriz) => {
             // recorrer la matriz que recibimos
-            for(let i = 0; i < matriz.length; i++){
-                let fila = []
-                for(let j = 0; j < matriz[i].length; j++){
-                    // si encontramos un 1 dejamos el 1
-                    if(matriz[i][j] === 1){
-                        fila.push(1)
-                    
-                    // sino, preguntar si hay mina a 1, 2, 3 y 4 de distancia
-                    }else if(hayMina(matriz, i +1 , j) || hayMina(matriz, i , j +1) || hayMina(matriz, i -1 , j) || hayMina(matriz, i , j -1) || hayMina(matriz, i +1 , j -1) || hayMina(matriz, i -1 , j +1) || hayMina(matriz, i -1 , j -1) || hayMina(matriz, i +1 , j +1)) {
-                        fila.push(2)
-                    }else if(hayMina(matriz, i +2 , j) || hayMina(matriz, i , j +2) || hayMina(matriz, i -2 , j) || hayMina(matriz, i , j -2) || hayMina(matriz, i +2 , j -2) || hayMina(matriz, i -2 , j +2) || hayMina(matriz, i -2 , j -2) || hayMina(matriz, i +2 , j +2)) {
-                        fila.push(3)
-                    }else if(hayMina(matriz, i +3 , j) || hayMina(matriz, i , j +3) || hayMina(matriz, i -3 , j) || hayMina(matriz, i , j -3) || hayMina(matriz, i +3 , j -3) || hayMina(matriz, i -3 , j +3) || hayMina(matriz, i -3 , j -3) || hayMina(matriz, i +3 , j +3)) {
-                        fila.push(4)
-                    }else{
-                        fila.push(5)
+            for (let i = 0; i < matriz.length; i++) {
+                for (let j = 0; j < matriz[i].length; j++) {
+                    // si encontramos 1 hemos encontrado una mina
+                    if (matriz[i][j] === 1) {
+                        // mirar a los 8 lados y poner un 2
+                        
+                        // mirar arriba
+                        if (comprobarLimite(matriz, i - 1, j) && matriz[i - 1][j] !== 1) {
+                            matriz[i - 1][j] == 2
+                        }
+
+                        // mirar abajo
+                        if (comprobarLimite(matriz, i + 1, j) && matriz[i + 1][j] !== 1) {
+                            matriz[i + 1][j] == 2
+                        }
+
+                       
                     }
+
+
                 }
-                matrizConMinas.push(fila)
             }
-
-            return matrizConMinas
-
+            mostrarMatriz(matriz, "modificada")
         }
 
 
-        mostrarMatriz(minas,"original")
-        let matrizModificada = modificarMatriz(minas)
-        mostrarMatriz(matrizModificada,"modificada")
+        mostrarMatriz(minas, "original")
+        modificarMatriz(minas)
+        
+       
+        
 
     </script>
 </body>
