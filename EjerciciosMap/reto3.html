@@ -52,7 +52,9 @@
         
         
         
-        console.log("Media: " + valumnos.alumnos.map(c => c.notas.DWEC))
+        console.log(valumnos.alumnos.reduce((valorAnterior, valorActual) => {
+            return  valorActual.notas.DWEC
+        }))
 
 
     </script>
