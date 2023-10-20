@@ -22,6 +22,9 @@
             [0, 1, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 1, 0],
             [0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0]
         ];
 
@@ -52,32 +55,140 @@
                     // si encontramos 1 hemos encontrado una mina
                     if (matriz[i][j] === 1) {
                         // mirar a los 8 lados y poner un 2
-
                         // mirar arriba
-                        if (comprobarLimite(matriz, i - 1, j) && matriz[i - 1][j] !== 1) {
+                        if (comprobarLimite(matriz, i - 1, j) && matriz[i - 1][j] == 0) {
                             matriz[i - 1][j] = 2
                         }
-
                         // mirar abajo
-                        if (comprobarLimite(matriz, i + 1, j) && matriz[i + 1][j] !== 1) {
+                        if (comprobarLimite(matriz, i + 1, j) && matriz[i + 1][j] == 0) {
                             matriz[i + 1][j] = 2
                         }
-
                         // mirar izquierda
-                        if (comprobarLimite(matriz, i, j - 1) && matriz[i][j - 1] !== 1) {
+                        if (comprobarLimite(matriz, i, j - 1) && matriz[i][j - 1] == 0) {
                             matriz[i][j - 1] = 2
                         }
-
                         // mirar a la derecha 
-                        if (comprobarLimite(matriz, i, j + 1) && matriz[i][j + 1] !== 1) {
+                        if (comprobarLimite(matriz, i, j + 1) && matriz[i][j + 1] == 0) {
                             matriz[i][j + 1] = 2
+                        }
+                        // mirar diagonales
+                        // diagonal abajo derecha
+                        if (comprobarLimite(matriz, i + 1, j + 1) && matriz[i + 1][j + 1] == 0) {
+                            matriz[i + 1][j + 1] = 2
+                        }
+                        // diagonal arriba izquierda
+                        if (comprobarLimite(matriz, i - 1, j + -1) && matriz[i - 1][j - 1] == 0) {
+                            matriz[i - 1][j - 1] = 2
+                        }
+                        // diagonal arriba derecha
+                        if (comprobarLimite(matriz, i - 1, j + 1) && matriz[i - 1][j + 1] == 0) {
+                            matriz[i - 1][j + 1] = 2
+                        }
+                        // diagonal abajo izquierda 
+                        if (comprobarLimite(matriz, i + 1, j - 1) && matriz[i + 1][j - 1] == 0) {
+                            matriz[i + 1][j - 1] = 2
                         }
                     }
                 }
             }
 
-        }
+            // volver a recorrer la matriz buscando los 2
+            for (let i = 0; i < matriz.length; i++) {
+                for (let j = 0; j < matriz[i].length; j++) {
+                    // si encontramos 2 hemos encontrado una mina
+                    if (matriz[i][j] === 2) {
+                        // mirar a los 8 lados y poner un 2
+                        // mirar arriba
+                        if (comprobarLimite(matriz, i - 1, j) && matriz[i - 1][j] == 0) {
+                            matriz[i - 1][j] = 3
+                        }
+                        // mirar abajo
+                        if (comprobarLimite(matriz, i + 1, j) && matriz[i + 1][j] == 0) {
+                            matriz[i + 1][j] = 3
+                        }
+                        // mirar izquierda
+                        if (comprobarLimite(matriz, i, j - 1) && matriz[i][j - 1] == 0) {
+                            matriz[i][j - 1] = 3
+                        }
+                        // mirar a la derecha 
+                        if (comprobarLimite(matriz, i, j + 1) && matriz[i][j + 1] == 0) {
+                            matriz[i][j + 1] = 3
+                        }
+                        // mirar diagonales
+                        // diagonal abajo derecha
+                        if (comprobarLimite(matriz, i + 1, j + 1) && matriz[i + 1][j + 1] == 0) {
+                            matriz[i + 1][j + 1] = 3
+                        }
+                        // diagonal arriba izquierda
+                        if (comprobarLimite(matriz, i - 1, j + -1) && matriz[i - 1][j - 1] == 0) {
+                            matriz[i - 1][j - 1] = 3
+                        }
+                        // diagonal arriba derecha
+                        if (comprobarLimite(matriz, i - 1, j + 1) && matriz[i - 1][j + 1] == 0) {
+                            matriz[i - 1][j + 1] = 3
+                        }
+                        // diagonal abajo izquierda 
+                        if (comprobarLimite(matriz, i + 1, j - 1) && matriz[i + 1][j - 1] == 0) {
+                            matriz[i + 1][j - 1] = 3
+                        }
 
+                    }
+                }
+            }
+
+            // volver a recorrer la matriz buscando los 3
+            for (let i = 0; i < matriz.length; i++) {
+                for (let j = 0; j < matriz[i].length; j++) {
+                    // si encontramos 3 hemos encontrado una mina
+                    if (matriz[i][j] === 3) {
+                        // mirar a los 8 lados y poner un 4
+                        // mirar arriba
+                        if (comprobarLimite(matriz, i - 1, j) && matriz[i - 1][j] == 0) {
+                            matriz[i - 1][j] = 4
+                        }
+                        // mirar abajo
+                        if (comprobarLimite(matriz, i + 1, j) && matriz[i + 1][j] == 0) {
+                            matriz[i + 1][j] = 4
+                        }
+                        // mirar izquierda
+                        if (comprobarLimite(matriz, i, j - 1) && matriz[i][j - 1] == 0) {
+                            matriz[i][j - 1] = 4
+                        }
+                        // mirar a la derecha 
+                        if (comprobarLimite(matriz, i, j + 1) && matriz[i][j + 1] == 0) {
+                            matriz[i][j + 1] = 4
+                        }
+                        // mirar diagonales
+                        // diagonal abajo derecha
+                        if (comprobarLimite(matriz, i + 1, j + 1) && matriz[i + 1][j + 1] == 0) {
+                            matriz[i + 1][j + 1] = 4
+                        }
+                        // diagonal arriba izquierda
+                        if (comprobarLimite(matriz, i - 1, j + -1) && matriz[i - 1][j - 1] == 0) {
+                            matriz[i - 1][j - 1] = 4
+                        }
+                        // diagonal arriba derecha
+                        if (comprobarLimite(matriz, i - 1, j + 1) && matriz[i - 1][j + 1] == 0) {
+                            matriz[i - 1][j + 1] = 4
+                        }
+                        // diagonal abajo izquierda 
+                        if (comprobarLimite(matriz, i + 1, j - 1) && matriz[i + 1][j - 1] == 0) {
+                            matriz[i + 1][j - 1] = 4
+                        }
+                    }
+                }
+            }
+
+            // volver a recorrer la matriz buscando los 0 que quedan para ponerlos a 5
+            for (let i = 0; i < matriz.length; i++) {
+                for (let j = 0; j < matriz[i].length; j++) {
+                    // todo lo que encuentre a partir de aqui que sea un 0 ponerlo a 5
+                    if (matriz[i][j] == 0) {
+                        matriz[i][j] = 5
+                    }
+                }
+            }
+        }
 
         mostrarMatriz(minas, "original")
         modificarMatriz(minas)
