@@ -37,7 +37,7 @@
         }
 
         const comprobarLimite = (matriz, fila, columna) => {
-            if (fila < matriz.length && fila > 0 && columna < matriz[fila].length && columna > 0) {
+            if (fila < matriz.length && fila >= 0 && columna < matriz[fila].length && columna >= 0) {
                 return true;
             } else {
                 return false;
@@ -52,32 +52,39 @@
                     // si encontramos 1 hemos encontrado una mina
                     if (matriz[i][j] === 1) {
                         // mirar a los 8 lados y poner un 2
-                        
+
                         // mirar arriba
                         if (comprobarLimite(matriz, i - 1, j) && matriz[i - 1][j] !== 1) {
-                            matriz[i - 1][j] == 2
+                            matriz[i - 1][j] = 2
                         }
 
                         // mirar abajo
                         if (comprobarLimite(matriz, i + 1, j) && matriz[i + 1][j] !== 1) {
-                            matriz[i + 1][j] == 2
+                            matriz[i + 1][j] = 2
                         }
 
-                       
+                        // mirar izquierda
+                        if (comprobarLimite(matriz, i, j - 1) && matriz[i][j - 1] !== 1) {
+                            matriz[i][j - 1] = 2
+                        }
+
+                        // mirar a la derecha 
+                        if (comprobarLimite(matriz, i, j + 1) && matriz[i][j + 1] !== 1) {
+                            matriz[i][j + 1] = 2
+                        }
                     }
-
-
                 }
             }
-            mostrarMatriz(matriz, "modificada")
+
         }
 
 
         mostrarMatriz(minas, "original")
         modificarMatriz(minas)
-        
-       
-        
+        mostrarMatriz(minas, "modificada")
+
+
+
 
     </script>
 </body>
