@@ -16,31 +16,34 @@ Tenemos el siguiente programa:
         // obtener el elemento ul padre 
         let nodoPadreUl = document.getElementById("carrakos")
 
-        carrakos.map(valor => {
-            if (Array.isArray(valor)) {
-                valor.map(valor => {
-                    // crear nodo de texto
-                    let nodoTextoLi = document.createTextNode(valor)
-                    // crear nodo li
-                    let nodoLi = document.createElement("li")
-                    // crear el nodo ul
+
+        // funcion que recorre el array de carrakos y monta una lista segun los niveles del array
+        const montarLista = (array) => {
+
+            // recorrer el array principal
+            for (let i = 0; i < array.length; i++) {
+                // si el elemento que recorro es un array
+                if (Array.isArray(array[i])) {
+
+                    
                     let nodoUl = document.createElement("ul")
-                    // añadir a li texto y el li al ul y el ul al padre
-                    nodoLi.appendChild(nodoTextoLi)
-                    nodoUl = document.appendChild(nodoLi)
+                    let textoLi = document.createTextNode(array[i])
+                    let nodoLi = document.createElement("li")
+                    nodoUl.appendChild(nodoLi)
                     nodoPadreUl.appendChild(nodoUl)
-                })
+                    montarLista(array[i])
+
+                    // si el nivel es el primero, añadir li al padre
+                } else {
+                    let textoLi = document.createTextNode(array[i])
+                    let nodoLi = document.createElement("li")
+                    nodoLi.appendChild(textoLi)
+                    nodoPadreUl.appendChild(nodoLi)
+                }
             }
-            // crear nodo de texto
-            let nodoTextoLi = document.createTextNode(valor)
-            // crear nodo li
-            let nodoLi = document.createElement("li")
-            // añadir a li el texto y el li al padre
-            nodoLi.appendChild(nodoTextoLi)
-            nodoPadreUl.appendChild(nodoLi)
+        }
 
-        })
-
+        montarLista(carrakos, 0, 0)
     </script>
 </body>
 
