@@ -39,9 +39,24 @@
                     delete (arrayBuscar[j])
                 }
             }
-            // 
-            contadorDelMayor1 = contadorPersona
-            personaMasAparece1 = personaBuscar
+            // ordenacion de los contadores
+            // si el contador de la peronsa1
+            if (personaBuscar != personaMasAparece1 && contadorPersona > contadorDelMayor1) {
+                contadorDelMayor3 = contadorDelMayor2;
+                contadorDelMayor2 = contadorDelMayor1;
+                contadorDelMayor1 = contadorPersona;
+                personaMasAparece1 = personaBuscar
+            } else if (personaBuscar != personaMasAparece2 && personaBuscar!=personaMasAparece1 && contadorPersona > contadorDelMayor2) {
+                contadorDelMayor3 = contadorDelMayor2;
+                contadorDelMayor2 = contadorPersona;
+                personaMasAparece2 = personaBuscar
+
+            } else if (personaBuscar != personaMasAparece2 && personaBuscar!=personaMasAparece1 && personaBuscar != personaMasAparece3 && contadorPersona > contadorDelMayor3) {
+                contadorDelMayor3 = contadorPersona;
+                personaMasAparece3 = personaBuscar
+
+            }
+
         }
         parrafo.innerHTML += "Las personas mas populares son: " + "<strong>" + personaMasAparece1 + ", " + "</strong>" + "<strong>" + personaMasAparece2 + " y " + "</strong>" + "<strong>" + personaMasAparece3 + "</strong>"
     }

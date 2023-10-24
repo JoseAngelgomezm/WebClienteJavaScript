@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,
+initial-scale=1.0" />
+    <title>NOMBRES POPULARES</title>
+</head>
+
+<body>
+    <script>
+        const GODOS =
+            ["Ataulfo", "Teudiselo", "Sisenando", "Sigérico", "Valia", "Valia",
+                "Valia", "Valia", "Valia", "Valia", "Teudiselo", "Sisenando", "Teodórico",
+                "Turismundo", "Éurico", "Alárico", "Gesalérico", "Amalárico", "Teudis",
+                "Teudiselo", "Sisenando", "Quintila", "Ágila", "Atanagildo", "Liuva",
+                "Leovigildo", "Recaredo", "Vitérico", "Sisebuto", "Suintila", "Sisenando",
+                "Quintila", "Chindasvinto", "Recesvinto", "Vamba", "Ervigio", "Égica",
+                "Vitiza", "Rodrigo"]
+
+
+        var uno = ""
+        var numuno = 0;
+        var dos = ""
+        var numdos = 0;
+        var tres = ""
+        var numtres = 0;
+
+        // ESCRIBE AQUÍ TU CÓDIGO
+        console.log(GODOS.map(valor1 => {
+            if (GODOS.filter(valor2 => valor2 == valor1).length > numuno) {
+                tres = dos
+                dos = uno
+                uno = valor1
+                numuno = GODOS.filter(valor2 => valor2 == valor1).length
+            }
+
+            if (valor1 != uno && valor1 != dos && GODOS.filter(valor2 => valor2 == valor1).length > numdos) {
+                tres = dos
+                dos = valor1
+                numtres = numdos;
+                numdos = GODOS.filter(valor2 => valor2 == valor1).length
+            }
+
+            if (valor1 != tres && valor1 != dos && GODOS.filter(valor2 => valor2 == valor1).length > numtres ) {
+                tres = valor1
+                numtres = GODOS.filter(valor2 => valor2 == valor1).length
+            }
+            return valor1
+        }))
+        console.log(uno + numuno + " " + dos + numdos + " " + tres + numtres)
+    </script>
+</body>
+
+</html>
