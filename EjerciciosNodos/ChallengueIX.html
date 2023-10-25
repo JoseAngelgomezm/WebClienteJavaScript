@@ -9,21 +9,33 @@
     <ul id="carrakos"> </ul>
 
     <script>
+
+        let xungos = [{ nombre: "Bruce Lee", carros: ["Chevrolet", "Tesla", "BMW"] }, { nombre: "YakiChan", carros: ["Lexus", "Mercedes", "Kia"] }]
         var carrakos = ["Chevrolet", "Tesla", "BMW", ["Honda", "Infiniti", ["Lexus", "Mercedes", "Kia"], "Hyunday"], ["Mazda", "Mercedes", "Jeep", ["KTM", "Nissan", "Isuzu"]]];
 
         // obtener el elemento ul padre 
         let nodoPadreUl = document.getElementById("carrakos")
-        
+
         // funcion que recorre el array de carrakos y monta una lista segun los niveles del array
         const visualizaElementos = (array, padre) => {
             array.map(elemento => {
+                // si el elemento actual es un array
                 if (Array.isArray(elemento)) {
+                    // creo una ul
                     let ul = document.createElement("ul")
+                    // y la agrego al padre que recibo por parametro
                     padre.appendChild(ul)
+                    // me vuelvo a llamar con esta ul
                     visualizaElementos(elemento, ul)
                 } else {
-                    // crear el nodo de texto
-                    let nodoTextoLi = document.createTextNode(elemento)
+                    // si el elemento no es un array, crear un li y añadirselo al padre
+                    // crear el li con el dueño si lo tiene
+                    let encontrado = xungos.find(valor => valor.carros.find(carro => carro == elemento))
+                    if (encontrado != undefined){
+                        let nodoTextoLi = document.createTextNode(elemento + encontrado.nombre)
+                    }else{
+                        let nodoTextoLi = document.createTextNode(elemento + encontrado.nombre)
+                    }
                     // crear el nodo li
                     let nodoLi = document.createElement("li")
                     // anidar el nodo de texto al nodo li
@@ -33,7 +45,6 @@
                 }
             })
         }
-
         visualizaElementos(carrakos, nodoPadreUl)
     </script>
 </body>
