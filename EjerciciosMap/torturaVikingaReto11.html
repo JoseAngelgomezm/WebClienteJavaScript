@@ -1,3 +1,6 @@
+Igual que el reto 10 pero cambia el JSON
+
+
 Realiza una función flecha que dado el nombre de un vikingo diga si fue un rey o no.
 Se adjunta código starter:
 
@@ -11,7 +14,7 @@ Se adjunta código starter:
 
 <body>
     <script>
-        var vikings = {"vikingos":[{"reino":"Noruega","reyes":["Hakon","Harald","Ivar","Olaf","Bjorn","Ragnar"]},{"reino":"Dinamarca","reyes":["Frodo","Hamming","Angantyr","Horik"]}]};
+        var vikings = {"vikingos":[{"reino":"Noruega","reyes":["Hakon","Harald",["Ivar",["Olaf","Lars","Lasse"],"Bjorn"],"Ragnar"]},{"reino":"Dinamarca","reyes":["Frodo","Hamming",["Angantyr","Sarunas"],"Horik"]}]};
 
         const esRey = (nombre) => {
            let esrey = vikings.vikingos.map(valor => {
@@ -28,3 +31,4 @@ Se adjunta código starter:
 </body>
 
 </html>
+
