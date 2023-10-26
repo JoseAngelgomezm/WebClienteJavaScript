@@ -28,11 +28,11 @@
                     // me vuelvo a llamar con esta ul
                     visualizaElementos(elemento, ul)
                 } else {
-                    // si el elemento no es un array, crear un li y añadirselo al padre
-                    // crear el li con el dueño si lo tiene
-                    let encontrado = xungos.find(valor => valor.carros.find(carro => carro == elemento))
-                    if (encontrado != undefined){
-                        let nodoTextoLi = document.createTextNode(elemento + encontrado.nombre)
+                    // buscar el dueño si lo tiene
+                    let encontrado = xungos.find(xungo => xungo.carros.find(nombre => nombre == elemento))
+                    // si tiene dueño, el texto contendra el coche y el dueño
+                    if(encontrado === undefined){
+                        let nodoTextoLi = document.createTextNode(elemento)
                     }else{
                         let nodoTextoLi = document.createTextNode(elemento + encontrado.nombre)
                     }
