@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cual aparece MAs</title>
+</head>
+
+<body>
+    <script>
+        const REYES = ["Fracisbuto", "Vigafredo", "Lauro", "Lauro", "Lauro", "Chindatore", ["Lauro", "Sisebuto", ["Fracisbuto", "Vigafredo", ["Leovigildo", "Recaredo"]]], ["Chindasvinto", "Rencesvinto", "Lautaro"], "Amalarico II"];
+
+        let masAparece = 0;
+        let nombreMasAparece = "";
+        REYES.flat(Infinity).map(valor => {
+            let numeroVecesPersona = REYES.flat(Infinity).filter(elemento => elemento == valor).length
+            if (numeroVecesPersona > masAparece) {
+                nombreMasAparece = valor
+                masAparece = numeroVecesPersona
+            }
+
+        })
+
+        console.log(nombreMasAparece + " " + masAparece)
+
+
+    </script>
+
+</body>
+
+</html>

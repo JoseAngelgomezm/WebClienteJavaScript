@@ -14,21 +14,32 @@ Se adjunta código starter:
 
 <body>
     <script>
-        var vikings = {"vikingos":[{"reino":"Noruega","reyes":["Hakon","Harald",["Ivar",["Olaf","Lars","Lasse"],"Bjorn"],"Ragnar"]},{"reino":"Dinamarca","reyes":["Frodo","Hamming",["Angantyr","Sarunas"],"Horik"]}]};
+        var vikings = '{ "vikingos": [{ "reino": "Noruega", "reyes": ["Hakon", "Harald", ["Ivar", ["Olaf", "Lars", "Lasse"], "Bjorn"], "Ragnar"] }, { "reino": "Dinamarca", "reyes": ["Frodo", "Hamming", ["Angantyr", "Sarunas"], "Horik"] }] }';
+        vikings = JSON.parse(vikings)
+
+        const buscaMan = (nombre, array) => {
+            let numeroVeces = 0
+            if(Array.isArray(array)){
+            array.map(valor => {
+                numeroVeces+=buscaMan(nombre,valor)
+            })
+            
+            }else if (array == nombre){
+                numeroVeces++
+            }
+
+            return numeroVeces
+        }
 
         const esRey = (nombre) => {
-           let esrey = vikings.vikingos.map(valor => {
-                let nombreEncontrado = valor.reyes.find(elemento => elemento === nombre)
-                return nombreEncontrado
-            })
-           
-                return esrey
-            
+            vikings.vikingos.find(elemento => elemento.reyes.find(rey => buscaMan(rey, nombre)))===undefined?console.log(nombre + " No es"):console.log(nombre + " Si es")
         }
-        
+
+        esRey("Harald", vikings)
+        esRey("Juan", vikings)
+
     </script>
 
 </body>
 
 </html>
-

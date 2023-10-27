@@ -11,17 +11,18 @@ Se adjunta código starter:
 
 <body>
     <script>
-        var vikings = {"vikingos":[{"reino":"Noruega","reyes":["Hakon","Harald","Ivar","Olaf","Bjorn","Ragnar"]},{"reino":"Dinamarca","reyes":["Frodo","Hamming","Angantyr","Horik"]}]};
+        var vikings = '{"vikingos":[{"reino":"Noruega","reyes":["Hakon","Harald","Ivar","Olaf","Bjorn","Ragnar"]},{"reino":"Dinamarca","reyes":["Frodo","Hamming","Angantyr","Horik"]}]}';
+        vikings = JSON.parse(vikings)
 
         const esRey = (nombre) => {
-           let esrey = vikings.vikingos.map(valor => {
-                let nombreEncontrado = valor.reyes.find(elemento => elemento === nombre)
-                return nombreEncontrado
-            })
-           
-                return esrey
-            
+           let encontrado = vikings.vikingos.map(valor => valor.reyes.find(elemento => elemento === nombre))
+           console.log(encontrado)
         }
+
+       esRey("Harald")
+       
+       
+       
         
     </script>
 
