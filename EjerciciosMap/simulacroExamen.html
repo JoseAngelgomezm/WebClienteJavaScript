@@ -11,37 +11,43 @@
         var carrakos = ["Chevrolet", "Tesla", "BMW", ["Honda", "Infiniti", ["Lexus", "Mercedes", "Kia"], "Hyunday"], ["Mazda", "Mercedes", "Jeep", ["KTM", "Nissan", "Isuzu"]]];
         var newcars = ["Saab", "Volvo", "BMW", ["Honda", "Toyota", ["Lexus", "Volvo", "Lada"], "Hyunday", "Volvo"]];
 
-        buddies = [{
-            firstName: "Jonny", lastName: "Rambo",
-        },
-        {
-            firstName: "Arnold", lastName: "Suarchenager",
-            car: "Honda"
-        }, {
-            firstName: "Chuck", lastName: "Norris",
-            car: "Honda"
-        }, {
-            firstName: "Yakie", lastName: "Chang",
-            car: "BMW"
-        }, {
-            firstName: "Bruce", lastName: "Lee",
-            car: "Honda"
-        }, { firstName: "Steven", lastName: "Seagal", car: "Lada" }];
+        buddies = [{ firstName: "Jonny", lastName: "Rambo", car: "BMW" },
+        { firstName: "Arnold", lastName: "Suarchenager", car: "Honda" },
+        { firstName: "Chuck", lastName: "Norris", car: "Honda" },
+        { firstName: "Yakie", lastName: "Chang", car: "BMW" },
+        { firstName: "Bruce", lastName: "Lee", car: "Honda" },
+        { firstName: "Steven", lastName: "Seagal", car: "Lada" }];
 
         let xungas = ["Honda", "Lada"]
         //EJERCICIO 1
         console.log(newcars.flat(Infinity).filter(coche => coche == "Volvo").length)
 
         //EJERCICIO 2
-        
+        let marcasUsadas = buddies.map(valor => valor.car)
+        console.log(marcasUsadas)
 
-        
+
 
         //EJERCICIO 3
-
-        
+        let marcasUsadasBuddies = newcars.flat(Infinity).map(valor => { if (buddies.find(valor2 => valor2.car === valor) && !xungas.find(valor3 => valor3 === valor)) return valor })
+        console.log(marcasUsadasBuddies)
 
         //EJERCICIO 4
+        let masTrendy = buddies.map(valor => {
+            buddies.map(valor2 => {
+                let contador = 0;
+                let masTrendy = 0;
+                if (valor2.car === valor.car) {
+                    contador++;
+                }
+
+                if(contador > masTrendy){
+                    masTrendy = contador
+                }
+                return masTrendy
+            })
+        })
+        console.log(masTrendy)
     </script>
 </body>
 
