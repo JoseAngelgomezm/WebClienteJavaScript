@@ -15,11 +15,16 @@ Se adjunta código starter:
         vikings = JSON.parse(vikings)
 
         const esRey = (nombre) => {
-           let encontrado = vikings.vikingos.map(valor => valor.reyes.find(elemento => elemento === nombre))
-           console.log(encontrado)
+           let encontrado = vikings.vikingos.map(valor => valor.reyes).flat(Infinity).find(elemento => elemento == nombre)
+            if(encontrado === undefined){
+                return nombre + " No es rey"
+            }else{
+                return nombre + " Si es rey"
+            }
+           
         }
 
-       esRey("Harald")
+       console.log(esRey("juan"))
        
        
        
