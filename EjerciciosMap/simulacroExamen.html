@@ -23,31 +23,34 @@
         console.log(newcars.flat(Infinity).filter(coche => coche == "Volvo").length)
 
         //EJERCICIO 2
-        let marcasUsadas = buddies.map(valor => valor.car)
+        let marcasUsadas = buddies.map(valor => {
+            if(buddies.filter(valor2 => valor.car == valor2.car).length > 1){
+                return valor.car
+            }
+        })
         console.log(marcasUsadas)
 
 
 
         //EJERCICIO 3
-        let marcasUsadasBuddies = newcars.flat(Infinity).map(valor => { if (buddies.find(valor2 => valor2.car === valor) && !xungas.find(valor3 => valor3 === valor)) return valor })
+        let marcasUsadasBuddies = newcars.flat(Infinity).map(valor => { 
+            if (buddies.find(valor2 => valor2.car === valor) && !xungas.find(valor3 => valor3 === valor)){
+                return valor
+            }
+        })
         console.log(marcasUsadasBuddies)
 
         //EJERCICIO 4
-        let masTrendy = buddies.map(valor => {
-            buddies.map(valor2 => {
-                let contador = 0;
-                let masTrendy = 0;
-                if (valor2.car === valor.car) {
-                    contador++;
-                }
-
-                if(contador > masTrendy){
-                    masTrendy = contador
-                }
-                return masTrendy
-            })
+        let masPopular = "";
+        let contadorMasPopular = 0;
+        buddies.map(valor => {
+            let vecesSeRepite = buddies.filter(valor2 => valor2.car === valor.car).length
+            if(valor.car !== masPopular && vecesSeRepite > contadorMasPopular){
+                contadorMasPopular = vecesSeRepite
+                masPopular = valor.car
+            }
         })
-        console.log(masTrendy)
+        console.log(masPopular)
     </script>
 </body>
 
