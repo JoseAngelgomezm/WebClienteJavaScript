@@ -42,9 +42,61 @@
 
 
     <script>
+        const insertar = (listaOrigenHTML, arrayListaDestino) => {
+            // si el elemento del html que recibimos es un li, en mayusucula imporante
+            if(listaOrigenHTML.nodeName == "LI"){
+                arrayListaDestino.push(listaOrigenHTML.innerHTML.toUpperCase())
+            // si no, sera un ul
+            }else{
+                // el .children devuelve todos los hijos que tiene el ul, usamos for para recorrerlos.
+                // por cada elemento que será un ul, se volvera a llamar a la funcion con el elemento li, que es el hijo ().children)
+                //  y la misma lista para que los añada a la misma lista
+                for(let i = 0; i<listaOrigenHTML.children.length;i++){
+                    insertar(listaOrigenHTML.children[i], arrayListaDestino)
+                }
+                
+            }
+        }
 
-        //el contenido del script lo colocaré aquí
+        const eliminarDuplicados = (arrayLista) => {
+            // filtramos la lista que nos llega, nos quedamos con el primero y con todos los que sean distintos
+            // miramos uno, si es igual que el anterior no nos quedamos con el
+            let arraySinDuplicados = arrayLista.filter((elemento,indice, array) => array[indice] != array[indice-1])
+            return arraySinDuplicados
+        }
         
+        // declarar las 2 listas
+        const arrayLista1 = [];
+        const arrayLista2 = [];
+
+        // insertar las 2 listas del dom a los arrays
+        insertar(document.getElementById("lista1"), arrayLista1)
+        insertar(document.getElementById("lista2"), arrayLista2)
+
+        // ordeno las 2 listas , para que los repetidos queden juntos
+        arrayLista1.sort()
+        arrayLista2.sort()
+
+        // recorrer con map las listas para eliminar los duplicados
+        arrayLista1SinDuplicados = eliminarDuplicados(arrayLista1)
+        arrayLista2SinDuplicados = eliminarDuplicados(arrayLista2)
+
+        // unir las 2 listas en una nueva
+        const arrayListaNueva = arrayLista1SinDuplicados.concat(arrayLista2SinDuplicados) 
+        console.log(arrayLista1SinDuplicados)
+        console.log(arrayLista2SinDuplicados)
+
+        // ordenar la lista nueva
+        arrayListaNueva.sort()
+
+        // quedarnos solo con el que esté duplicado, si el que miro es igual que el anterior me quedo con el
+        const soloDuplicados = arrayListaNueva.filter((elemento,indice,array) => array[indice] == array[indice-1])
+
+        console.log(arrayListaNueva)
+
+        console.log(soloDuplicados)
+
+
 
 
     </script>
