@@ -17,23 +17,24 @@
         // 1) Almacena en la variable impar true o false dependiendo si el número de reyes godos fue par o impar
         let impar = false
         godos.GODOS.map(elemento => elemento).length % 2 == 0 ? impar = false : impar = true;
-        //  ****************
         console.log(impar)
         // 2) Muestra el nombre de todos los sajones
         console.log(sajones.SAJONES.map(elemento => elemento.nombre))
         // 3) cuantos (en número) godos reinaron entre el 500 y el 600 pero no en años anteriores o posteriores
-        console.log(godos.GODOS.filter(elemento => elemento.anioIni > 500 && elemento.aniofin < 600))
+        console.log(godos.GODOS.filter(elemento => elemento.anioIni > 500 && elemento.aniofin < 600).length)
         // 4)¿Existió un godo que reinó entre el 600 y 700 que se llamaba Vinteraviko? Responde Sí o No
         //Seguramente necesitarás usar el operador ternario
         console.log(godos.GODOS.find(elemento => { if (elemento.anioIni > 600 && elemento.aniofin < 700 && elemento.nombre === "Vinteraviko") return elemento }) === undefined ? "No" : "Sí")
         // 5) Cuantos godos eran sajones. Se quiere saber SOLO los nombres (en array si quieres)
-        let nombres = ""
-        godos.GODOS.map(elemento => { if (sajones.SAJONES.find(valor => valor.nombre === elemento.nombre) !== undefined) nombres += elemento.nombre + "\n" })
-        console.log(nombres)
+        console.log(godos.GODOS.filter(elemento => { if (sajones.SAJONES.find(valor => valor.nombre === elemento.nombre) !== undefined) return elemento.nombre + "\n" }))
         // 6) El nombre de los 5 primeros reyes godos (en array si quieres)
-        nombre5primeros = "";
-        godos.GODOS.map((elemento, indice) => {if (indice < 5) {nombre5primeros += elemento.nombre + "\n";}})
-        console.log(nombre5primeros)
+        console.log(godos.GODOS.filter((elemento, indice) => { if (indice < 5) { return elemento.nombre + "\n"; } }))
+        // 7) El nombre de los 5 últimos reyes godos (en array si quieres)
+        console.log(godos.GODOS.filter((elemento,indice) => {
+            let tamaño = godos.GODOS.map(elemento => elemento).length
+            if (indice > tamaño -4){return elemento}
+        }))
+
     </script>
 
 </body>
