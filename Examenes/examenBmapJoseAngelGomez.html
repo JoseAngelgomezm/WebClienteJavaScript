@@ -31,16 +31,13 @@
         console.log(godos.GODOS.find(elemento => { if (elemento.anioIni > 600 && elemento.aniofin < 700 && elemento.nombre === "Vinteraviko") return elemento }) === undefined ? "No" : "Sí")
         
         // 5) Cuantos godos eran sajones. Se quiere saber SOLO los nombres (en array si quieres)
-        console.log(godos.GODOS.filter(elemento => { if (sajones.SAJONES.find(valor => valor.nombre === elemento.nombre) !== undefined) return elemento.nombre + "\n" }))
+        console.log(godos.GODOS.filter(elemento => sajones.SAJONES.find(valor => valor.nombre === elemento.nombre)).map(valor => valor.nombre))
         
         // 6) El nombre de los 5 primeros reyes godos (en array si quieres)
-        console.log(godos.GODOS.filter((elemento, indice) => { if (indice < 5) { return elemento.nombre + "\n"; } }))
+        console.log(godos.GODOS.filter((elemento, indice) => (indice < 5)).map(elemento=> elemento.nombre))
         
         // 7) El nombre de los 5 últimos reyes godos (en array si quieres)
-        console.log(godos.GODOS.filter((elemento,indice) => {
-            let tamaño = godos.GODOS.map(elemento => elemento).length
-            if (indice > tamaño -4){return elemento}
-        }))
+        console.log(godos.GODOS.filter((elemento,indice) => indice > godos.GODOS.map(elemento => elemento).length - 6).map(elemento => elemento.nombre))
 
     </script>
 
