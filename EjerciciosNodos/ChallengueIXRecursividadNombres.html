@@ -29,12 +29,12 @@
                     visualizaElementos(elemento, ul)
                 } else {
                     // buscar el dueño si lo tiene
+                    let nodoTextoLi
                     let encontrado = xungos.find(xungo => xungo.carros.find(nombre => nombre == elemento))
-                    // si tiene dueño, el texto contendra el coche y el dueño
                     if(encontrado === undefined){
-                        let nodoTextoLi = document.createTextNode(elemento)
+                        nodoTextoLi = document.createTextNode(elemento)
                     }else{
-                        let nodoTextoLi = document.createTextNode(elemento + encontrado.nombre)
+                        nodoTextoLi = document.createTextNode(elemento + " " + encontrado.nombre)
                     }
                     // crear el nodo li
                     let nodoLi = document.createElement("li")

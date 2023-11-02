@@ -17,9 +17,13 @@
         // funcion que recorre el array de carrakos y monta una lista segun los niveles del array
         const visualizaElementos = (array, padre) => {
             array.map(elemento => {
+                // si el elemento que miramos es un array
                 if (Array.isArray(elemento)) {
+                    // crear una ul
                     let ul = document.createElement("ul")
+                    // al nodo padre que le pasamos por parametro le ponemos esta ul de hijo
                     padre.appendChild(ul)
+                    // llamamos de nuevo a la funcion con el elemento que estamos mirando y diciendole que el padre es el nuevo ul
                     visualizaElementos(elemento, ul)
                 } else {
                     // crear el nodo de texto
