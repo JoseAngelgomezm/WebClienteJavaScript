@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>UNION LIST</title>
+</head>
+
+<body>
+    PRIMERA LISTA:
+    <ul id="lista1">
+        <li>manzana</li>
+        <li>pera</li>
+        <ul>
+            <li>conferencia</li>
+            <ul>
+                <li>conferenciaverde</li>
+                <li>conferenciaamarilla</li>
+                <li>conferenciaroja</li>
+            </ul>
+            <li>peradeagua</li>
+            <li>peritadulce</li>
+            <ul>
+                <li>Dimas</li>
+                <li>Gestas</li>
+                <li>Malakatos</li>
+                <li>Jose</li>
+            </ul>
+        </ul>
+        <li>limon</li>
+        <li>limon</li>
+        <li>LIMON</li>
+    </ul>
+    Segunda lista:
+    <ul id="lista2">
+        <li>manzana</li>
+        <li>manzana</li>
+        <ul>
+            <li>manzana</li>
+            <li>manzana</li>
+        </ul>
+        <li>pera</li>
+        <li>limon</li>
+    </ul>
+    <ol id="lista3">
+    </ol>
+    <script>
+        // pasar las 2 listas a un array
+        let arrayLista1 = []
+        let arrayLista2 = []
+
+        const pasarElementosArray = (listaHTML, arrayListaSalida) => {
+            // si el elemento que recibimos es una ul
+            if (listaHTML.nodeName === ("UL")) {
+                // recorrer todos los hijos de la ul
+                for (let i = 0; i < listaHTML.children.length; i++) {
+                    // llamarse con cada hijo de la ul que seran li para que se añadan
+                    pasarElementosArray(listaHTML.children[i], arrayListaSalida)
+                }
+                // si lo que recibimos es un li añadir el texto al array pasandolo a minuscula
+            } else {
+                let elementoLi = listaHTML.innerHTML
+                elementoLi = elementoLi.toLowerCase()
+                arrayListaSalida.push(elementoLi)
+            }
+        }
+
+        // pasar los elementos de las ul del html a arrays
+        pasarElementosArray(document.getElementById("lista1"), arrayLista1)
+        pasarElementosArray(document.getElementById("lista2"), arrayLista2)
+
+        // ordenar las 2 listas
+        arrayLista1.sort()
+        arrayLista2.sort()
+        
+
+        // quitar duplicados de las listas 
+        let arrayLista1SinDuplicados = arrayLista1.filter((valor, indice, array) => array[indice] != array[indice -1])
+        let arrayLista2SinDuplicados = arrayLista2.filter((valor, indice, array) => array[indice] !== array[indice - 1])
+
+        // unir las 2 listas
+        let arrayListaCompleta = []
+        arrayLista1SinDuplicados.map(elemento => arrayListaCompleta.push(elemento))
+        arrayLista2SinDuplicados.map(elemento => arrayListaCompleta.push(elemento))
+
+
+        // ordenar la lista completa
+        arrayListaCompleta.sort()
+
+        // quitar duplicados de la lista completa
+        let arrayListaCompletaSinDuplicados = arrayListaCompleta.filter((valor, indice, array) => array[indice] != array[indice - 1])
+
+        // imprimir elementos sin duplicar de las 2 listas
+        console.log(arrayListaCompletaSinDuplicados)
+        
+
+    </script>
+</body>
+
+</html>
