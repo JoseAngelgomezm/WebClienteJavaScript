@@ -74,7 +74,7 @@
         
 
         // quitar duplicados de las listas 
-        let arrayLista1SinDuplicados = arrayLista1.filter((valor, indice, array) => array[indice] != array[indice -1])
+        let arrayLista1SinDuplicados = arrayLista1.filter((valor, indice, array) => array[indice] !== array[indice -1])
         let arrayLista2SinDuplicados = arrayLista2.filter((valor, indice, array) => array[indice] !== array[indice - 1])
 
         // unir las 2 listas
