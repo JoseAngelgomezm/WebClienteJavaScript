@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        const REYES = ["Chindatore", ["Chindasvinto", "Rencesvinto", "Lautaro"], ["Lauro", "Sisebuto", ["Fracisbuto", "Vigafredo", ["Leovigildo", "Recaredo"]]], "Amalarico II"];
+
+
+        //funcion que imprime true o false segun el nivel
+        const niveles = (array, nivel) => {
+            // recorre el array
+            for (let i = 0; i < array.length; i++) {
+                // si el elemento es un array
+                if (Array.isArray(array[i])) {
+                    // volver a llamarse con array par o impar
+                    niveles(array[i], nivel +1)
+                // cuando no sea un array, mostar el elemento y el nivel en el que está si es par el nivel
+                }else if(nivel % 2 == 0){
+                    console.log(array[i] + " " + nivel)
+                }
+            } 
+        }
+
+        niveles(REYES, 0)
+
+    </script>
+</body>
+
+</html>
