@@ -92,6 +92,17 @@
         // imprimir elementos sin duplicar de las 2 listas
         console.log(arrayListaCompletaSinDuplicados)
         
+        // obtener el ol del dom
+        let olHTML = document.getElementById("lista3")
+
+        // añadir al ol cada elemento del la lista sin repetidos
+        for(let i = 0 ; i<arrayListaCompletaSinDuplicados.length;i++){
+            let nodoTexto = document.createTextNode(arrayListaCompletaSinDuplicados[i])
+            let nodoLi = document.createElement("li")
+            nodoLi.appendChild(nodoTexto)
+            olHTML.appendChild(nodoLi)
+        }
+        
 
     </script>
 </body>
