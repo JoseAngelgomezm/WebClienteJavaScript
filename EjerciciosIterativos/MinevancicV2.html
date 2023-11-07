@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+</head>
+
+<body>
+    <h1>Matriz Orginal</h1>
+    <p id="original"></p>
+    <h1>Matriz Modificada</h1>
+    <p id="modificada"></p>
+
+
+    <script>
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"
+
+        let minas = [
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0]
+        ];
+
+        // funcion que recibe una matriz y el id de un parrafo para mostrar una matriz
+        const mostrarMatriz = (matriz, parrafoMostrar) => {
+            let parrafo = document.getElementById(parrafoMostrar)
+            for (let i = 0; i < matriz.length; i++) {
+                for (let j = 0; j < matriz[i].length; j++) {
+                    parrafo.innerHTML += matriz[i][j] + " "
+                }
+                parrafo.innerHTML += "<br/>"
+            }
+        }
+
+        // funcion que devuelve true o false si la coordenada que le pasamos esta en el rango de la matriz
+        const comprobarLimite = (matriz, fila, columna) => {
+            if (fila < matriz.length && fila >= 0 && columna < matriz[fila].length && columna >= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        // funcion que mira un posicion y si esta en el limite le cambia el elemento
+        const mirarLado = (matriz, fila, columna, numeroComparar, numeroCambiar) => {
+            // si el lado que vamos a mirar esta en los limites
+            if (comprobarLimite(matriz, fila, columna)) {
+                // si la posicion que miramos es el numero que esperamos
+                if (matriz[fila][columna] == numeroComparar) {
+                    // cambiamos la posicion por el numero que le vamos a insertar
+                    matriz[fila][columna] = numeroCambiar
+                }
+            }
+        }
+
+        // funcion que recibe un matriz, y devuelve una matriz modificada con las minas puestas
+        const modificarMatriz = (matriz) => {
+            // recorrer la matriz que recibimos
+            for (let i = 0; i < matriz.length; i++) {
+                for (let j = 0; j < matriz[i].length; j++) {
+                    // si la posicion que miro es un 1
+                    if (matriz[i][j] == 1 || matriz[i][j] == 2 || matriz[i][j] == 3) {
+                        if (matriz[i][j] == 1) {
+                            // mirar arriba
+                            mirarLado(matriz, i - 1, j, 0, 2)
+                            // mirar abajo
+                            mirarLado(matriz, i + 1, j, 0, 2)
+                            // mirar izquierda
+                            mirarLado(matriz, i, j - 1, 0, 2)
+                            // mirar a la derecha 
+                            mirarLado(matriz, i, j + 1, 0, 2)
+
+                            // mirar diagonales
+                            // diagonal abajo derecha
+                            mirarLado(matriz, i + 1, j + 1, 0, 2)
+                            // diagonal arriba izquierda
+                            mirarLado(matriz, i - 1, j - 1, 0, 2)
+                            // diagonal arriba derecha
+                            mirarLado(matriz, i - 1, j + 1, 0, 2)
+                            // diagonal abajo izquierda 
+                            mirarLado(matriz, i + 1, j - 1, 0, 2)
+
+                        }
+                        else if (matriz[i][j] == 2) {
+                            // mirar arriba
+                            mirarLado(matriz, i - 1, j, 0, 3)
+                            // mirar abajo
+                            mirarLado(matriz, i + 1, j, 0, 3)
+                            // mirar izquierda
+                            mirarLado(matriz, i, j - 1, 0, 3)
+                            // mirar a la derecha 
+                            mirarLado(matriz, i, j + 1, 0, 3)
+
+                            // mirar diagonales
+                            // diagonal abajo derecha
+                            mirarLado(matriz, i + 1, j + 1, 0, 3)
+                            // diagonal arriba izquierda
+                            mirarLado(matriz, i - 1, j - 1, 0, 3)
+                            // diagonal arriba derecha
+                            mirarLado(matriz, i - 1, j + 1, 0, 3)
+                            // diagonal abajo izquierda 
+                            mirarLado(matriz, i + 1, j - 1, 0, 3)
+
+                        } else if (matriz[i][j] == 3) {
+                            // mirar arriba
+                            mirarLado(matriz, i - 1, j, 0, 4)
+                            // mirar abajo
+                            mirarLado(matriz, i + 1, j, 0, 4)
+                            // mirar izquierda
+                            mirarLado(matriz, i, j - 1, 0, 4)
+                            // mirar a la derecha 
+                            mirarLado(matriz, i, j + 1, 0, 4)
+
+                            // mirar diagonales
+                            // diagonal abajo derecha
+                            mirarLado(matriz, i + 1, j + 1, 0, 4)
+                            // diagonal arriba izquierda
+                            mirarLado(matriz, i - 1, j - 1, 0, 4)
+                            // diagonal arriba derecha
+                            mirarLado(matriz, i - 1, j + 1, 0, 4)
+                            // diagonal abajo izquierda 
+                            mirarLado(matriz, i + 1, j - 1, 0, 4)
+                        }
+                    }
+                }
+            }
+
+            // si contiene ceros cambiarlos por 5
+            for (let i = 0; i < matriz.length; i++) {
+                for (let j = 0; j < matriz[i].length; j++) {
+                    if (matriz[i][j] == 0) {
+                        matriz[i][j] = 5
+                    }
+                }
+            }
+        }
+
+
+
+
+        mostrarMatriz(minas, "original")
+        modificarMatriz(minas)
+        mostrarMatriz(minas, "modificada")
+
+
+
+
+    </script>
+</body>
+
+</html>
