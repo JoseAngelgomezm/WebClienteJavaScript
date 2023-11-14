@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica json</title>
+</head>
+
+<body>
+    <ol id="lista">
+        <li>Perico</li>
+        <li>Juanico</li>
+        <ul>
+            <li>Jose</li>
+            <ul>
+                <li>Roman</li>
+                <li>Marco</li>
+                <li>Rodrigo</li>
+            </ul>
+            <li>Jose</li>
+
+            <li>Lorenzo</li>
+            <ul>
+                <li>Dimas</li>
+                <li>Gestas</li>
+                <li>Malakatos</li>
+                <li>Jose</li>
+            </ul>
+        </ul>
+        <li>Sofoclis</li>
+    </ol>
+
+    <script>
+        // AYUDA PARA AJAX
+        // crear el objeto de peticion XMLHTTP
+        var xhttp = new XMLHttpRequest()
+        // cuando el objeto de peticion este listo para cambiar de estado se realizara la funcion anonima
+        xhttp.onreadystatechange = function () {
+            // si esta peticion tiene readystate 4 y status 200
+            if (this.readyState == 4 && this.status == 200) {
+                // obtener el texto que nos traemos del json
+                let JSONObtenido = this.responseText;
+                // parsear ese json para obtener el array
+                JSONObtenido = JSON.parse(JSONObtenido)
+                // recorrer el array con un map
+                JSONObtenido.map(elemento => changeMan(document.getElementById("lista"), elemento.NOMBREI, elemento.NOMBREF))
+            }
+        };
+
+        xhttp.open("GET", "mans.json", true)
+        xhttp.send()
+
+        // obtener el nodo y pasarlo a la funcion
+        const nodoHTML = document.getElementById("lista1")
+
+        const changeMan = (nodoHTML, primerNombre, segundoNombre) => {
+            // recorrer el nodo que recibe
+            for (let i = 0; i < nodoHTML.children.length; i++) {
+                // si es una ul volver a llamarse con el hijo
+                if (nodoHTML.children[i].nodeName == "UL") {
+                    changeMan(nodoHTML.children[i], primerNombre, segundoNombre)
+                  // ahora sera un li
+                }else{
+                    // si el texto del nodo es igual al primer nombre cambiarlo por el segundo
+                    if(nodoHTML.children[i].innerHTML.toUpperCase() == primerNombre){
+                        nodoHTML.children[i].innerHTML = segundoNombre
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>
