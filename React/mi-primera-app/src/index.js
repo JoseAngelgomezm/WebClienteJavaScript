@@ -2,21 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
-class Square extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      value: null,
-    }
-  }
-  render() {
-    return (
-      <button className="square" onClick={() => this.props.onClick()}>
-        {/* TODO */}
-        {this.props.value}
-      </button>
-    );
-  }
+const Square = (props) => {
+  return (
+    <button className="square" onClick={props.alHacerClick}>
+      {props.value}
+    </button>
+  );
 }
 
 class Board extends React.Component {
@@ -24,19 +15,35 @@ class Board extends React.Component {
     super(props);
     this.state = {
       squares: Array(9).fill(null),
+      xIsNext: true,
     };
   }
   handleClick(i) {
-    const squares = this.state.squares.slice();
-    squares[i] = 'X';
-    this.setState({squares: squares});
+    const squares = this.state.squares.slice(); // hace una copia del array de cuadrados
+    // si hay un ganador o esa casilla ya tiene x o , no pintara nada
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+    squares[i] = this.state.xIsNext ? 'X' : 'O'; // si isNext es true pinta una x sino pinta una o
+    this.setState({
+      squares: squares, // modifica el cuadrado
+      xIsNext: !this.state.xIsNext, // cambiar el turno, para pintar x o 
+    });
   }
   renderSquare(i) {
-    return <Square value={this.state.squares[i]} onClick={() => this.handleClick(i)}/>;
+    // cuando renderiza el tablero, rendezira los cuadrados y cuando hace click pinta ese cuadrado
+    return <Square value={this.state.squares[i]} alHacerClick={() => this.handleClick(i)}/>;
   }
 
   render() {
-    const status = 'Next player: X';
+    const winner = calculateWinner(this.state.squares);
+    let status;
+    // si hay un ganador , renderiza quien es el ganador, sino muestra el turno del siguiente jugador
+    if (winner) {
+      status = 'Winner: ' + winner;
+    } else {
+      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+    }
 
     return (
       <div>
@@ -75,6 +82,27 @@ class Game extends React.Component {
       </div>
     );
   }
+}
+
+// funcion que evalua las posiciones, si hay 3 seguidas iguales te da el ganador
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
 }
 
 // ========================================
