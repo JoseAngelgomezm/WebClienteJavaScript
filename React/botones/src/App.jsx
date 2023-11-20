@@ -2,8 +2,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { Button } from 'reactstrap';
 
-function App () {
-    render(); {
+
+class App extends React.Component{
+    render() {
         return (
             <div className="App">
                 {' '}
