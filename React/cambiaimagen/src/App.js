@@ -18,10 +18,10 @@ const Imagen = (props) => {
           <CardText>
             {props.texto}
           </CardText>
-          <Button onClick={props.OnclickPatras(props.imagen)}>
+          <Button onClick={() => props.OnclickPatras()}>
             {props.texto1}
           </Button>
-          <Button onClick={props.OnclickPalante(props.imagen)}>
+          <Button onClick={() => props.OnclickPalante()}>
             {props.texto2}
           </Button>
         </CardBody>
@@ -34,30 +34,35 @@ const Imagen = (props) => {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state={
-      imagen:"../public/2.jpg",
+    this.state = {
+      imagen: "2.jpg",
     }
   }
 
-  palantePatras(imagen){
-    console.log("palante o patra");
-    if(imagen == "../public/1.web"){
-      this.setState=({imagen:"../public/2.jpg"})
-    }else{
-      this.setState=({imagen:"../public/1.webp"})
+  palantePatras(imagen) {
+    console.log(imagen)
+    let imagenNueva = this.state.imagen
+    if (imagen === "2.jpg") {
+      imagenNueva = "1.webp"
+      this.setState = ({imagen: imagenNueva})
+    } else {
+      imagenNueva = "2.jpg"
+      this.setState = ({imagen: imagenNueva})
     }
   }
 
-  
+
 
   render() {
     return (
-      <div><Imagen texto2="Palante" 
-      texto1="Patras" 
-      OnclickPalante={() => this.palantePatras()} 
-      OnclickPatras={() => this.palantePatras()} 
-      img={this.state.imagen} 
-      subtitulo="esta es una imagen de prueba" texto="esto es una imagen de prueba que se utiliza para aprender a usa react" textoUno="SiqueSi" textodos="NoqueNo" titulo="esto es una imagen" /></div>
+      <div><Imagen texto2="Palante"
+        texto1="Patras"
+        OnclickPalante={() => this.palantePatras(this.state.imagen)}
+        OnclickPatras={() => this.palantePatras(this.state.imagen)}
+        img={this.state.imagen}
+        subtitulo="esta es una imagen de prueba"
+        texto="esto es una imagen de prueba que se utiliza para aprender a usa react"
+        titulo="esto es una imagen" /></div>
     )
   }
 }
