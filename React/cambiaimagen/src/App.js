@@ -40,7 +40,7 @@ class App extends React.Component {
   }
 
   palantePatras(imagen){
-    console.log("palabte o patra");
+    console.log("palante o patra");
     if(imagen == "../public/1.web"){
       this.setState=({imagen:"../public/2.jpg"})
     }else{
