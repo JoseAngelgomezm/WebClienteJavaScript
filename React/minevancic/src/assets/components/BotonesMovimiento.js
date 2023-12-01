@@ -1,18 +1,18 @@
 import React from "react";
-import BotonMinevancic from "./BotonMinevancic";
+import {Button} from "reactstrap";
 
 export default function BotonesDireccion(){
     return(
         <>
         <div id="arriba">
-          <BotonMinevancic texto={"⬆️"}></BotonMinevancic>
+          <Button>{"⬆️"}</Button>
         </div>
         <div id="central">
-          <BotonMinevancic texto={"⬅️"}></BotonMinevancic>
-          <BotonMinevancic texto={"➡️"}></BotonMinevancic>
+          <Button>{"⬅️"}</Button>
+          <Button>{"➡️"}</Button>
         </div>
         <div id="abajo">
-          <BotonMinevancic texto={"⬇️"}></BotonMinevancic>
+          <Button>{"⬇️"}</Button>
         </div>
       </>
     )

@@ -1,0 +1,11 @@
+if (contadorMinas < limiteMinas) {
+        let aleatorio = Math.floor(Math.random() * 2);
+        if (aleatorio == 1) {
+            arrayFilas[i][j] = (<Button>{1}</Button>)
+        } else {
+            arrayFilas[i][j] = (<Button>{0}</Button>)
+        }
+        contadorMinas++;
+    } else {
+        arrayColumnas[i][j] = (<Button>{0}</Button>)
+    }
