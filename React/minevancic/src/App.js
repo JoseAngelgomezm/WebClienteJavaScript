@@ -11,9 +11,21 @@ class App extends React.Component {
     this.state = {
       filas: 10,
       columnas: 10,
-      numeroMinas: 1,
       posicion: { fila: 9, columna: 0 },
+      posicionesMinas: this.determinarMinas(),
     }
+  }
+
+  determinarMinas = () => {
+    let arrayPosicionesMinas = []
+    
+    for(let i = 0; i<this.numeroMinas; i++){
+      let filaAleatoria = Math.floor(Math.random() * this.state.filas);
+      let columnaAleatoria = Math.floor(Math.random() * this.state.columnas);
+      arrayPosicionesMinas.push([filaAleatoria , columnaAleatoria])
+    }
+
+    return arrayPosicionesMinas
   }
 
   subirMinas = () => {
@@ -79,9 +91,10 @@ class App extends React.Component {
   render() {
     return (
       <>
-
         <PanelMinas clickSubirMina={() => this.subirMinas()} clickBajarMina={() => this.bajarMinas()} clickJugar={() => this.jugar()}></PanelMinas>
-        <Tablero pintar={this.state.posicion} numeroMinas={this.state.numeroMinas} columnas={this.state.columnas} filas={this.state.filas} />
+        <br></br>
+        <Tablero pintar={this.state.posicion} minas={this.state.posicionesMinas} columnas={this.state.columnas} filas={this.state.filas} />
+        <br></br>
         <BotonesMovimiento abajo={() => this.moverAbajo()} arriba={() => this.moverArriba()} izquierda={() => this.moverIzquierda()} derecha={() => this.moverDerecha()} />
       </>
 
