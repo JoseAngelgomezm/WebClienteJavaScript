@@ -9,33 +9,69 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      filas: 4,
-      columnas: 4,
-      numeroMinas:1,
+      filas: 10,
+      columnas: 10,
+      numeroMinas: 1,
+      posicion: { fila: 9, columna: 0 },
     }
   }
 
-  subirMinas = () =>{
-     let parrafoMinas = document.getElementById("numMinas");
-     let numeroMinas = parrafoMinas.innerHTML;
-      if(numeroMinas < 20){
-        numeroMinas++;
-      }
-     parrafoMinas.innerHTML = numeroMinas;
-  }
-  
-  bajarMinas = () =>{
+  subirMinas = () => {
     let parrafoMinas = document.getElementById("numMinas");
-     let numeroMinas = parrafoMinas.innerHTML;
-    if(numeroMinas > 1){
+    let numeroMinas = parrafoMinas.innerHTML;
+    if (numeroMinas < 20) {
+      numeroMinas++;
+    }
+    parrafoMinas.innerHTML = numeroMinas;
+  }
+
+  bajarMinas = () => {
+    let parrafoMinas = document.getElementById("numMinas");
+    let numeroMinas = parrafoMinas.innerHTML;
+    if (numeroMinas > 1) {
       numeroMinas--;
     }
-     parrafoMinas.innerHTML = numeroMinas;
+    parrafoMinas.innerHTML = numeroMinas;
   }
 
-  jugar(){
+  jugar() {
     let numeroMinasHTML = document.getElementById("numMinas").innerHTML;
-    this.setState({numeroMinas:numeroMinasHTML})
+    this.setState({ numeroMinas: numeroMinasHTML })
+  }
+
+  moverAbajo() {
+    if (this.state.posicion.fila >= 0 && this.state.posicion.fila < this.state.filas -1) {
+      let copiaPosicion = this.state.posicion
+      copiaPosicion.fila += 1;
+      this.setState({ posicion: copiaPosicion })
+    }
+
+  }
+
+  moverArriba() {
+    if (this.state.posicion.fila > 0 && this.state.posicion.fila < this.state.filas) {
+      let copiaPosicion = this.state.posicion
+      copiaPosicion.fila -= 1;
+      this.setState({ posicion: copiaPosicion })
+    }
+
+  }
+
+  moverIzquierda() {
+    if (this.state.posicion.columna > 0 && this.state.posicion.fila < this.state.columnas) {
+      let copiaPosicion = this.state.posicion
+      copiaPosicion.columna -= 1;
+      this.setState({ posicion: copiaPosicion })
+    }
+  }
+
+  moverDerecha() {
+    if (this.state.posicion.columna >= 0 && this.state.posicion.columna < this.state.columnas -1) {
+      let copiaPosicion = this.state.posicion
+      copiaPosicion.columna += 1;
+      this.setState({ posicion: copiaPosicion })
+    }
+
   }
 
 
@@ -44,9 +80,9 @@ class App extends React.Component {
     return (
       <>
 
-        <PanelMinas clickSubirMina={()=>this.subirMinas()} clickBajarMina={() => this.bajarMinas()} clickJugar={() => this.jugar()}></PanelMinas>
-        <Tablero numeroMinas={this.state.numeroMinas} columnas={this.state.columnas} filas={this.state.filas}/>
-        <BotonesMovimiento/>
+        <PanelMinas clickSubirMina={() => this.subirMinas()} clickBajarMina={() => this.bajarMinas()} clickJugar={() => this.jugar()}></PanelMinas>
+        <Tablero pintar={this.state.posicion} numeroMinas={this.state.numeroMinas} columnas={this.state.columnas} filas={this.state.filas} />
+        <BotonesMovimiento abajo={() => this.moverAbajo()} arriba={() => this.moverArriba()} izquierda={() => this.moverIzquierda()} derecha={() => this.moverDerecha()} />
       </>
 
     )
