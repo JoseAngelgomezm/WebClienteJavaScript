@@ -63,6 +63,8 @@ class App extends React.Component {
       matrizTablero.push(arrayColumnas)
     }
 
+
+
     console.log(matrizTablero)
 
     return matrizTablero;
