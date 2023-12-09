@@ -12,38 +12,58 @@ class App extends React.Component {
       filas: 8,
       columnas: 8,
       posicion: { fila: 7, columna: 0 },
-      campo: [] ,
-      numeroMinas: 1,
+      campo: [],
+      numeroMinas: undefined,
     }
   }
 
   generarTablero = () => {
-    let matrizTablero = Array(this.state.filas)
-    let minasPuestas = 0;
+    let matrizTablero = []
+    let posicionesDeMinasSacadas = 0;
     let posicionesMinas = []
+
     // sacar posiciones aleatorias como minas hay
-    while(minasPuestas < this.state.numeroMinas){
+    while (posicionesDeMinasSacadas < this.state.numeroMinas) {
       let posiciones = []
       // sacar una fila aleatoria
       let filaAleatoria = Math.floor(Math.random() * this.state.filas);
       // sacar una columna aleatoria
       let columnaAleatoria = Math.floor(Math.random() * this.state.columnas);
       // al array de posiciones ponerle la posicion aleatoria
-      posiciones.push(filaAleatoria,columnaAleatoria)
+      posiciones.push(filaAleatoria, columnaAleatoria)
       // en añadir cada array de posiciones aleatorias al array donde estaran todas las posiciones de las minas
       posicionesMinas.push(posiciones)
-      minasPuestas ++
+      posicionesDeMinasSacadas++
     }
 
     console.log(posicionesMinas)
+    // ornder la matriz de minas para que las ponga por posicion
+    posicionesMinas.sort()
+    // contador que contiene la fila que va mirando de la matriz de posiciones de las minas
+    let contadorFilaPosicionesMinas = 0;
 
-    
-    for(let i = 0; i<this.state.filas; i++){
-      matrizTablero[i] = Array(this.state.columnas)
-      for(let j = 0; j<this.state.columnas; j++){
-        matrizTablero[i][j] = 999
+    // poner las minas
+    for (let i = 0; i < this.state.filas; i++) {
+      // crear un array donde iran las columnas
+      let arrayColumnas = []
+      // rellenar cada array de columnas con las minas
+      for (let j = 0; j < this.state.columnas; j++) {
+        // si la posicion que voy a poner un numero es la de la mina
+        if (contadorFilaPosicionesMinas < posicionesMinas.length &&
+          posicionesMinas[contadorFilaPosicionesMinas][0] === i &&
+          posicionesMinas[contadorFilaPosicionesMinas][1] === j) {
+
+          arrayColumnas[j] = 1
+          contadorFilaPosicionesMinas++
+
+        } else {
+          arrayColumnas[j] = 999
+        }
       }
+      matrizTablero.push(arrayColumnas)
     }
+
+    console.log(matrizTablero)
 
     return matrizTablero;
   }
@@ -68,11 +88,18 @@ class App extends React.Component {
   }
 
   jugar() {
-    let numeroMinasHTML = document.getElementById("numMinas").innerHTML;
     // obtener las minas y modificar el estado de las que hay que poner
-    let tableroNuevo = this.generarTablero();
+    let numeroMinasHTML = document.getElementById("numMinas").innerHTML
+
     // generar el tablero
-    this.setState({ numeroMinas: numeroMinasHTML, campo:tableroNuevo})
+    let tableroNuevo = this.generarTablero()
+
+    let copiaEstado = this.state
+
+    copiaEstado = { numeroMinas: numeroMinasHTML, campo: tableroNuevo }
+
+    this.setState({ numeroMinas: copiaEstado.numeroMinas, campo: copiaEstado.campo })
+
   }
 
   moverAbajo() {
