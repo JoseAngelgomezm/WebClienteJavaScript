@@ -11,7 +11,7 @@ class App extends React.Component {
     this.state = {
       filas: 8,
       columnas: 8,
-      posicion: { fila: 9, columna: 0 },
+      posicion: { fila: 7, columna: 0 },
       campo: [] ,
       numeroMinas: 1,
     }
@@ -19,6 +19,24 @@ class App extends React.Component {
 
   generarTablero = () => {
     let matrizTablero = Array(this.state.filas)
+    let minasPuestas = 0;
+    let posicionesMinas = []
+    // sacar posiciones aleatorias como minas hay
+    while(minasPuestas < this.state.numeroMinas){
+      let posiciones = []
+      // sacar una fila aleatoria
+      let filaAleatoria = Math.floor(Math.random() * this.state.filas);
+      // sacar una columna aleatoria
+      let columnaAleatoria = Math.floor(Math.random() * this.state.columnas);
+      // al array de posiciones ponerle la posicion aleatoria
+      posiciones.push(filaAleatoria,columnaAleatoria)
+      // en añadir cada array de posiciones aleatorias al array donde estaran todas las posiciones de las minas
+      posicionesMinas.push(posiciones)
+      minasPuestas ++
+    }
+
+    console.log(posicionesMinas)
+
     
     for(let i = 0; i<this.state.filas; i++){
       matrizTablero[i] = Array(this.state.columnas)
