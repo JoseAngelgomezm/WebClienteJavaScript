@@ -6,9 +6,9 @@ export default function PanelMinas (props){
         <div>
             <p>Numero de minas</p>
             <p id="numMinas">1</p>
-            <Button onClick={props.clickSubirMina} >{"+"}</Button>
-            <Button onClick={props.clickBajarMina} >{"-"}</Button>
-            <Button onClick={props.clickJugar}>{"Jugar"}</Button>
+            <Button onClick={() => props.clickSubirMina()} >{"+"}</Button>
+            <Button onClick={() => props.clickBajarMina()} >{"-"}</Button>
+            <Button onClick={() => props.clickJugar()}>{"Jugar"}</Button>
         </div>
     )
 }
