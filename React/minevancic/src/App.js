@@ -12,11 +12,15 @@ class App extends React.Component {
       filas: 8,
       columnas: 7,
       posicion: { fila: 7, columna: 0 },
+      haGanado: false,
+      haPerdido: false,
       campo: [],
     }
   }
 
   generarTablero = (numeroMinas) => {
+    // matriz que sera el tablero con los 999 y las minas a 1
+    let matrizTablero = []
     let posicionesDeMinasSacadas = 0;
     let posicionesMinas = []
 
@@ -39,9 +43,6 @@ class App extends React.Component {
 
     // contador que contiene la fila que va mirando de la matriz de posiciones de las minas
     let contadorFilaPosicionesMinas = 0;
-
-    // matriz que sera el tablero con los 999 y las minas a 1
-    let matrizTablero = []
 
     // poner las minas a 1 y los 999
     for (let i = 0; i < this.state.filas; i++) {
@@ -93,43 +94,41 @@ class App extends React.Component {
         }
       }
     }
-
-    console.log(matrizTablero)
     return matrizTablero;
   }
 
   mirar8Lados = (i, j, matrizTablero, numeroQuePoner) => {
     // cambiar los 8 lados
     //arriba
-    if (i - 1 < matrizTablero.length && i - 1 >= 0 && matrizTablero[i - 1][j] === 999) {
+    if (i - 1 < matrizTablero.length && i - 1 >= 0 && (matrizTablero[i - 1][j] === 999)) {
       matrizTablero[i - 1][j] = numeroQuePoner
     }
     //abajo
-    if (i + 1 < matrizTablero.length && i + 1 >= 0 && matrizTablero[i + 1][j] === 999) {
+    if (i + 1 < matrizTablero.length && i + 1 >= 0 && (matrizTablero[i + 1][j] === 999)) {
       matrizTablero[i + 1][j] = numeroQuePoner
     }
     // izquierda
-    if (j - 1 < matrizTablero[i].length && j - 1 >= 0 && matrizTablero[i][j - 1] === 999) {
+    if (j - 1 < matrizTablero[i].length && j - 1 >= 0 && (matrizTablero[i][j - 1] === 999)) {
       matrizTablero[i][j - 1] = numeroQuePoner
     }
     //derecha
-    if (j + 1 < matrizTablero[i].length && j + 1 >= 0 && matrizTablero[i][j + 1] === 999) {
+    if (j + 1 < matrizTablero[i].length && j + 1 >= 0 && (matrizTablero[i][j + 1] === 999)) {
       matrizTablero[i][j + 1] = numeroQuePoner
     }
     // diagonal arriba derecha
-    if (i - 1 < matrizTablero.length && i - 1 >= 0 && j + 1 < matrizTablero[i].length && j + 1 >= 0 && matrizTablero[i - 1][j + 1] === 999) {
+    if (i - 1 < matrizTablero.length && i - 1 >= 0 && j + 1 < matrizTablero[i].length && j + 1 >= 0 && (matrizTablero[i - 1][j + 1] === 999)) {
       matrizTablero[i - 1][j + 1] = numeroQuePoner
     }
     // diagonal arriba izquierda
-    if (i - 1 < matrizTablero.length && i - 1 >= 0 && j - 1 < matrizTablero[i].length && j - 1 >= 0 && matrizTablero[i - 1][j - 1] === 999) {
+    if (i - 1 < matrizTablero.length && i - 1 >= 0 && j - 1 < matrizTablero[i].length && j - 1 >= 0 && (matrizTablero[i - 1][j - 1] === 999)) {
       matrizTablero[i - 1][j - 1] = numeroQuePoner
     }
     // diagonal abajo derecha
-    if (i + 1 < matrizTablero.length && i + 1 >= 0 && j + 1 < matrizTablero[i].length && j + 1 >= 0 && matrizTablero[i + 1][j + 1] === 999) {
+    if (i + 1 < matrizTablero.length && i + 1 >= 0 && j + 1 < matrizTablero[i].length && j + 1 >= 0 && (matrizTablero[i + 1][j + 1] === 999)) {
       matrizTablero[i + 1][j + 1] = numeroQuePoner
     }
     // diagonal abajo izquierda
-    if (i + 1 < matrizTablero.length && i + 1 >= 0 && j - 1 < matrizTablero[i].length && j - 1 >= 0 && matrizTablero[i + 1][j - 1] === 999) {
+    if (i + 1 < matrizTablero.length && i + 1 >= 0 && j - 1 < matrizTablero[i].length && j - 1 >= 0 && (matrizTablero[i + 1][j - 1] === 999)) {
       matrizTablero[i + 1][j - 1] = numeroQuePoner
     }
   }
@@ -169,7 +168,6 @@ class App extends React.Component {
       copiaPosicion.fila += 1;
       this.setState({ posicion: copiaPosicion })
     }
-
   }
 
   moverArriba() {
@@ -178,7 +176,6 @@ class App extends React.Component {
       copiaPosicion.fila -= 1;
       this.setState({ posicion: copiaPosicion })
     }
-
   }
 
   moverIzquierda() {
@@ -195,7 +192,6 @@ class App extends React.Component {
       copiaPosicion.columna += 1;
       this.setState({ posicion: copiaPosicion })
     }
-
   }
 
 
