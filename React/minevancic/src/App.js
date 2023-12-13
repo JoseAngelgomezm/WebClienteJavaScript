@@ -33,9 +33,16 @@ class App extends React.Component {
       let columnaAleatoria = Math.floor(Math.random() * this.state.columnas);
       // al array de posiciones ponerle la posicion aleatoria
       posiciones.push(filaAleatoria, columnaAleatoria)
-      // en añadir cada array de posiciones aleatorias al array donde estaran todas las posiciones de las minas
-      posicionesMinas.push(posiciones)
-      posicionesDeMinasSacadas++
+
+      // si la posicion es la casilla de salida o la de meta no ponerla
+      if ((posiciones[0] === 7 && posiciones[1] === 7) || (posiciones[0] === 0 && posiciones[1] === 6)) {
+        posicionesDeMinasSacadas++
+      } else {
+        // en añadir cada array de posiciones aleatorias al array donde estaran todas las posiciones de las minas
+        posicionesMinas.push(posiciones)
+        posicionesDeMinasSacadas++
+      }
+
     }
 
     // ornder la matriz de minas para que las ponga por posicion
@@ -81,54 +88,57 @@ class App extends React.Component {
             if (matrizTablero[i][j] === 1) {
               this.mirar8Lados(i, j, matrizTablero, 2)
               // si es un 2
-            } else if (i > 0 && i < matrizTablero.length && j > 0 && j < matrizTablero[i].length && matrizTablero[i][j] === 2) {
+            } else if (matrizTablero[i][j] === 2) {
               this.mirar8Lados(i, j, matrizTablero, 3)
               // si es un 3
-            } else if (i > 0 && i < matrizTablero.length && j > 0 && j < matrizTablero[i].length && matrizTablero[i][j] === 3) {
+            } else if (matrizTablero[i][j] === 3) {
               this.mirar8Lados(i, j, matrizTablero, 4)
               // si es un 4
-            } else if (i > 0 && i < matrizTablero.length && j > 0 && j < matrizTablero[i].length && matrizTablero[i][j] === 4) {
+            } else if (matrizTablero[i][j] === 4) {
               this.mirar8Lados(i, j, matrizTablero, 5)
             }
           }
         }
       }
     }
+
+    console.log(matrizTablero)
+
     return matrizTablero;
   }
 
   mirar8Lados = (i, j, matrizTablero, numeroQuePoner) => {
     // cambiar los 8 lados
     //arriba
-    if (i - 1 < matrizTablero.length && i - 1 >= 0 && (matrizTablero[i - 1][j] === 999)) {
+    if ((i - 1 < matrizTablero.length -1) && (i - 1 >= 0) && (matrizTablero[i - 1][j] === 999)) {
       matrizTablero[i - 1][j] = numeroQuePoner
     }
     //abajo
-    if (i + 1 < matrizTablero.length && i + 1 >= 0 && (matrizTablero[i + 1][j] === 999)) {
+    if ((i + 1 < matrizTablero.length -1) && (i + 1 >= 0) && (matrizTablero[i + 1][j] === 999)) {
       matrizTablero[i + 1][j] = numeroQuePoner
     }
     // izquierda
-    if (j - 1 < matrizTablero[i].length && j - 1 >= 0 && (matrizTablero[i][j - 1] === 999)) {
+    if ((j - 1 < matrizTablero[i].length -1) && (j - 1 >= 0) && (matrizTablero[i][j - 1] === 999)) {
       matrizTablero[i][j - 1] = numeroQuePoner
     }
     //derecha
-    if (j + 1 < matrizTablero[i].length && j + 1 >= 0 && (matrizTablero[i][j + 1] === 999)) {
+    if ((j + 1 < matrizTablero[i].length -1) && (j + 1 >= 0) && (matrizTablero[i][j + 1] === 999)) {
       matrizTablero[i][j + 1] = numeroQuePoner
     }
     // diagonal arriba derecha
-    if (i - 1 < matrizTablero.length && i - 1 >= 0 && j + 1 < matrizTablero[i].length && j + 1 >= 0 && (matrizTablero[i - 1][j + 1] === 999)) {
+    if ((i - 1 < matrizTablero.length -1) && (i - 1 >= 0) && (j + 1 < matrizTablero[i].length) -1 && (j + 1 >= 0) && (matrizTablero[i - 1][j + 1] === 999)) {
       matrizTablero[i - 1][j + 1] = numeroQuePoner
     }
     // diagonal arriba izquierda
-    if (i - 1 < matrizTablero.length && i - 1 >= 0 && j - 1 < matrizTablero[i].length && j - 1 >= 0 && (matrizTablero[i - 1][j - 1] === 999)) {
+    if ((i - 1 < matrizTablero.length -1) && (i - 1 >= 0) && (j - 1 < matrizTablero[i].length -1) && (j - 1 >= 0) && (matrizTablero[i - 1][j - 1] === 999)) {
       matrizTablero[i - 1][j - 1] = numeroQuePoner
     }
     // diagonal abajo derecha
-    if (i + 1 < matrizTablero.length && i + 1 >= 0 && j + 1 < matrizTablero[i].length && j + 1 >= 0 && (matrizTablero[i + 1][j + 1] === 999)) {
+    if ((i + 1 < matrizTablero.length -1) && (i + 1 >= 0) && (j + 1 < matrizTablero[i].length -1) && (j + 1 >= 0) && (matrizTablero[i + 1][j + 1] === 999)) {
       matrizTablero[i + 1][j + 1] = numeroQuePoner
     }
     // diagonal abajo izquierda
-    if (i + 1 < matrizTablero.length && i + 1 >= 0 && j - 1 < matrizTablero[i].length && j - 1 >= 0 && (matrizTablero[i + 1][j - 1] === 999)) {
+    if ((i + 1 < matrizTablero.length -1) && (i + 1 >= 0) && (j - 1 < matrizTablero[i].length -1) && (j - 1 >= 0) && (matrizTablero[i + 1][j - 1] === 999)) {
       matrizTablero[i + 1][j - 1] = numeroQuePoner
     }
   }
