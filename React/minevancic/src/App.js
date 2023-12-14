@@ -4,6 +4,7 @@ import './App.css'
 import BotonesMovimiento from './assets/components/BotonesMovimiento.js'
 import Tablero from './assets/components/Tablero.js'
 import PanelMinas from './assets/components/PanelMinas.js'
+import { Button } from "reactstrap";
 // crear el class component App 
 class App extends React.Component {
   constructor(props) {
@@ -34,8 +35,9 @@ class App extends React.Component {
       // al array de posiciones ponerle la posicion aleatoria
       posiciones.push(filaAleatoria, columnaAleatoria)
 
-      // si la posicion es la casilla de salida o la de meta no ponerla
-      if ((posiciones[0] === 7 && posiciones[1] === 7) || (posiciones[0] === 0 && posiciones[1] === 6)) {
+      // si la posicion es la casilla de salida o la de meta o alrededores no ponerla
+      if ((posiciones[0] === 7 && posiciones[1] === 0) || (posiciones[0] === 0 && posiciones[1] === 6) || (posiciones[0] === 6 && posiciones[1] === 0) ||
+        (posiciones[0] === 7 && posiciones[1] === 1) || (posiciones[0] === 0 && posiciones[1] === 5) || (posiciones[0] === 1 && posiciones[1] === 6)) {
         posicionesDeMinasSacadas++
       } else {
         // en añadir cada array de posiciones aleatorias al array donde estaran todas las posiciones de las minas
@@ -74,9 +76,9 @@ class App extends React.Component {
 
     // resolver las distancias
     let flag = true
-    // mientras el breaker sea 0 , continuar haciendo cosas 
+    // mientras el breaker sea true , continuar haciendo cosas 
     while (flag) {
-      // poner el flag a true para que salga
+      // poner el flag a false para que salga
       flag = false
       // recorrer la matriz entera
       for (let i = 0; i < matrizTablero.length; i++) {
@@ -110,35 +112,35 @@ class App extends React.Component {
   mirar8Lados = (i, j, matrizTablero, numeroQuePoner) => {
     // cambiar los 8 lados
     //arriba
-    if ((i - 1 < matrizTablero.length -1) && (i - 1 >= 0) && (matrizTablero[i - 1][j] === 999)) {
+    if ((i - 1 < matrizTablero.length - 1) && (i - 1 >= 0) && (matrizTablero[i - 1][j] === 999 || matrizTablero[i - 1][j] > numeroQuePoner)) {
       matrizTablero[i - 1][j] = numeroQuePoner
     }
     //abajo
-    if ((i + 1 < matrizTablero.length -1) && (i + 1 >= 0) && (matrizTablero[i + 1][j] === 999)) {
+    if ((i + 1 < matrizTablero.length - 1) && (i + 1 >= 0) && (matrizTablero[i + 1][j] === 999 || matrizTablero[i + 1][j] > numeroQuePoner)) {
       matrizTablero[i + 1][j] = numeroQuePoner
     }
     // izquierda
-    if ((j - 1 < matrizTablero[i].length -1) && (j - 1 >= 0) && (matrizTablero[i][j - 1] === 999)) {
+    if ((j - 1 < matrizTablero[i].length - 1) && (j - 1 >= 0) && (matrizTablero[i][j - 1] === 999 || matrizTablero[i][j - 1] > numeroQuePoner)) {
       matrizTablero[i][j - 1] = numeroQuePoner
     }
     //derecha
-    if ((j + 1 < matrizTablero[i].length -1) && (j + 1 >= 0) && (matrizTablero[i][j + 1] === 999)) {
+    if ((j + 1 < matrizTablero[i].length - 1) && (j + 1 >= 0) && (matrizTablero[i][j + 1] === 999 || matrizTablero[i][j + 1] > numeroQuePoner)) {
       matrizTablero[i][j + 1] = numeroQuePoner
     }
     // diagonal arriba derecha
-    if ((i - 1 < matrizTablero.length -1) && (i - 1 >= 0) && (j + 1 < matrizTablero[i].length) -1 && (j + 1 >= 0) && (matrizTablero[i - 1][j + 1] === 999)) {
+    if ((i - 1 < matrizTablero.length - 1) && (i - 1 >= 0) && (j + 1 < matrizTablero[i].length) - 1 && (j + 1 >= 0) && (matrizTablero[i - 1][j + 1] === 999 || matrizTablero[i - 1][j + 1] > numeroQuePoner)) {
       matrizTablero[i - 1][j + 1] = numeroQuePoner
     }
     // diagonal arriba izquierda
-    if ((i - 1 < matrizTablero.length -1) && (i - 1 >= 0) && (j - 1 < matrizTablero[i].length -1) && (j - 1 >= 0) && (matrizTablero[i - 1][j - 1] === 999)) {
+    if ((i - 1 < matrizTablero.length - 1) && (i - 1 >= 0) && (j - 1 < matrizTablero[i].length - 1) && (j - 1 >= 0) && (matrizTablero[i - 1][j - 1] === 999 || matrizTablero[i - 1][j - 1] > numeroQuePoner)) {
       matrizTablero[i - 1][j - 1] = numeroQuePoner
     }
     // diagonal abajo derecha
-    if ((i + 1 < matrizTablero.length -1) && (i + 1 >= 0) && (j + 1 < matrizTablero[i].length -1) && (j + 1 >= 0) && (matrizTablero[i + 1][j + 1] === 999)) {
+    if ((i + 1 < matrizTablero.length - 1) && (i + 1 >= 0) && (j + 1 < matrizTablero[i].length - 1) && (j + 1 >= 0) && (matrizTablero[i + 1][j + 1] === 999 || matrizTablero[i + 1][j + 1] > numeroQuePoner)) {
       matrizTablero[i + 1][j + 1] = numeroQuePoner
     }
     // diagonal abajo izquierda
-    if ((i + 1 < matrizTablero.length -1) && (i + 1 >= 0) && (j - 1 < matrizTablero[i].length -1) && (j - 1 >= 0) && (matrizTablero[i + 1][j - 1] === 999)) {
+    if ((i + 1 < matrizTablero.length - 1) && (i + 1 >= 0) && (j - 1 < matrizTablero[i].length - 1) && (j - 1 >= 0) && (matrizTablero[i + 1][j - 1] === 999 || matrizTablero[i + 1][j - 1] > numeroQuePoner)) {
       matrizTablero[i + 1][j - 1] = numeroQuePoner
     }
   }
@@ -168,40 +170,86 @@ class App extends React.Component {
     let tableroNuevo = this.generarTablero(numeroMinasHTML)
 
     // setear el campo
+    let copiaEstado = this.state
+    copiaEstado.posicion.fila = 7
+    copiaEstado.posicion.columna = 0
+    copiaEstado.haGanado = false;
+    copiaEstado.haPerdido = false;
     this.setState({ campo: tableroNuevo })
 
   }
 
-  moverAbajo() {
-    if (this.state.posicion.fila >= 0 && this.state.posicion.fila < this.state.filas - 1) {
-      let copiaPosicion = this.state.posicion
-      copiaPosicion.fila += 1;
-      this.setState({ posicion: copiaPosicion })
+  comprobarSiHaGanadoOPerdido() {
+    if (this.state.posicion.fila === 0 && this.state.posicion.columna === 6) {
+      let copiaEstado = this.state
+      copiaEstado.haGanado = true
+      copiaEstado.campo = "Has Ganado"
+      this.setState({ copiaEstado })
+    } else if (this.state.campo[this.state.posicion.fila][this.state.posicion.columna] === 1) {
+      let copiaEstado = this.state
+      copiaEstado.haPerdido = true
+      copiaEstado.campo = "Has Perdido"
     }
+  }
+
+  moverAbajo() {
+    // si no ha ganado o no ha perdido moverse
+    if (this.state.haGanado === false && this.state.haPerdido === false) {
+      if (this.state.posicion.fila >= 0 && this.state.posicion.fila < this.state.filas - 1) {
+        let copiaPosicion = this.state.posicion
+        copiaPosicion.fila += 1;
+        this.setState({ posicion: copiaPosicion })
+      }
+    } else {
+
+    }
+    // siempre comprobar si ha ganado o ha perdido
+    this.comprobarSiHaGanadoOPerdido()
   }
 
   moverArriba() {
-    if (this.state.posicion.fila > 0 && this.state.posicion.fila < this.state.filas) {
-      let copiaPosicion = this.state.posicion
-      copiaPosicion.fila -= 1;
-      this.setState({ posicion: copiaPosicion })
+    // si no ha ganado o no ha perdido moverse
+    if (this.state.haGanado === false && this.state.haPerdido === false) {
+      if (this.state.posicion.fila > 0 && this.state.posicion.fila < this.state.filas) {
+        let copiaPosicion = this.state.posicion
+        copiaPosicion.fila -= 1;
+        this.setState({ posicion: copiaPosicion })
+      }
+    } else {
+
     }
+    // siempre comprobar si ha ganado o ha perdido
+    this.comprobarSiHaGanadoOPerdido()
   }
 
   moverIzquierda() {
-    if (this.state.posicion.columna > 0 && this.state.posicion.columna < this.state.columnas) {
-      let copiaPosicion = this.state.posicion
-      copiaPosicion.columna -= 1;
-      this.setState({ posicion: copiaPosicion })
+    // si no ha ganado o no ha perdido moverse
+    if (this.state.haGanado === false && this.state.haPerdido === false) {
+      if (this.state.posicion.columna > 0 && this.state.posicion.columna < this.state.columnas) {
+        let copiaPosicion = this.state.posicion
+        copiaPosicion.columna -= 1;
+        this.setState({ posicion: copiaPosicion })
+      }
+    } else {
+
     }
+    // siempre comprobar si ha ganado o ha perdido
+    this.comprobarSiHaGanadoOPerdido()
   }
 
   moverDerecha() {
-    if (this.state.posicion.columna >= 0 && this.state.posicion.columna < this.state.columnas - 1) {
-      let copiaPosicion = this.state.posicion
-      copiaPosicion.columna += 1;
-      this.setState({ posicion: copiaPosicion })
+    // si no ha ganado o no ha perdido moverse
+    if (this.state.haGanado === false && this.state.haPerdido === false) {
+      if (this.state.posicion.columna >= 0 && this.state.posicion.columna < this.state.columnas - 1) {
+        let copiaPosicion = this.state.posicion
+        copiaPosicion.columna += 1;
+        this.setState({ posicion: copiaPosicion })
+      }
+    } else {
+
     }
+    // siempre comprobar si ha ganado o ha perdido
+    this.comprobarSiHaGanadoOPerdido()
   }
 
 
@@ -209,11 +257,23 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <PanelMinas clickSubirMina={() => this.subirMinas()} clickBajarMina={() => this.bajarMinas()} clickJugar={() => this.jugar()}></PanelMinas>
-        <br></br>
-        <Tablero pintar={this.state.posicion} posiciones={this.state.campo} columnas={this.state.columnas} filas={this.state.filas} />
-        <br></br>
-        <BotonesMovimiento abajo={() => this.moverAbajo()} arriba={() => this.moverArriba()} izquierda={() => this.moverIzquierda()} derecha={() => this.moverDerecha()} />
+        <div id="juego" class="centrado">
+          <PanelMinas clickSubirMina={() => this.subirMinas()} clickBajarMina={() => this.bajarMinas()} clickJugar={() => this.jugar()}></PanelMinas>
+          <br></br>
+          <Tablero pintar={this.state.posicion} posiciones={this.state.campo} columnas={this.state.columnas} filas={this.state.filas} />
+          <br></br>
+          <BotonesMovimiento abajo={() => this.moverAbajo()} arriba={() => this.moverArriba()} izquierda={() => this.moverIzquierda()} derecha={() => this.moverDerecha()} />
+        </div>
+
+        <div id="info" class="centrado">
+          <Button color="danger">distancia 2</Button>
+          <br />
+          <Button color="warning">distancia 3</Button>
+          <br />
+          <Button color="success">distancia 4</Button>
+          <br />
+          <Button color="secondary">distancia 5</Button>
+        </div>
       </>
 
     )
