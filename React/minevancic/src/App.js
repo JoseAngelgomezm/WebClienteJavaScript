@@ -5,6 +5,7 @@ import BotonesMovimiento from './assets/components/BotonesMovimiento.js'
 import Tablero from './assets/components/Tablero.js'
 import PanelMinas from './assets/components/PanelMinas.js'
 import { Button } from "reactstrap";
+
 // crear el class component App 
 class App extends React.Component {
   constructor(props) {
@@ -35,19 +36,21 @@ class App extends React.Component {
       // al array de posiciones ponerle la posicion aleatoria
       posiciones.push(filaAleatoria, columnaAleatoria)
 
-      // si la posicion es la casilla de salida o la de meta o alrededores no ponerla
+      // si la posicion es la casilla de salida o la de meta o alrededores o ya ha salido no ponerla 
       if ((posiciones[0] === 7 && posiciones[1] === 0) || (posiciones[0] === 0 && posiciones[1] === 6) || (posiciones[0] === 6 && posiciones[1] === 0) ||
         (posiciones[0] === 7 && posiciones[1] === 1) || (posiciones[0] === 0 && posiciones[1] === 5) || (posiciones[0] === 1 && posiciones[1] === 6)) {
-        posicionesDeMinasSacadas++
+        
       } else {
-        // en añadir cada array de posiciones aleatorias al array donde estaran todas las posiciones de las minas
+        // en añadir cada array de posiciones aleatorias al array donde estarán todas las posiciones de las minas
         posicionesMinas.push(posiciones)
         posicionesDeMinasSacadas++
       }
 
     }
 
-    // ornder la matriz de minas para que las ponga por posicion
+    console.log(posicionesMinas)
+
+    // orden la matriz de minas para que las ponga por posición
     posicionesMinas.sort()
 
     // contador que contiene la fila que va mirando de la matriz de posiciones de las minas
@@ -99,6 +102,10 @@ class App extends React.Component {
             } else if (matrizTablero[i][j] === 4) {
               this.mirar8Lados(i, j, matrizTablero, 5)
             }
+
+            // si hay algun cambio, volver a recorrerlo
+            
+
           }
         }
       }
