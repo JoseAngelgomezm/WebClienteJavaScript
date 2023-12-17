@@ -39,9 +39,9 @@ class App extends React.Component {
       // si la posicion es la casilla de salida o la de meta o alrededores o ya ha salido no ponerla 
       if ((posiciones[0] === 7 && posiciones[1] === 0) || (posiciones[0] === 0 && posiciones[1] === 6) || (posiciones[0] === 6 && posiciones[1] === 0) ||
         (posiciones[0] === 7 && posiciones[1] === 1) || (posiciones[0] === 0 && posiciones[1] === 5) || (posiciones[0] === 1 && posiciones[1] === 6)) {
-        
+
       } else {
-        // en añadir cada array de posiciones aleatorias al array donde estarán todas las posiciones de las minas
+        // añadir cada array de posiciones aleatorias al array donde estarán todas las posiciones de las minas
         posicionesMinas.push(posiciones)
         posicionesDeMinasSacadas++
       }
@@ -53,8 +53,8 @@ class App extends React.Component {
     // orden la matriz de minas para que las ponga por posición
     posicionesMinas.sort()
 
-    // contador que contiene la fila que va mirando de la matriz de posiciones de las minas
-    let contadorFilaPosicionesMinas = 0;
+    // contador filas 
+    let contadorFilas = 0;
 
     // poner las minas a 1 y los 999
     for (let i = 0; i < this.state.filas; i++) {
@@ -63,13 +63,9 @@ class App extends React.Component {
       // rellenar cada array de columnas con las minas o los 999
       for (let j = 0; j < this.state.columnas; j++) {
         // si la posicion que voy a poner un numero es la de la mina
-        if (contadorFilaPosicionesMinas < posicionesMinas.length &&
-          posicionesMinas[contadorFilaPosicionesMinas][0] === i &&
-          posicionesMinas[contadorFilaPosicionesMinas][1] === j) {
-
+        if (contadorFilas < posicionesMinas.length && posicionesMinas[contadorFilas][0] === i && posicionesMinas[contadorFilas][1] === j) {
           arrayColumnas[j] = 1
-          contadorFilaPosicionesMinas++
-
+          contadorFilas++
         } else {
           arrayColumnas[j] = 999
         }
@@ -86,27 +82,8 @@ class App extends React.Component {
       // recorrer la matriz entera
       for (let i = 0; i < matrizTablero.length; i++) {
         for (let j = 0; j < matrizTablero[i].length; j++) {
-          // si la posicion que miro es distinta de 999
-          if (matrizTablero[i][j] !== 999) {
-            // Mirar si es 1,2,3 o 4
-            // si es un 1
-            if (matrizTablero[i][j] === 1) {
-              this.mirar8Lados(i, j, matrizTablero, 2)
-              // si es un 2
-            } else if (matrizTablero[i][j] === 2) {
-              this.mirar8Lados(i, j, matrizTablero, 3)
-              // si es un 3
-            } else if (matrizTablero[i][j] === 3) {
-              this.mirar8Lados(i, j, matrizTablero, 4)
-              // si es un 4
-            } else if (matrizTablero[i][j] === 4) {
-              this.mirar8Lados(i, j, matrizTablero, 5)
-            }
-
-            // si hay algun cambio, volver a recorrerlo
-            
-
-          }
+          // mirar los 8 lados
+          this.mirar8Lados(i, j, matrizTablero, flag)
         }
       }
     }
@@ -116,39 +93,64 @@ class App extends React.Component {
     return matrizTablero;
   }
 
-  mirar8Lados = (i, j, matrizTablero, numeroQuePoner) => {
+  mirar8Lados = (i, j, matrizTablero, flag) => {
     // cambiar los 8 lados
     //arriba
-    if ((i - 1 < matrizTablero.length - 1) && (i - 1 >= 0) && (matrizTablero[i - 1][j] === 999 || matrizTablero[i - 1][j] > numeroQuePoner)) {
-      matrizTablero[i - 1][j] = numeroQuePoner
+    if ((i - 1 < matrizTablero.length - 1) && (i - 1 >= 0) && (matrizTablero[i][j] !== 1) && (matrizTablero[i - 1][j] < matrizTablero[i][j])) {
+      // si la que miro mas 1 es menor igual que 5
+      if (matrizTablero[i - 1][j] + 1 <= 5) {
+        matrizTablero[i][j] = matrizTablero[i - 1][j] + 1
+        flag = true;
+      }
     }
     //abajo
-    if ((i + 1 < matrizTablero.length - 1) && (i + 1 >= 0) && (matrizTablero[i + 1][j] === 999 || matrizTablero[i + 1][j] > numeroQuePoner)) {
-      matrizTablero[i + 1][j] = numeroQuePoner
+    if ((i + 1 < matrizTablero.length - 1) && (i + 1 >= 0) && (matrizTablero[i][j] !== 1) && (matrizTablero[i + 1][j] < matrizTablero[i][j])) {
+      if (matrizTablero[i + 1][j] + 1 <= 5) {
+        matrizTablero[i][j] = matrizTablero[i + 1][j] + 1
+        flag = true;
+      }
     }
     // izquierda
-    if ((j - 1 < matrizTablero[i].length - 1) && (j - 1 >= 0) && (matrizTablero[i][j - 1] === 999 || matrizTablero[i][j - 1] > numeroQuePoner)) {
-      matrizTablero[i][j - 1] = numeroQuePoner
+    if ((j - 1 < matrizTablero[i].length - 1) && (j - 1 >= 0) && (matrizTablero[i][j] !== 1) && (matrizTablero[i][j - 1] < matrizTablero[i][j])) {
+      if (matrizTablero[i][j - 1] + 1 <= 5) {
+        matrizTablero[i][j] = matrizTablero[i][j - 1] + 1
+        flag = true;
+      }
     }
     //derecha
-    if ((j + 1 < matrizTablero[i].length - 1) && (j + 1 >= 0) && (matrizTablero[i][j + 1] === 999 || matrizTablero[i][j + 1] > numeroQuePoner)) {
-      matrizTablero[i][j + 1] = numeroQuePoner
+    if ((j + 1 < matrizTablero[i].length - 1) && (j + 1 >= 0) && (matrizTablero[i][j] !== 1) && (matrizTablero[i][j + 1] < matrizTablero[i][j])) {
+      if (matrizTablero[i][j + 1] + 1 <= 5) {
+        matrizTablero[i][j] = matrizTablero[i][j + 1] + 1
+        flag = true;
+      }
     }
     // diagonal arriba derecha
-    if ((i - 1 < matrizTablero.length - 1) && (i - 1 >= 0) && (j + 1 < matrizTablero[i].length) - 1 && (j + 1 >= 0) && (matrizTablero[i - 1][j + 1] === 999 || matrizTablero[i - 1][j + 1] > numeroQuePoner)) {
-      matrizTablero[i - 1][j + 1] = numeroQuePoner
+    if ((i - 1 < matrizTablero.length - 1) && (i - 1 >= 0) && (j + 1 < matrizTablero[i].length) - 1 && (j + 1 >= 0) && (matrizTablero[i][j] !== 1) && (matrizTablero[i - 1][j + 1] < matrizTablero[i][j])) {
+      if (matrizTablero[i - 1][j + 1] + 1 <= 5) {
+        matrizTablero[i][j] = matrizTablero[i - 1][j + 1] + 1
+        flag = true;
+      }
     }
     // diagonal arriba izquierda
-    if ((i - 1 < matrizTablero.length - 1) && (i - 1 >= 0) && (j - 1 < matrizTablero[i].length - 1) && (j - 1 >= 0) && (matrizTablero[i - 1][j - 1] === 999 || matrizTablero[i - 1][j - 1] > numeroQuePoner)) {
-      matrizTablero[i - 1][j - 1] = numeroQuePoner
+    if ((i - 1 < matrizTablero.length - 1) && (i - 1 >= 0) && (j - 1 < matrizTablero[i].length - 1) && (j - 1 >= 0) && (matrizTablero[i][j] !== 1) && (matrizTablero[i - 1][j - 1] < matrizTablero[i][j])) {
+      if (matrizTablero[i - 1][j - 1] + 1 <= 5) {
+        matrizTablero[i][j] = matrizTablero[i - 1][j - 1] + 1
+        flag = true;
+      }
     }
     // diagonal abajo derecha
-    if ((i + 1 < matrizTablero.length - 1) && (i + 1 >= 0) && (j + 1 < matrizTablero[i].length - 1) && (j + 1 >= 0) && (matrizTablero[i + 1][j + 1] === 999 || matrizTablero[i + 1][j + 1] > numeroQuePoner)) {
-      matrizTablero[i + 1][j + 1] = numeroQuePoner
+    if ((i + 1 < matrizTablero.length - 1) && (i + 1 >= 0) && (j + 1 < matrizTablero[i].length - 1) && (j + 1 >= 0) && (matrizTablero[i][j] !== 1) && (matrizTablero[i + 1][j + 1] < matrizTablero[i][j])) {
+      if (matrizTablero[i + 1][j + 1] + 1 <= 5) {
+        matrizTablero[i][j] = matrizTablero[i + 1][j + 1] + 1
+        flag = true;
+      }
     }
     // diagonal abajo izquierda
-    if ((i + 1 < matrizTablero.length - 1) && (i + 1 >= 0) && (j - 1 < matrizTablero[i].length - 1) && (j - 1 >= 0) && (matrizTablero[i + 1][j - 1] === 999 || matrizTablero[i + 1][j - 1] > numeroQuePoner)) {
-      matrizTablero[i + 1][j - 1] = numeroQuePoner
+    if ((i + 1 < matrizTablero.length - 1) && (i + 1 >= 0) && (j - 1 < matrizTablero[i].length - 1) && (j - 1 >= 0) && (matrizTablero[i][j] !== 1) && (matrizTablero[i + 1][j - 1] < matrizTablero[i][j])) {
+      if (matrizTablero[i + 1][j - 1] + 1 <= 5) {
+        matrizTablero[i][j] = matrizTablero[i + 1][j - 1] + 1
+        flag = true;
+      }
     }
   }
 
