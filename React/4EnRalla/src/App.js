@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { Component } from 'react';
-import { Button } from "reactstrap";
+import React from 'react';
 import Tablero from './componentes/Tablero.js';
 
 class App extends React.Component {
@@ -9,6 +8,7 @@ class App extends React.Component {
     this.state = {
       dimensionesCampo: { filas: 9, columnas: 9 },
       campo: [],
+      jugador: 1,
     }
   }
 
@@ -31,18 +31,49 @@ class App extends React.Component {
 
     let copia = this.state.campo
     copia = campoBotones
-    this.setState({campo:copia})
+    this.setState({ campo: copia })
   }
 
-  meterFicha(props){
-    console.log(props)
+  meterFicha(fila, columna) {
+    // recorrer la columna que nos llega por parametro
+    let copiaCampo = this.state.campo
+    let turno = this.state.jugador
+    for (let i = this.state.dimensionesCampo.columnas - 1; i >= 0; i--) {
+      // si esta vacia, colocar un ficha del jugador que va
+      if (copiaCampo[i][columna] === 0) {
+        if (turno === 1) {
+          // ponerle un 1 en la posicion
+          copiaCampo[i][columna] = 1
+          // cambiar el turno al jugador 2
+          turno = 2;
+          break;
+        } else {
+          // ponerle un 2 en la posicion
+          copiaCampo[i][columna] = 2
+           // cambiar el turno al jugador 1
+           turno = 1;
+          break;
+        }
+        // sino , mirara la siguiente
+      }
+    }
+    // modificar estados
+    // cambiar el turno y el campo
+    this.setState({ campo: copiaCampo, jugador: turno })
+    // comprobar si ha ganado
+    this.comprobarSiGana()
   }
 
+
+  comprobarSiGana() {
+    console.log("implementar si ha ganado")
+  }
 
   render() {
     return (
       <div className="App" >
-        <Tablero meterFicha={(props) => this.meterFicha(props)} campo={this.state.campo}></Tablero>
+        <div id="turno">Turno del jugador: {this.state.jugador}</div>
+        <Tablero meterFicha={(fila, columna) => this.meterFicha(fila, columna)} campo={this.state.campo}></Tablero>
       </div>
     );
   }
