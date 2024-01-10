@@ -23,6 +23,12 @@ function App() {
   )
 }
 
+function añadirDeseo (event) {
+  // que no haga el evento por defecto al hacer submit en el formulario
+  event.preventDefault();
+  console.log("entra")
+}
+
 const DesireList = (props) => {
   return (
     <ul>
