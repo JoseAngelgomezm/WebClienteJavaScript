@@ -30,7 +30,7 @@ function App() {
         <div>
           <p><strong>Añade tu regalo favorito</strong></p>
           <DesireList listaDeseos={deseos}></DesireList>
-          <Desire listaDeseos={deseos} añadirDeseo={añadirDeseo}></Desire>
+          <Desire añadirDeseo={añadirDeseo}></Desire>
         </div>
 
       </div>

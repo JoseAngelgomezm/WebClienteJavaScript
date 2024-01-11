@@ -6,3 +6,8 @@ div.tablero{
 div#turno{
     text-align: center;
 }
+
+div#ganador{
+    margin-top:1rem;
+    text-align: center;
+}
