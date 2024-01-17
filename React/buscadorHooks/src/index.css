@@ -1,0 +1,19 @@
+*{
+    text-align: center;
+}
+
+input{
+    width: 22rem;
+    border: solid;
+    height: 3vh;
+}
+
+ul#lista{
+    list-style: none;
+    padding: 0;
+}
+
+ul#lista li{
+    margin: .5rem;
+    font-weight: bold;
+}
