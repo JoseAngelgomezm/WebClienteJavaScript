@@ -52,7 +52,7 @@ function App() {
   const [listaObjetos, setListaObjetos] = useState(lista)
   const [palabraBuscar, setPalabraBuscar] = useState("")
 
-
+  // obtener la palabra que tenemos en el input
   const añadirElementos = (event) => {
     const input = event.target.value
     setPalabraBuscar(input)
