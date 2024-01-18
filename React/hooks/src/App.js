@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 
 // hook useState, usa estados en function components, necesitamos importarlos
 import { useState } from "react";
@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 // hook createContext, se usa para pasar la informacion necesaria de un padre a un hijo concreto
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 
 // variable llamada usercontext que es un hook createContext()
 const UserContext=createContext()
