@@ -6,23 +6,19 @@ import { useState } from 'react';
 
 const Altas = (props) => {
   // UTILICE HOOKS EN ESTE COMPONENTE
-  const [nombre, setNombre] = useState()
-  const [apellido, setApellido] = useState()
-  const [telefono, setTelefono] = useState()
+  const [persona, setPersona] = useState({nombre:"",apellidos:"",telefono:""})
+  
 
-
-  const recogerDatos = (event, actualizar) => {
+  const recogerDatos = (event) => {
     event.preventDefault()
 
     let nombreNuevo = event.target.nombre.value
     let apellidoNuevo = event.target.apellidos.value
     let telefonoNuevo = event.target.telefono.value
 
-    setNombre(nombreNuevo)
-    setApellido(apellidoNuevo)
-    setTelefono(telefonoNuevo)
-
-    let persona = { nombre: nombre, apellido: apellido, telefono: telefono }
+    setPersona(nombreNuevo, apellidoNuevo, telefonoNuevo)
+    
+    props.actualizar(persona)
   }
 
   return (
