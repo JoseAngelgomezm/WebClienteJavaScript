@@ -1,43 +1,32 @@
 import React, { Component, useEffect } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react'
+import { useState } from 'react';
+
 
 const Altas = (props) => {
   // UTILICE HOOKS EN ESTE COMPONENTE
   const [nombre, setNombre] = useState()
-  const [apellidos, setApellidos] = useState()
-  const [telefono , setTelefono] = useState()
+  const [apellido, setApellido] = useState()
+  const [telefono, setTelefono] = useState()
 
-  useEffect(() => {
-    props.actualizar()
-  }, [nombre, apellidos, telefono])
 
-  const revisarDatos = (event) => {
-    event.preventDefault();
+  const recogerDatos = (event, actualizar) => {
+    event.preventDefault()
 
-    // comprobar los datos que estan correctos
-    if(event.target.nombre.value !== "" && event.target.apellidos.value !== "" && event.target.telefono.value !== ""){
-      // si no esta vacio el formulario
-      let nuevoNombre = event.target.nombre.value
-      let nuevoApellido = event.target.apellidos.value
-      let nuevoTelefono = event.target.telefono.value
-      
-      event.target.nombre.value = ""
-      event.target.apellidos.value = ""
-      event.target.telefono.value = ""
+    let nombreNuevo = event.target.nombre.value
+    let apellidoNuevo = event.target.apellidos.value
+    let telefonoNuevo = event.target.telefono.value
 
-      setNombre(nuevoNombre)
-      setApellidos(nuevoApellido)
-      setTelefono(nuevoTelefono)
+    setNombre(nombreNuevo)
+    setApellido(apellidoNuevo)
+    setTelefono(telefonoNuevo)
 
-      let persona = [nombre , apellidos , telefono]
-    }
-
+    let persona = { nombre: nombre, apellido: apellido, telefono: telefono }
   }
 
   return (
-    <Form onSubmit={(event) => revisarDatos(event)}>
+    <Form onSubmit={(event) => recogerDatos(event)}>
       <FormGroup>
         <Label for="Nombre">Nombre:</Label>
         <Input
@@ -55,37 +44,38 @@ const Altas = (props) => {
   );
 }
 
-const handleBorrar = (indice, listin) => {
-  listin[indice] = ""
-}
 
 const Mostrar = (props) => {
-  let listaLi = props.listin.map((e, i) => <li>{e.map((e) => e + " " )}<button onClick={() => handleBorrar(i, props.listin)}>X</button></li>)
-
-  return listaLi
+  // ESTE COMPONENTE MUESTRA EL LISTÍN TELEFÓNICO.
+  let personas = props.lista.map((elemento) => <li>{elemento.nombre + " " + elemento.apellido + " " + elemento.telefono}</li>);
+  return <ul>
+    {personas}
+  </ul>
 }
+
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // INSERTE AQUÍ EL ESTADO NECESARIO. AQUÍ SE GUARDARÁ TODA LA INFORMACIÓN DE LA APLICACIÓN.EL LISTÍN TELEFÓNICO
-      listin: [["pepe", "perez" , "6600948294"]],
+      // INSERTE AQUÍ EL ESTADO NECESARIO. AQUÍ SE GUARDARÁ TODA LA
+      //INFORMACIÓN DE LA APLICACIÓN.EL LISTÍN TELEFÓNICO
+      listaPersonas: [{ nombre: "pepe", apellido: "perez", telefono: "5464892655" }],
     };
   }
 
-
   actualizarEstado(persona) {
-    let copiaListin = this.state.listin.slice()
-    copiaListin.push(persona)
-    this.setState({listin:copiaListin})
+    let copiaEstado = this.state.listaPersonas.slice()
+    copiaEstado.push(persona)
+    this.setState({ listaPersonas: copiaEstado })
   }
 
   render() {
     return (
+      // DEBERÁ RENDERIZAR AL MENOS LOS DOS COMPONENTES ANTERIORES
       <div className="App">
-        <Mostrar listin={this.state.listin}></Mostrar>
-        <Altas actualizar={this.actualizarEstado}></Altas>
+        <Mostrar lista={this.state.listaPersonas}></Mostrar>
+        <Altas actualizar={(persona) => this.actualizarEstado(persona)}></Altas>
       </div>
     );
   }
