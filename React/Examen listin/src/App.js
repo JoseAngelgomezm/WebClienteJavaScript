@@ -4,22 +4,25 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 
 
-const Altas = (props) => {
+const Altas = ({ actualizar }) => {
   // UTILICE HOOKS EN ESTE COMPONENTE
-  const [persona, setPersona] = useState({nombre:"",apellidos:"",telefono:""})
-  
+  const [persona, setPersona] = useState({ nombre: "", apellido: "", telefono: "" });
+
+  useEffect(() => {
+    actualizar(persona)
+  }, [persona, actualizar])
 
   const recogerDatos = (event) => {
     event.preventDefault()
-
     let nombreNuevo = event.target.nombre.value
     let apellidoNuevo = event.target.apellidos.value
     let telefonoNuevo = event.target.telefono.value
 
-    setPersona(nombreNuevo, apellidoNuevo, telefonoNuevo)
-    
-    props.actualizar(persona)
+    let personaNueva = { nombre: nombreNuevo, apellido: apellidoNuevo, telefono: telefonoNuevo }
+
+    setPersona(personaNueva)
   }
+
 
   return (
     <Form onSubmit={(event) => recogerDatos(event)}>
@@ -41,13 +44,17 @@ const Altas = (props) => {
 }
 
 
-const Mostrar = (props) => {
-  // ESTE COMPONENTE MUESTRA EL LISTÍN TELEFÓNICO.
-  let personas = props.lista.map((elemento) => <li>{elemento.nombre + " " + elemento.apellido + " " + elemento.telefono}</li>);
-  return <ul>
-    {personas}
-  </ul>
+const Mostrar = (lista) => {
+  let arrayLi = []
+  Object.entries(lista).forEach(([key, value]) => {
+    let personas = value.map((elemento) => <li key={elemento.telefono}>{elemento.nombre + " " + elemento.apellido + " " + elemento.telefono}</li>)
+    arrayLi.push(personas)
+  })
+
+  return <ul>{arrayLi}</ul>
 }
+
+
 
 
 class App extends Component {
@@ -56,22 +63,35 @@ class App extends Component {
     this.state = {
       // INSERTE AQUÍ EL ESTADO NECESARIO. AQUÍ SE GUARDARÁ TODA LA
       //INFORMACIÓN DE LA APLICACIÓN.EL LISTÍN TELEFÓNICO
-      listaPersonas: [{ nombre: "pepe", apellido: "perez", telefono: "5464892655" }],
+      listaPersonas: [{ nombre: "pepe", apellido: "perez", telefono: "5464892655" }, { nombre: "julian", apellido: "sanchez", telefono: "89089234" }]
     };
   }
 
-  actualizarEstado(persona) {
-    let copiaEstado = this.state.listaPersonas.slice()
-    copiaEstado.push(persona)
-    this.setState({ listaPersonas: copiaEstado })
+  actualizarEstado = (persona) => {
+    let listaTelefonos = []
+    Object.entries(this.state.listaPersonas).forEach(([key, value]) => {
+      let telefono = value.telefono
+      listaTelefonos.push(telefono)
+    })
+    
+
+    if (listaTelefonos.includes(persona.telefono) || persona.telefono === "" || persona.nombre === "" || persona.apellidos === "") {
+
+    } else {
+      let copiaEstado = this.state.listaPersonas.slice()
+      copiaEstado.push(persona)
+      this.setState({ listaPersonas: copiaEstado })
+    }
+
   }
+
 
   render() {
     return (
       // DEBERÁ RENDERIZAR AL MENOS LOS DOS COMPONENTES ANTERIORES
       <div className="App">
         <Mostrar lista={this.state.listaPersonas}></Mostrar>
-        <Altas actualizar={(persona) => this.actualizarEstado(persona)}></Altas>
+        <Altas actualizar={this.actualizarEstado}></Altas>
       </div>
     );
   }
