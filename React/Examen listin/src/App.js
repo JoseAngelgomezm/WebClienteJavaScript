@@ -54,13 +54,13 @@ const Altas = ({ actualizar }) => {
 // recibe lista en lugar de props, no es necesario poner la palabra props, si usamos el mismo nombre en el parametro de entrada de la funcion
 // que el nombre que le pasamos cuando renderizamos el componente en la pasada de props, sabemos exactamente cuantas props recibimos en el componenete
 // y el nombre de cada una de esas props
-const Mostrar = (lista) => {
+const Mostrar = (lista, borrarElemento) => {
   // creamos un array para guardar todos los li de las personas
   let arrayLi = []
 
   // recorremos la lista que recibimos por props, y por cada objeto, guardamos un li en el array con cada uno de sus datos 
   Object.entries(lista).forEach(([key, value]) => {
-    let personas = value.map((elemento) => <li key={elemento.telefono}>{elemento.nombre + " " + elemento.apellido + " " + elemento.telefono}</li>)
+    let personas = value.map((elemento) => <li key={elemento.telefono}>{elemento.nombre + " " + elemento.apellido + " " + elemento.telefono}<button onClick={borrarElemento(elemento)}>Borrar</button></li>)
     arrayLi.push(personas)
   })
 
@@ -102,6 +102,10 @@ class App extends Component {
 
   }
 
+  borrarElemento = (persona) => {
+
+  }
+
 
   render() {
     return (
@@ -111,7 +115,7 @@ class App extends Component {
         {/* además, pasamos la funcion sin el () al final, porque si le ponemos () al final, lo que pasamos por props */}
         {/* es el resultado de la ejecucion de esa funcion, de esta manera, pasamos la funcion, para que cuando la reciba */}
         {/* el componentes Mostrar, podamos ejecutarla llamandola con () al final de la ejecucion */}
-        <Mostrar lista={this.state.listaPersonas}></Mostrar>
+        <Mostrar borrarElemento={this.borrarElemento} lista={this.state.listaPersonas}></Mostrar>
         <Altas actualizar={this.actualizarEstado}></Altas>
       </div>
     );
