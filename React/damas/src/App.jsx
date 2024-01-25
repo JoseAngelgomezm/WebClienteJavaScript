@@ -16,13 +16,13 @@ function Botonera(props) {
     let nuevoTableroColumnas = []
     for (let j = 0; j < tablero[i].length; j++) {
       if (tablero[i][j] === 0) {
-        nuevoTableroColumnas.push(<Button key={i + j} outline />)
+        nuevoTableroColumnas.push(<Button onClick={() => props.moverAdestino(i, j)} key={i + j} outline />)
         // si el elemento es un 1, pintar boton gris
       } else if (tablero[i][j] === 1) {
-        nuevoTableroColumnas.push(<Button key={i + j} onClick={() => props.mover(i , j)} color="secondary" />)
+        nuevoTableroColumnas.push(<Button key={i + j} onClick={() => props.moverAdestino(i, j)} color="secondary" />)
         // sino pintarlo verde
       } else if (tablero[i][j] === 2) {
-        nuevoTableroColumnas.push(<Button key={i + j} onClick={() => props.mover(i , j)} color="success" />)
+        nuevoTableroColumnas.push(<Button key={i + j} onClick={() => props.moverAdestino(i, j)} color="success" />)
       }
     }
     nuevoTableroColumnas.push(<br></br>)
@@ -51,9 +51,11 @@ class App extends Component {
           [0, 0, 0, 0, 0, 0, 0, 0],
           [0, 0, 0, 0, 0, 0, 0, 0],
         ],
-      
+
       jugadorActual: 1,
-      texto: "mueve una ficha"
+      texto: "mueve una ficha",
+      fichaSelccionada: false,
+      coordenadasFichaSeleccionada: [],
     };
   }
 
@@ -64,8 +66,11 @@ class App extends Component {
     // recorrer la copia del estado
     for (let i = 0; i < copiaEstado.length; i++) {
       for (let j = 0; j < copiaEstado[i].length; j++) {
-        // si la fila es par, pintar los impares y hasta la fila 3 de gris
-        if (i % 2 === 0 && j % 2 === 1 && i <= 3) {
+        // si las filas son las del medio, poner 0 blanco
+        if (i >= 3 && i <= 4) {
+          copiaEstado[i][j] = 0
+          // si la fila es par, pintar los impares y hasta la fila 3 de gris
+        } else if (i % 2 === 0 && j % 2 === 1 && i <= 3) {
           copiaEstado[i][j] = 1
           // si la fila es impar, pintar los pares y hasta la fila 3 de gris
         } else if (i % 2 === 1 && j % 2 === 0 && i <= 3) {
@@ -84,29 +89,50 @@ class App extends Component {
     this.setState({ tablero: copiaEstado })
   }
 
-  mover = (i , j) => {
-    // si el jugador actual es el 1, solo puede seleccionar las fichas verdes
-    if(this.state.jugadorActual === 1 && this.state.tablero[i][j] === 1){
-      // si se ha seleccionado, pedir destino
-      this.setState({texto:"selecciona destino, ficha seleccionada " + i + "," + j})
-      
+  moverAdestino = (idestino, jdestino) => {
 
-    }else if(this.state.jugadorActual === 2 && this.state.tablero[i][j] === 2){
-      // si se ha seleccionado, pedir destino
-      this.setState({texto:"selecciona destino, ficha seleccionada " + i + "," + j})
+    // si no se ha seleccionado ficha y el jugador actual es el 1 y hemos clickado sobre una ficha del jugador 1 (gris)
+    if (!this.state.fichaSelccionada && this.state.jugadorActual === 1 && this.state.tablero[idestino][jdestino] === 1) {
+
+      // setear los estados de texto, para saber que ficha se ha selccionado y dar paso a mover la ficha poniendo la ficha seleccionada a true
+      this.setState({ texto: "selecciona destino, ficha seleccionada " + idestino + "," + jdestino, fichaSelccionada: true, coordenadasFichaSeleccionada: [idestino, jdestino] })
+
+      // si no se ha seleccionado ficha y el jugador actual es el 2 y hemos clickado sobre una ficha del jugador 2 (verde)
+    } else if (!this.state.fichaSelccionada && this.state.jugadorActual === 2 && this.state.tablero[idestino][jdestino] === 2) {
+
+      // setear los estados de texto, para saber que ficha se ha selccionado y dar paso a mover la ficha poniendo la ficha seleccionada a true
+      this.setState({ texto: "selecciona destino, ficha seleccionada " + idestino + "," + jdestino, fichaSelccionada: true, coordenadasFichaSeleccionada: [idestino, jdestino] })
+
+      // si la ficha ha sido seleccionada y el jugador actual es el 1 , solo mover hacia abajo
+    } else if (this.state.fichaSelccionada && this.state.jugadorActual === 1 && idestino === this.state.coordenadasFichaSeleccionada[0] + 1 && jdestino === this.state.coordenadasFichaSeleccionada[1] + 1 || idestino === this.state.coordenadasFichaSeleccionada[0] + 1 && jdestino === this.state.coordenadasFichaSeleccionada[1] - 1) {
+
+      // mover la ficha origen a la coordenada que viene por parametro (destino)
+      let copiaEstado = this.state.tablero.slice()
+      copiaEstado[idestino][jdestino] = 1
+      copiaEstado[this.state.coordenadasFichaSeleccionada[0]][this.state.coordenadasFichaSeleccionada[1]] = 0
+      this.setState({ tablero: copiaEstado, jugadorActual: 2, texto: "mueve una ficha", fichaSelccionada: false })
+
+    // si la ficha ha salido seleccionada y el jugador actual es el 2, solo mover hacia arriba
+    } else if (this.state.fichaSelccionada && this.state.jugadorActual === 2 && idestino === this.state.coordenadasFichaSeleccionada[0] - 1 && jdestino === this.state.coordenadasFichaSeleccionada[1] + 1 || idestino === this.state.coordenadasFichaSeleccionada[0] - 1 && jdestino === this.state.coordenadasFichaSeleccionada[1] - 1) {
       
+      // mover la ficha origen a la coordenada que viene por parametro (destino)
+      let copiaEstado = this.state.tablero.slice()
+      copiaEstado[idestino][jdestino] = 2
+      copiaEstado[this.state.coordenadasFichaSeleccionada[0]][this.state.coordenadasFichaSeleccionada[1]] = 0
+      this.setState({ tablero: copiaEstado, jugadorActual: 1, texto: "mueve una ficha", fichaSelccionada: false })
+
     }
-    
   }
 
-  render() {
-    return (
-      <div className="App">
-        <p>{"Jugador " + this.state.jugadorActual}: {this.state.texto}</p>
-        <Botonera mover={this.mover} tablero={this.state.tablero}></Botonera>
-      </div>
-    );
-  }
+
+render() {
+  return (
+    <div className="App">
+      <p>{"Jugador " + this.state.jugadorActual}: {this.state.texto}</p>
+      <Botonera moverAdestino={this.moverAdestino} mover={this.mover} tablero={this.state.tablero}></Botonera>
+    </div>
+  );
+}
 }
 
 
