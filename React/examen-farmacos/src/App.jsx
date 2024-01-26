@@ -13,9 +13,11 @@ const VentanaModalDiccionario = (props) => {
 
     // hooks que guardan la lista de farmacos y el farmaco seleccionado
     const [listaFarmacos, setListaFarmacos] = useState(FARMACOS)
-    const [farmacoSeleccionado, setFarmacoSeleccionado] = useState()
     const [listaFiltrada, setListaFiltrada] = useState(FARMACOS)
-
+    const [farmacoSeleccionado, setFarmacoSeleccionado] = useState({
+        codATC: "",
+        descATC: "",
+    })
 
     const handleChangeFiltro = (event) => {
         // COMPLETA ESTA FUNCION
@@ -25,17 +27,27 @@ const VentanaModalDiccionario = (props) => {
             // filtrar la lista por lo que teclea el usuario
             let entradaUsuario = event.target.value
             let nuevaListaFiltrada = listaFarmacos.filter((elemento) => elemento.descATC.toLowerCase().includes(entradaUsuario.toLowerCase()))
-            // montar la lista filtrada en el estado
-            setListaFiltrada(nuevaListaFiltrada)
-            // coger el primer farmaco de la lista que es el mas coincidente con lo escrito y ponerlo como elegido
-            setFarmacoSeleccionado(nuevaListaFiltrada[0].desc)
+            // montar la lista filtrada en el estado si no esta vacia
+            if (nuevaListaFiltrada[0] !== undefined){
+                setListaFiltrada(nuevaListaFiltrada)
+                setFarmacoSeleccionado(nuevaListaFiltrada[0])
+            }else{
+                setListaFiltrada(FARMACOS)
+            }   
+        }else {
+            setListaFiltrada(FARMACOS)
         }
     }
 
-    const handleChangeSelect = (event) => {
+    const handleClickSelect = (event) => {
         // si el usuario selecciona uno, quedarnos con ese como elegido
-        let farmacoElegido = event.target.value
-        setFarmacoSeleccionado(farmacoElegido)
+        let farmacoUsuario = event.target.value;
+        const arrayObjeto = farmacoUsuario.split("|")
+        const elemento = {
+            codATC: arrayObjeto[0],
+            descATC: arrayObjeto[1],
+        }
+        setFarmacoSeleccionado(elemento)
     }
 
 
@@ -58,18 +70,18 @@ const VentanaModalDiccionario = (props) => {
                     <FormGroup row>
                         <Col sm={12}>
                             <Input
-                                onChange={handleChangeSelect} onClick={handleChangeSelect}
+                                onClick={handleClickSelect}
                                 id="selectMulti"
                                 name="selectMulti"
                                 type="select"
                             >
-                                {listaFiltrada.map((elemento) => <option key={elemento.codATC}>{elemento.descATC}</option>)}
+                                {listaFiltrada.map((elemento) => <option key={elemento.codATC}>{elemento.codATC}{"|"}{elemento.descATC}</option>)}
                             </Input>
                         </Col>
                     </FormGroup>
                 </ModalBody>
                 <ModalFooter>
-                    {farmacoSeleccionado}<Button color="primary" onClick={() => props.add(farmacoSeleccionado)}>{props.aceptar}</Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {farmacoSeleccionado.codATC + "|" + farmacoSeleccionado.descATC}<Button color="primary" onClick={() => props.add(farmacoSeleccionado.codATC)}>{props.aceptar}</Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </ModalFooter>
             </Modal>
         </div >
@@ -102,11 +114,11 @@ class Filter extends Component {
     }
 
     add(datos) {
-
         // en el estado botonAdd tenemos desde que boton se abre la modal,
         // si se abre desde el azul, añadir el dato que recibimos a rxseleccionar
         if (this.state.botonAdd === "azul") {
             let copiaEstado = this.state.rxseleccionar
+            console.log(datos)
             copiaEstado += datos + ","
             this.setState({ rxseleccionar: copiaEstado })
 
