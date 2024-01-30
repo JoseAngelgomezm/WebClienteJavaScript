@@ -3,6 +3,7 @@ import AppLogin from './componentes/AppLogin.js'
 import Menu from './componentes/Menu.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -11,6 +12,8 @@ class App extends React.Component {
       logged: false,
     }
   }
+
+
   render() {
     let mostrar = <AppLogin userLogin={(usuario, contraseña) => this.userLogin(usuario, contraseña)} />
     if (this.state.logged) {

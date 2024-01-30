@@ -1,10 +1,17 @@
 import React from 'react';
 import { Row, Col, Card, CardTitle, CardText, Form, FormGroup, Button, Label, Input } from 'reactstrap';
 import { useState } from 'react'
+import axios from "axios"
+
+const baseURL = "http://localhost/WebServidorPhp/Ejercicios_API_REST/Ejercicio3/Api/"
+
+
 function AppLogin(props) {
     const [contraseña, setContraseña] = useState('')
     const [usuario, setUsuario] = useState('')
     const [info, setinfo] = useState('')
+
+    
 
     const siHayCambio = (event) => {
         setinfo('');
@@ -22,13 +29,9 @@ function AppLogin(props) {
     }
 
     const click = () => {
-        if (contraseña === "" || usuario === "") {
-            setinfo('Usuario o contraseña vacios')
-        } else if (contraseña !== "admin" || usuario !== "admin@es.es") {
-            setinfo('Usuario o contraseña INCORRECTOS')
-        } else {
-            props.userLogin(usuario, contraseña)
-        }
+        axios.post(baseURL + "login", {usuario:usuario, clave:contraseña}).then((datos)=>{
+            console.log(datos.data)
+        })
     }
 
     return (
