@@ -1,0 +1,1 @@
+export const urlBASE =  "http://localhost/WebServidorPhp/Ejercicios_API_REST/Ejercicio3/Api/"

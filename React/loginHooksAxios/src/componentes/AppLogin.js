@@ -1,37 +1,29 @@
 import React from 'react';
 import { Row, Col, Card, CardTitle, CardText, Form, FormGroup, Button, Label, Input } from 'reactstrap';
 import { useState } from 'react'
-import axios from "axios"
-
-const baseURL = "http://localhost/WebServidorPhp/Ejercicios_API_REST/Ejercicio3/Api/"
 
 
-function AppLogin(props) {
-    const [contraseña, setContraseña] = useState('')
-    const [usuario, setUsuario] = useState('')
-    const [info, setinfo] = useState('')
+export default function AppLogin(props) {
 
-    
+    const [password, setPassword] = useState('');
+    const [telefono, setTelefono] = useState('');
+    const [info, setInfo] = useState('');
 
-    const siHayCambio = (event) => {
-        setinfo('');
-
-        // si se ha modificado el telefono
-        if (event.target.name === "telefono") {
-            setUsuario(event.target.value)
-        }
-
-        // si se ha modificado la contraseña
+    const handleChange = (event) => {
         if (event.target.name === "password") {
-            setContraseña(event.target.value)
+            setPassword(event.target.value)
         }
-
+        if (event.target.name === "telefono") {
+            setTelefono(event.target.value)
+        }
     }
 
-    const click = () => {
-        axios.post(baseURL + "login", {usuario:usuario, clave:contraseña}).then((datos)=>{
-            console.log(datos.data)
-        })
+    const clicar = () => {
+        if (password === '' || telefono === '') {
+            setInfo('CUMPLIMENTE TODOS LOS DATOS')
+        } else {
+            props.userLogin(telefono, password)
+        }
     }
 
     return (
@@ -50,7 +42,7 @@ function AppLogin(props) {
                                 name="telefono"
                                 placeholder="type your user id"
                                 type="email"
-                                onChange={siHayCambio}
+                                onChange={handleChange}
                             />
                         </FormGroup>
                         <FormGroup className="mb-2 me-sm-2 mb-sm-0">
@@ -59,11 +51,11 @@ function AppLogin(props) {
                                 id="Password"
                                 name="password"
                                 type="password"
-                                onChange={siHayCambio}
+                                onChange={handleChange}
                             />
                         </FormGroup>
                         <br />
-                        <Button color="primary" size="lg" block onClick={() => click()}>
+                        <Button color="primary" size="lg" block onClick={clicar} >
                             <strong>Log in</strong>
                         </Button>
                         <CardText className="text-danger">{info}</CardText>
@@ -74,5 +66,3 @@ function AppLogin(props) {
         </Row>
     )
 }
-
-export default AppLogin;
