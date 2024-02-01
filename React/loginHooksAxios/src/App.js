@@ -6,10 +6,6 @@ import axios from "axios"
 import md5 from "md5"
 import {urlBASE} from "./componentes/llamadaApi.js"
 
-
-
-
-
 class App extends React.Component {
   constructor(props) {
     super(props)
