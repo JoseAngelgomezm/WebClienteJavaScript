@@ -1,33 +1,28 @@
 import React from 'react';
 import { Row, Col, Card, CardTitle, CardText, Form, FormGroup, Button, Label, Input } from 'reactstrap';
 import { useState } from 'react'
-function AppLogin(props) {
-    const [contraseña, setContraseña] = useState('')
-    const [usuario, setUsuario] = useState('')
-    const [info, setinfo] = useState('')
 
-    const siHayCambio = (event) => {
-        setinfo('');
 
-        // si se ha modificado el telefono
-        if (event.target.name === "telefono") {
-            setUsuario(event.target.value)
-        }
+export default function AppLogin(props) {
 
-        // si se ha modificado la contraseña
+    const [password, setPassword] = useState('');
+    const [telefono, setTelefono] = useState('');
+    const [info, setInfo] = useState('');
+
+    const handleChange = (event) => {
         if (event.target.name === "password") {
-            setContraseña(event.target.value)
+            setPassword(event.target.value)
         }
-
+        if (event.target.name === "telefono") {
+            setTelefono(event.target.value)
+        }
     }
 
-    const click = () => {
-        if (contraseña === "" || usuario === "") {
-            setinfo('Usuario o contraseña vacios')
-        } else if (contraseña !== "admin" || usuario !== "admin@es.es") {
-            setinfo('Usuario o contraseña INCORRECTOS')
+    const clicar = () => {
+        if (password === '' || telefono === '') {
+            setInfo('CUMPLIMENTE TODOS LOS DATOS')
         } else {
-            props.userLogin(usuario, contraseña)
+            props.userLogin(telefono, password)
         }
     }
 
@@ -47,7 +42,7 @@ function AppLogin(props) {
                                 name="telefono"
                                 placeholder="type your user id"
                                 type="email"
-                                onChange={siHayCambio}
+                                onChange={handleChange}
                             />
                         </FormGroup>
                         <FormGroup className="mb-2 me-sm-2 mb-sm-0">
@@ -56,11 +51,11 @@ function AppLogin(props) {
                                 id="Password"
                                 name="password"
                                 type="password"
-                                onChange={siHayCambio}
+                                onChange={handleChange}
                             />
                         </FormGroup>
                         <br />
-                        <Button color="primary" size="lg" block onClick={() => click()}>
+                        <Button color="primary" size="lg" block onClick={clicar} >
                             <strong>Log in</strong>
                         </Button>
                         <CardText className="text-danger">{info}</CardText>
@@ -71,5 +66,3 @@ function AppLogin(props) {
         </Row>
     )
 }
-
-export default AppLogin;

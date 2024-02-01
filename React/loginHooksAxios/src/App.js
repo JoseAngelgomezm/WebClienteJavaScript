@@ -2,6 +2,9 @@ import React from 'react';
 import AppLogin from './componentes/AppLogin.js'
 import Menu from './componentes/Menu.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import axios from "axios"
+import md5 from "md5"
+import {urlBASE} from "./componentes/llamadaApi.js"
 
 class App extends React.Component {
   constructor(props) {
@@ -10,9 +13,24 @@ class App extends React.Component {
       menuItem: "UNO",
       logged: false,
     }
+    this.userLogin = this.userLogin.bind(this)
   }
+
+  userLogin(usuarioIntroducido, contraseña) {
+    
+    let contraseñaEncriptada = md5(contraseña)
+    // hacer peticion axios
+    axios.post(urlBASE + "login" , {usuario:usuarioIntroducido, clave:contraseñaEncriptada}).then((datos) => {
+      // si el usuario existe
+      if(datos.data.usuario !== undefined){
+        // logearlo
+        this.setState({logged : true})
+      }
+    })
+  }
+
   render() {
-    let mostrar = <AppLogin userLogin={(usuario, contraseña) => this.userLogin(usuario, contraseña)} />
+    let mostrar = <AppLogin userLogin={this.userLogin} info={this.state.mensajeError} />
     if (this.state.logged) {
       mostrar = <Menu menuItem={this.state.menuItem} click={(botonPulsado) => this.cambiarMenu(botonPulsado)} />
     }
@@ -27,11 +45,7 @@ class App extends React.Component {
     this.setState({ menuItem: botonPulsado })
   }
 
-  userLogin(usuario, contraseña) {
-    if (usuario === "admin@es.es" && contraseña === "admin") {
-      this.setState({ logged: true })
-    }
-  }
+
 
 }
 
