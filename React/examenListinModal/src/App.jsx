@@ -52,7 +52,7 @@ const VentanaModalDiccionario = (props) => {
 
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={() => props.actualizarEstado(nombre, telefono)}>{props.aceptar}</Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <Button color="primary" onClick={() => {props.actualizarEstado(nombre, telefono);setTelefono(undefined);setNombre(undefined)}}>{props.aceptar}</Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </ModalFooter>
       </Modal>
     </div>
@@ -86,7 +86,7 @@ class App extends Component {
   actualizarEstado(nombreIntroducir, telefonoIntroducir) {
     let copiaEstado = this.state.listaUsuarios
     let listaTelefono = copiaEstado.map((elemento) => elemento.telefono)
-    if (!listaTelefono.includes(telefonoIntroducir)) {
+    if (!listaTelefono.includes(telefonoIntroducir) && nombreIntroducir !== undefined && telefonoIntroducir!==undefined) {
 
       let personaNueva = {
         nombre: nombreIntroducir,
@@ -95,9 +95,8 @@ class App extends Component {
 
       copiaEstado.push(personaNueva)
       this.setState({ listaUsuarios: copiaEstado })
-      this.toggleModal()
     }
-
+    this.toggleModal()
   }
 
   setIsOpen(d) {
