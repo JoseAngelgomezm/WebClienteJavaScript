@@ -62,7 +62,7 @@ const VentanaModalDiccionario = (props) => {
 
 const Mostrar = (props) => {
 
-  const lista = props.listaUsuarios.map((elemento) => <li>{elemento.nombre + elemento.telefono} - <Button onClick={() => props.borrar(elemento.telefono)}>Borrar</Button></li>)
+  const lista = props.listaUsuarios.map((elemento) => <li>{elemento.nombre + " - " + elemento.telefono} <Button onClick={() => props.borrar(elemento.telefono)}>Borrar</Button></li>)
 
   return (
     <ul>
