@@ -1,0 +1,108 @@
+{
+    "preguntas": [
+        {
+            "pregunta": "¿Cuál es el color natural de su piel cuando no está bronceada?",
+            "respuestas": [
+                "Rojiza, blanca",
+                "Blanca, Beige",
+                "Beige",
+                "Marron clara",
+                "Marron",
+                "Negra"
+            ],
+            "valor": [
+                0,
+                2,
+                4,
+                8,
+                12,
+                16
+            ]
+        },
+        {
+            "pregunta": "¿De qué color natural es su pelo?",
+            "respuestas": [
+                "Pelirrojo, rubio claro",
+                "Rubio, castaño claro",
+                "Castaño",
+                "Castaño oscuro",
+                "Castaño oscuro-negro",
+                "Negro"
+            ],
+            "valor": [
+                0,
+                2,
+                4,
+                8,
+                12,
+                16
+            ]
+        },
+        {
+            "pregunta": "¿De qué color tiene los ojos? ",
+            "respuestas": [
+                "Azul claro, verde claro, gris claro",
+                "Azules, verdes, grises",
+                "Grises, marrón claro",
+                "Marrones",
+                "Marrón oscuro",
+                "Negros"
+            ],
+            "valor": [
+                0,
+                2,
+                4,
+                8,
+                12,
+                16
+            ]
+        },
+        {
+            "pregunta": "¿Cuántas pecas tiene de manera natural en el cuerpo cuando no está bronceado?",
+            "respuestas": [
+                "Muchas",
+                "Algunas",
+                "Unas cuantas",
+                "Ninguna"
+            ],
+            "valor": [
+                0,
+                2,
+                4,
+                8
+            ]
+        },
+        {
+            "pregunta": "¿Qué categoría describe mejor su herencia genética?",
+            "respuestas": [
+                "Raza blanca de piel muy blanca",
+                "Raza blanca de piel clara",
+                "Raza blanca piel morena (Mediterráneo)",
+                "Oriente Medio, hindú, asiático, hispano-americano",
+                "Aborigen, africano, afroamericano"
+            ],
+            "valor": [
+                0,
+                2,
+                4,
+                8,
+                12
+            ]
+        },
+        {
+            "pregunta": "¿Qué categoría describe mejor su potencial de BRONCEADO?",
+            "respuestas": [
+                "Nunca se broncea",
+                "Se puede broncear ligeramente",
+                "Se puede broncear moderadamente",
+                "Se pude broncear profundamente"
+            ],
+            "valor": [
+                0,
+                2,
+                4,
+                8
+            ]
+        }
+    ]
+}
