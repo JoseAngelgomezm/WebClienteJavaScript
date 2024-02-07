@@ -89,6 +89,21 @@
                 12
             ]
         },
+        
+        {
+            "pregunta": "¿Qué categoría describe mejor su potencial de QUEMADURA exponiéndose al sol una hora en verano?",
+            "respuestas" : [
+                "Siempre se quema y no se broncea nunca",
+                "Habitualmente se quema, pero puede broncearse ligeramente",
+                "Se quema ocasionalmente, pero se broncea moderadamente",
+                "Nunca se quema y se broncea con facilidad ",
+                "Raramente se quema y se broncea profundamente",
+                "Nunca se quema"
+            ],
+
+            "valor": [0,2,4,8,10,12]
+        },
+        
         {
             "pregunta": "¿Qué categoría describe mejor su potencial de BRONCEADO?",
             "respuestas": [

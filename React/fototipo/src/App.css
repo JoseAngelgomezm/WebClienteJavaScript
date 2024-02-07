@@ -2,21 +2,58 @@
     box-sizing: border-box;
 }
 
+body{
+    background-color: black;
+}
+
 header{
-    background-color: rgb(0, 0, 0);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     color: rgb(255, 255, 255);
     padding: 1rem;
 }
 
 div#preguntas{
-    text-align: center;
+    display: flex;
+    flex-direction: column;
     background-color: rgb(0, 0, 0);
     padding: 2rem;
     color: white;
 }
 
-.pregunta button{
-    
+
+div#preguntas .pregunta{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex: 100% 0;
+    border-bottom: 1px solid white ;
+    margin: 1rem;
+    padding: 1rem;
+}
+
+div#preguntas button{
+   width: 50%;
+   margin: 1rem auto;
+   padding: 1rem;
+   background-color: rgb(235, 148, 148);
+   font-weight: bold;
+   color: rgb(0, 0, 0)
+}
+
+
+div#preguntas .pregunta h3{
+    text-align: center;
+    flex: 100% 0;
+}
+
+div#preguntas .pregunta button{
+    flex:15% 0;
+}
+
+div#preguntas .pregunta button{
     margin: .5rem;
     padding: .5rem;
     background-color: rgba(155, 23, 23, 0.418);
@@ -24,15 +61,8 @@ div#preguntas{
     font-weight: bold;
 }
 
-.pregunta button[disabled]{
+div#preguntas button[disabled]{
   background-color: white;
   color: black;
 }
 
-button#enviar{
-    background-color: red;
-    font-weight: bold;
-    padding: 1rem;
-    width: 15rem;
-    margin-top: 2rem;
-}
