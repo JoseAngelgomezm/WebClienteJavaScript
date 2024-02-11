@@ -157,6 +157,10 @@ const Mostrar = (props) => {
 };
 
 
+
+
+
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -172,13 +176,7 @@ class App extends Component {
 
   borrar = (t) => {
     // recorrer la lista
-    let listaFiltrada = this.state.listaUsuarios.filter((elemento) => {
-      if (elemento.saldo === 0) {
-        return elemento.telefono !== t
-      } else {
-        return elemento
-      }
-    })
+    let listaFiltrada = this.state.listaUsuarios.filter((elemento) => elemento.telefono !== t)
 
     this.setState({ listaUsuarios: listaFiltrada })
   }
