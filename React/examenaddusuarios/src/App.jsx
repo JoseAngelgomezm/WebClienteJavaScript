@@ -177,6 +177,7 @@ class App extends Component {
   borrar = (t) => {
     // recorrer la lista
     let listaFiltrada = this.state.listaUsuarios.filter((elemento) => elemento.telefono !== t)
+    
 
     this.setState({ listaUsuarios: listaFiltrada })
   }
@@ -189,9 +190,7 @@ class App extends Component {
     const listaTelefonos = this.state.listaUsuarios.map((elemento) => elemento.telefono)
 
     // si contiene el telefono que se va añadir
-    if (listaTelefonos.includes(telefonoEntrada) || telefonoEntrada == "" || nombreEntrada == "" || saldoEntrada == "") {
-
-    } else {
+    if (!listaTelefonos.includes(telefonoEntrada) && telefonoEntrada !== "" && nombreEntrada !== "" && saldoEntrada !== "") {
       let personaNueva = {
         telefono: telefonoEntrada,
         nombre: nombreEntrada,
@@ -200,9 +199,7 @@ class App extends Component {
       let copiaEstado = this.state.listaUsuarios.slice()
       copiaEstado.push(personaNueva)
       this.setState({ listaUsuarios: copiaEstado })
-
-    }
-
+    } 
   }
 
   mostrarInsertar = (estado) => {
@@ -237,6 +234,7 @@ class App extends Component {
   }
 
   añadirSaldo = (saldo, telefono) => {
+    let copiaEstado = this.state.listaUsuarios.slice()
     let saldoEntero = parseInt(saldo)
     // recuperar lista de telefonos
     const listaTelefonos = this.state.listaUsuarios.map((elemento) => elemento.telefono)
@@ -244,23 +242,24 @@ class App extends Component {
     // si contiene el telefono que se va actualiza el saldo
     if (listaTelefonos.includes(telefono) && saldo !== undefined && saldo > 0) {
 
-      let indice = this.state.listaUsuarios.map((elemento, indice) => {
+      let listaCambiada = this.state.listaUsuarios.map((elemento) => {
         if (telefono === elemento.telefono) {
-          return indice
+           let esteSaldo = parseInt(elemento.saldo)
+           elemento.saldo = esteSaldo + saldoEntero
+           return elemento
+        }else{
+          return elemento
         }
       })
 
-
-      let copiaEstado = this.state.listaUsuarios.slice()
-      let saldoPersona = copiaEstado[indice].saldo
-      let saldoFinal = saldoEntero + parseInt(saldoPersona)
-      copiaEstado[indice].saldo = saldoFinal
-      this.setState({ listaUsuarios: copiaEstado })
+      copiaEstado = listaCambiada
+      this.setState({listaUsuarios:copiaEstado})
 
     }
   }
 
   reducirSaldo = (saldo, telefono) => {
+    let copiaEstado = this.state.listaUsuarios.slice()
     let saldoEntero = parseInt(saldo)
     // recuperar lista de telefonos
     const listaTelefonos = this.state.listaUsuarios.map((elemento) => elemento.telefono)
@@ -268,18 +267,18 @@ class App extends Component {
     // si contiene el telefono que se va actualiza el saldo
     if (listaTelefonos.includes(telefono) && saldo !== undefined && saldo > 0) {
 
-      let indice = this.state.listaUsuarios.map((elemento, indice) => {
+      let listaCambiada = this.state.listaUsuarios.map((elemento) => {
         if (telefono === elemento.telefono) {
-          return indice
+           let esteSaldo = parseInt(elemento.saldo)
+           elemento.saldo = esteSaldo - saldoEntero
+           return elemento
+        }else{
+          return elemento
         }
       })
 
-
-      let copiaEstado = this.state.listaUsuarios.slice()
-      let saldoPersona = copiaEstado[indice].saldo
-      let saldoFinal = parseInt(saldoPersona) - saldoEntero
-      copiaEstado[indice].saldo = saldoFinal
-      this.setState({ listaUsuarios: copiaEstado })
+      copiaEstado = listaCambiada
+      this.setState({listaUsuarios:copiaEstado})
 
     }
   }
