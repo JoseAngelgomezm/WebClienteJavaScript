@@ -16,13 +16,13 @@ function Botonera(props) {
     let nuevoTableroColumnas = []
     for (let j = 0; j < tablero[i].length; j++) {
       if (tablero[i][j] === 0) {
-        nuevoTableroColumnas.push(<Button onClick={() => props.moverAdestino(i, j)} key={i + j} outline />)
+        nuevoTableroColumnas.push(<Button outline color='success' onClick={() => props.moverAdestino(i, j)} key={i + j} />)
         // si el elemento es un 1, pintar boton gris
       } else if (tablero[i][j] === 1) {
-        nuevoTableroColumnas.push(<Button key={i + j} onClick={() => props.moverAdestino(i, j)} color="secondary" />)
+        nuevoTableroColumnas.push(<Button  color='danger' key={i + j} onClick={() => props.moverAdestino(i, j)}/>)
         // sino pintarlo verde
       } else if (tablero[i][j] === 2) {
-        nuevoTableroColumnas.push(<Button key={i + j} onClick={() => props.moverAdestino(i, j)} color="success" />)
+        nuevoTableroColumnas.push(<Button  color='warning' key={i + j} onClick={() => props.moverAdestino(i, j)}/>)
       }
     }
     nuevoTableroColumnas.push(<br></br>)
@@ -159,7 +159,7 @@ class App extends Component {
     return (
       <div className="App">
         {this.state.fichaSelccionada && <Button onClick={() => this.cancelarMovimiento()}>Cancelar movimiento</Button>}
-        <p>{"Jugador " + this.state.jugadorActual}: {this.state.texto}</p>
+        <p>{"Jugador " + this.state.jugadorActual}: {this.state.texto}{this.state.jugadorActual===1 &&<Button color='danger'></Button>}{this.state.jugadorActual===2 &&<Button color='warning'></Button>}</p>
         <Botonera moverAdestino={this.moverAdestino} mover={this.mover} tablero={this.state.tablero}></Botonera>
       </div>
     );

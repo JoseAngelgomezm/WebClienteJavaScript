@@ -1,3 +1,10 @@
-*{
+.App{
+    background-color: black;
+    padding: 10rem;
     text-align: center;
+}
+
+.App p{
+  color:white;
+  font-weight: bold;
 }
