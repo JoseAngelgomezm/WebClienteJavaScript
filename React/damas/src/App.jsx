@@ -89,22 +89,48 @@ class App extends Component {
     this.setState({ tablero: copiaEstado })
   }
 
+  sePuedeMoverAbajo(idestino, jdestino){
+    // si se puede mover abajo
+    if(idestino === this.state.coordenadasFichaSeleccionada[0] + 1 && jdestino === this.state.coordenadasFichaSeleccionada[1] + 1 || idestino === this.state.coordenadasFichaSeleccionada[0] + 1 && jdestino === this.state.coordenadasFichaSeleccionada[1] - 1){
+      // si donde se va a mover, es 0 o 2
+      if(this.state.tablero[idestino][jdestino] === 0 || this.state.tablero[idestino][jdestino] === 2 ){
+        return true
+      }else{
+        return false;
+      }
+    }else{
+      return false;
+    }
+  }
+
+  sePuedeMoverArriba(idestino, jdestino){
+    if(idestino === this.state.coordenadasFichaSeleccionada[0] - 1 && jdestino === this.state.coordenadasFichaSeleccionada[1] + 1 || idestino === this.state.coordenadasFichaSeleccionada[0] - 1 && jdestino === this.state.coordenadasFichaSeleccionada[1] - 1){
+      if(this.state.tablero[idestino][jdestino] === 0 || this.state.tablero[idestino][jdestino] === 1 ){
+        return true
+      }else{
+        return false;
+      }
+    }else{
+      return false;
+    }
+  }
+
   moverAdestino = (idestino, jdestino) => {
 
     // si no se ha seleccionado ficha y el jugador actual es el 1 y hemos clickado sobre una ficha del jugador 1 (gris)
     if (!this.state.fichaSelccionada && this.state.jugadorActual === 1 && this.state.tablero[idestino][jdestino] === 1) {
 
       // setear los estados de texto, para saber que ficha se ha selccionado y dar paso a mover la ficha poniendo la ficha seleccionada a true
-      this.setState({ texto: "selecciona destino, ficha seleccionada " + idestino + "," + jdestino, fichaSelccionada: true, coordenadasFichaSeleccionada: [idestino, jdestino] })
+      this.setState({ texto: "selecciona DESTINO", fichaSelccionada: true, coordenadasFichaSeleccionada: [idestino, jdestino] })
 
       // si no se ha seleccionado ficha y el jugador actual es el 2 y hemos clickado sobre una ficha del jugador 2 (verde)
     } else if (!this.state.fichaSelccionada && this.state.jugadorActual === 2 && this.state.tablero[idestino][jdestino] === 2) {
 
       // setear los estados de texto, para saber que ficha se ha selccionado y dar paso a mover la ficha poniendo la ficha seleccionada a true
-      this.setState({ texto: "selecciona destino, ficha seleccionada " + idestino + "," + jdestino, fichaSelccionada: true, coordenadasFichaSeleccionada: [idestino, jdestino] })
+      this.setState({ texto: "selecciona DESTINO", fichaSelccionada: true, coordenadasFichaSeleccionada: [idestino, jdestino] })
 
       // si la ficha ha sido seleccionada y el jugador actual es el 1 , solo mover hacia abajo
-    } else if (this.state.fichaSelccionada && this.state.jugadorActual === 1 && idestino === this.state.coordenadasFichaSeleccionada[0] + 1 && jdestino === this.state.coordenadasFichaSeleccionada[1] + 1 || idestino === this.state.coordenadasFichaSeleccionada[0] + 1 && jdestino === this.state.coordenadasFichaSeleccionada[1] - 1) {
+    } else if (this.state.fichaSelccionada && this.state.jugadorActual === 1 && this.sePuedeMoverAbajo(idestino,jdestino)) {
 
       // mover la ficha origen a la coordenada que viene por parametro (destino)
       let copiaEstado = this.state.tablero.slice()
@@ -112,9 +138,9 @@ class App extends Component {
       copiaEstado[this.state.coordenadasFichaSeleccionada[0]][this.state.coordenadasFichaSeleccionada[1]] = 0
       this.setState({ tablero: copiaEstado, jugadorActual: 2, texto: "mueve una ficha", fichaSelccionada: false })
 
-    // si la ficha ha salido seleccionada y el jugador actual es el 2, solo mover hacia arriba
-    } else if (this.state.fichaSelccionada && this.state.jugadorActual === 2 && idestino === this.state.coordenadasFichaSeleccionada[0] - 1 && jdestino === this.state.coordenadasFichaSeleccionada[1] + 1 || idestino === this.state.coordenadasFichaSeleccionada[0] - 1 && jdestino === this.state.coordenadasFichaSeleccionada[1] - 1) {
-      
+      // si la ficha ha salido seleccionada y el jugador actual es el 2, solo mover hacia arriba
+    } else if (this.state.fichaSelccionada && this.state.jugadorActual === 2 && this.sePuedeMoverArriba(idestino,jdestino)) {
+
       // mover la ficha origen a la coordenada que viene por parametro (destino)
       let copiaEstado = this.state.tablero.slice()
       copiaEstado[idestino][jdestino] = 2
@@ -124,15 +150,20 @@ class App extends Component {
     }
   }
 
+  cancelarMovimiento(){
+    this.setState({fichaSelccionada:false, texto:"mueve una ficha", coordenadasFichaSeleccionada:[]})
+  }
 
-render() {
-  return (
-    <div className="App">
-      <p>{"Jugador " + this.state.jugadorActual}: {this.state.texto}</p>
-      <Botonera moverAdestino={this.moverAdestino} mover={this.mover} tablero={this.state.tablero}></Botonera>
-    </div>
-  );
-}
+
+  render() {
+    return (
+      <div className="App">
+        {this.state.fichaSelccionada && <Button onClick={() => this.cancelarMovimiento()}>Cancelar movimiento</Button>}
+        <p>{"Jugador " + this.state.jugadorActual}: {this.state.texto}</p>
+        <Botonera moverAdestino={this.moverAdestino} mover={this.mover} tablero={this.state.tablero}></Botonera>
+      </div>
+    );
+  }
 }
 
 
