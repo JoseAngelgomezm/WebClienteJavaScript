@@ -25,6 +25,7 @@ function App() {
   const [textoInformativo, settextoInformativo] = useState("")
   const [imagen, setimagen] = useState("")
   const [puntuacionTotal, setPuntuacionTotal] = useState("")
+  const [numeroPregunta, setNumeroPregunta] = useState("")
 
 
   const cambiarPuntuacion = (valor, numeroPregunta) => {

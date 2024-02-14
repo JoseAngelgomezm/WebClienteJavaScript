@@ -1,5 +1,4 @@
 import { Button } from 'reactstrap'
-import { useState } from 'react'
 import { Component } from 'react';
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,7 +10,6 @@ function Botonera(props) {
 
   let nuevoTablero = []
   // recorrer el tablero
-  console.log(tablero)
   for (let i = 0; i < tablero.length; i++) {
     let nuevoTableroColumnas = []
     for (let j = 0; j < tablero[i].length; j++) {
@@ -91,7 +89,7 @@ class App extends Component {
 
   sePuedeMoverAbajo(idestino, jdestino){
     // si se puede mover abajo
-    if(idestino === this.state.coordenadasFichaSeleccionada[0] + 1 && jdestino === this.state.coordenadasFichaSeleccionada[1] + 1 || idestino === this.state.coordenadasFichaSeleccionada[0] + 1 && jdestino === this.state.coordenadasFichaSeleccionada[1] - 1){
+    if((idestino === this.state.coordenadasFichaSeleccionada[0] + 1 && jdestino === this.state.coordenadasFichaSeleccionada[1] + 1) || (idestino === this.state.coordenadasFichaSeleccionada[0] + 1 && jdestino === this.state.coordenadasFichaSeleccionada[1] - 1)){
       // si donde se va a mover, es 0 o 2
       if(this.state.tablero[idestino][jdestino] === 0 || this.state.tablero[idestino][jdestino] === 2 ){
         return true
@@ -104,7 +102,7 @@ class App extends Component {
   }
 
   sePuedeMoverArriba(idestino, jdestino){
-    if(idestino === this.state.coordenadasFichaSeleccionada[0] - 1 && jdestino === this.state.coordenadasFichaSeleccionada[1] + 1 || idestino === this.state.coordenadasFichaSeleccionada[0] - 1 && jdestino === this.state.coordenadasFichaSeleccionada[1] - 1){
+    if((idestino === this.state.coordenadasFichaSeleccionada[0] - 1 && jdestino === this.state.coordenadasFichaSeleccionada[1] + 1) || (idestino === this.state.coordenadasFichaSeleccionada[0] - 1 && jdestino === this.state.coordenadasFichaSeleccionada[1] - 1)){
       if(this.state.tablero[idestino][jdestino] === 0 || this.state.tablero[idestino][jdestino] === 1 ){
         return true
       }else{
@@ -150,7 +148,7 @@ class App extends Component {
     }
   }
 
-  cancelarMovimiento(){
+  cancelarMovimiento = () => {
     this.setState({fichaSelccionada:false, texto:"mueve una ficha", coordenadasFichaSeleccionada:[]})
   }
 
@@ -158,8 +156,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.fichaSelccionada && <Button onClick={() => this.cancelarMovimiento()}>Cancelar movimiento</Button>}
-        <p>{"Jugador " + this.state.jugadorActual}: {this.state.texto}{this.state.jugadorActual===1 &&<Button color='danger'></Button>}{this.state.jugadorActual===2 &&<Button color='warning'></Button>}</p>
+        {this.state.fichaSelccionada && <Button onClick={this.cancelarMovimiento}>Cancelar movimiento</Button>}
+        <p>{"Jugador " + this.state.jugadorActual}{" : "}{this.state.texto}{this.state.jugadorActual===1 &&<Button color='danger'></Button>}{this.state.jugadorActual===2 &&<Button color='warning'></Button>}</p>
         <Botonera moverAdestino={this.moverAdestino} mover={this.mover} tablero={this.state.tablero}></Botonera>
       </div>
     );
