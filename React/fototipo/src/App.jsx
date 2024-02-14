@@ -2,6 +2,8 @@ import { useState } from 'react'
 import datosPreguntas from './assets/datosPreguntas.json'
 import Pregunta from './assets/components/Pregunta.jsx'
 import "./App.css"
+import axios from "axios"
+import {urlBASE}  from './assets/peticion.js'
 import imagen1 from './assets/images/tipo1.png'
 import imagen2 from './assets/images/tipo2.png'
 import imagen3 from './assets/images/tipo3.png'
@@ -14,8 +16,8 @@ import imagen6 from './assets/images/tipo6.png'
 const MostrarPreguntas = (props) => {
 
   // renderiza una pregunta por cada elemento en la lista de preguntas
-  const preguntas = props.jsonPreguntas.map((elemento, indice) => <div className="pregunta"><Pregunta numeroPregunta={indice} puntuacion={(valor, numeroPregunta) => props.cambiarPuntuacion(valor, numeroPregunta)} key={indice} pregunta={elemento.pregunta} valores={elemento.valor} arrayRespuestas={elemento.respuestas}></Pregunta></div>)
-  return preguntas
+  const preguntas = props.jsonPreguntas.map((elemento, indice) => <div className="pregunta"><Pregunta enviarDatos={(valor) => props.enviarDatos(valor)} key={indice} pregunta={elemento.pregunta} valores={elemento.valor} arrayRespuestas={elemento.respuestas}></Pregunta></div>)
+  return preguntas[props.numeroPregunta]
 }
 
 function App() {
@@ -25,18 +27,11 @@ function App() {
   const [textoInformativo, settextoInformativo] = useState("")
   const [imagen, setimagen] = useState("")
   const [puntuacionTotal, setPuntuacionTotal] = useState("")
-  const [numeroPregunta, setNumeroPregunta] = useState("")
+  const [numeroPregunta, setNumeroPregunta] = useState(0)
+  const [tipo, setTipo] = useState()
 
 
-  const cambiarPuntuacion = (valor, numeroPregunta) => {
-    // pone en la posicion del array del numero de pregunta la puntuacion de la pregunta
-    // que recibe de la callback
-    const nuevoArray = puntuacion
-    nuevoArray[numeroPregunta] = valor
-    setPuntuacion(nuevoArray)
-  }
-
-  const enviarDatos = () => {
+  const verResultados = () => {
     let sumaPuntuacion = 0
     // si contiene un menos -1 en la puntuacion, es que no estan seleccionadas todas las preguntas
     if (puntuacion.includes(-1)) {
@@ -53,31 +48,37 @@ function App() {
         case sumaPuntuacion <= 7:
           settextoInformativo("Muy sensible a la luz solar");
           setimagen(imagen1)
+          setTipo(1)
           break;
 
         case sumaPuntuacion > 7 && sumaPuntuacion <= 21:
           settextoInformativo("Sensible a la luz solar");
           setimagen(imagen2)
+          setTipo(2)
           break;
 
         case sumaPuntuacion > 21 && sumaPuntuacion <= 42:
           settextoInformativo("Sensible normal luz solar");
           setimagen(imagen3)
+          setTipo(3)
           break;
 
         case sumaPuntuacion > 42 && sumaPuntuacion <= 68:
           settextoInformativo("La piel tiene tolerancia a la luz solar");
           setimagen(imagen4)
+          setTipo(4)
           break;
 
         case sumaPuntuacion > 68 && sumaPuntuacion <= 84:
           settextoInformativo("La piel es oscura, alta tolerancia");
           setimagen(imagen5)
+          setTipo(5)
           break;
 
         case sumaPuntuacion > 85:
           settextoInformativo("La piel es negra, altísima tolerancia");
           setimagen(imagen6)
+          setTipo(6)
           break;
 
         default:
@@ -85,7 +86,32 @@ function App() {
       }
 
       setPuntuacionTotal(sumaPuntuacion)
+      guardarDatosPHP()
+    }
+  }
 
+  const guardarDatosPHP = () => {
+    
+    axios.post(urlBASE + "/guardarDatos.php",tipo).then((respuesta) => {
+      if (respuesta === true) {
+        console.log("se han guardado los datos");
+      } else {
+        console.log("NO SE HAN GUARDADO LOS DATOS");
+      }
+    })
+    
+  }
+
+  const enviarDatos = (valor) => {
+    // pone en la posicion del array del numero de pregunta la puntuacion de la pregunta
+    // que recibe de la callback
+    const nuevoArray = puntuacion
+    nuevoArray[numeroPregunta] = valor
+    setPuntuacion(nuevoArray)
+    setNumeroPregunta(numeroPregunta + 1)
+
+    if (numeroPregunta === jsonPreguntas.length - 1) {
+      verResultados()
     }
   }
 
@@ -94,6 +120,7 @@ function App() {
     settextoInformativo("")
     setPuntuacionTotal("")
     setimagen("")
+    setNumeroPregunta(0)
   }
 
   return (
@@ -102,9 +129,8 @@ function App() {
         <h2>Descubre tu FOTOTIPO</h2>
       </header>
       <div id="preguntas">
-      <p>Responde al siguiente cuestrionario y podras saber tu fototipo segun una puntuacion de cada respuesta</p>
-        <MostrarPreguntas cambiarPuntuacion={(valor, numeroPregunta) => cambiarPuntuacion(valor, numeroPregunta)} jsonPreguntas={jsonPreguntas}></MostrarPreguntas>
-        <button onClick={() => enviarDatos()}>Enviar Preguntas</button>
+        <p>Responde al siguiente cuestrionario y podras saber tu fototipo segun una puntuacion de cada respuesta</p>
+        <MostrarPreguntas enviarDatos={(valor) => enviarDatos(valor)} numeroPregunta={numeroPregunta} jsonPreguntas={jsonPreguntas}></MostrarPreguntas>
         <button onClick={() => reiniciar()}>Reiniciar test</button>
         {/* Renderizado condicional, si el error contiene algo, mostrarlo*/}
         {textoInformativo !== "" && <h2>{textoInformativo}</h2>}
