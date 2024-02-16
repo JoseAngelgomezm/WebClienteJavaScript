@@ -3,7 +3,8 @@ import datosPreguntas from './assets/datosPreguntas.json'
 import Pregunta from './assets/components/Pregunta.jsx'
 import "./App.css"
 import axios from "axios"
-import {urlBASE}  from './assets/peticion.js'
+import {urlBASECLASE}  from './assets/peticion.js'
+import {urlBASECASA}  from './assets/peticion.js'
 import imagen1 from './assets/images/tipo1.png'
 import imagen2 from './assets/images/tipo2.png'
 import imagen3 from './assets/images/tipo3.png'
