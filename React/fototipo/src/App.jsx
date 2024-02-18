@@ -61,7 +61,7 @@ function App() {
           break;
 
         case sumaPuntuacion > 21 && sumaPuntuacion <= 42:
-          settextoInformativo("Sensible normal luz solar, tipo 3");
+          settextoInformativo("Sensibilidad normal a la luz solar, tipo 3");
           setimagen(imagen3)
           tipoActualizado = 3
           break;
@@ -143,7 +143,7 @@ function App() {
         <h2>Descubre tu FOTOTIPO</h2>
       </header>
       <div id="preguntas">
-        <p>Responde al siguiente cuestrionario y podras saber tu fototipo segun una puntuacion de cada respuesta</p>
+        <h2>Responde al siguiente cuestrionario y podrás saber tu fototipo</h2>
         <MostrarPreguntas enviarDatos={(valor) => enviarDatos(valor)} numeroPregunta={numeroPregunta} jsonPreguntas={jsonPreguntas}></MostrarPreguntas>
         <button onClick={() => reiniciar()}>Reiniciar test</button>
         {/* Renderizado condicional, si el error contiene algo, mostrarlo*/}
@@ -151,7 +151,7 @@ function App() {
         {/* Renderizado condicional, si la puntuacion contiene algo, mostrarlo*/}
         {puntuacionTotal !== "" && <h2>Tu puntuacion es de: {puntuacionTotal}</h2>}
         {/* Renderizado condicional, si el numero de personas contiene algo, mostrarlo*/}
-        {numeroPersonasComoTu !== "" && <h2>Hay un total de {numeroPersonasComoTu} personas con el mismo fototipo que tu</h2>}
+        {numeroPersonasComoTu !== "" && <h2>Hay un total de {numeroPersonasComoTu} personas con el mismo fototipo que tu que han realizado este test</h2>}
         {/* Renderizado condicional, si la imagen contiene algo, mostrarla*/}
         {imagen !== "" && <img src={imagen} alt='imagen visual de cual seria tu fototipo' />}
       </div>
