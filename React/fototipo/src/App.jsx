@@ -26,10 +26,10 @@ function App() {
   const jsonPreguntas = datosPreguntas.preguntas
   const [puntuacion, setPuntuacion] = useState(Array(datosPreguntas.preguntas.length).fill(-1));
   const [textoInformativo, settextoInformativo] = useState("")
+  const [numeroPersonasComoTu, setnumeroPersonasComoTu] = useState("")
   const [imagen, setimagen] = useState("")
   const [puntuacionTotal, setPuntuacionTotal] = useState("")
   const [numeroPregunta, setNumeroPregunta] = useState(0)
-  const [tipo, setTipo] = useState()
 
 
   const verResultados = () => {
@@ -44,42 +44,44 @@ function App() {
         sumaPuntuacion = sumaPuntuacion + puntuacion[i];
       }
 
+      let tipoActualizado = 0
+
       // depende de la puntuacion total, mostrar una foto y un texto diferente 
       switch (true) {
         case sumaPuntuacion <= 7:
-          settextoInformativo("Muy sensible a la luz solar");
+          settextoInformativo("Muy sensible a la luz solar, tipo 1");
           setimagen(imagen1)
-          setTipo(1)
+          tipoActualizado = 1
           break;
 
         case sumaPuntuacion > 7 && sumaPuntuacion <= 21:
-          settextoInformativo("Sensible a la luz solar");
+          settextoInformativo("Sensible a la luz solar, tipo 2");
           setimagen(imagen2)
-          setTipo(2)
+          tipoActualizado = 2
           break;
 
         case sumaPuntuacion > 21 && sumaPuntuacion <= 42:
-          settextoInformativo("Sensible normal luz solar");
+          settextoInformativo("Sensible normal luz solar, tipo 3");
           setimagen(imagen3)
-          setTipo(3)
+          tipoActualizado = 3
           break;
 
         case sumaPuntuacion > 42 && sumaPuntuacion <= 68:
-          settextoInformativo("La piel tiene tolerancia a la luz solar");
+          settextoInformativo("La piel tiene tolerancia a la luz solar, tipo 4");
           setimagen(imagen4)
-          setTipo(4)
+          tipoActualizado = 4
           break;
 
         case sumaPuntuacion > 68 && sumaPuntuacion <= 84:
-          settextoInformativo("La piel es oscura, alta tolerancia");
+          settextoInformativo("La piel es oscura, alta tolerancia, tipo 5");
           setimagen(imagen5)
-          setTipo(5)
+          tipoActualizado = 5
           break;
 
         case sumaPuntuacion > 85:
-          settextoInformativo("La piel es negra, altísima tolerancia");
+          settextoInformativo("La piel es negra, altísima tolerancia, tipo 6");
           setimagen(imagen6)
-          setTipo(6)
+          tipoActualizado = 6
           break;
 
         default:
@@ -87,20 +89,30 @@ function App() {
       }
 
       setPuntuacionTotal(sumaPuntuacion)
-      guardarDatosPHP()
+      gestionarDatosPHP(tipoActualizado)
     }
   }
 
-  const guardarDatosPHP = () => {
+  const gestionarDatosPHP = (tipo) => {
+   
+    // enviar el tipo en un formato json
+    const numero = {
+      cantidad:tipo,
+    }
     
-    axios.post(urlBASE + "/guardarDatos.php",tipo).then((respuesta) => {
-      if (respuesta === true) {
-        console.log("se han guardado los datos");
-      } else {
-        console.log("NO SE HAN GUARDADO LOS DATOS");
-      }
-    })
-    
+    // mediante una peticion post, envio el numero de fototipo y recibo la cantidad de personas
+    // que tienen el mismo fototipo menos esta persona
+  
+    axios.post(urlBASECASA + "/gestionFototipos.php", numero).then(respuesta => {
+
+      setnumeroPersonasComoTu(respuesta.data)
+        
+      })
+      .catch(error => {
+        // Manejar errores
+        console.error('Error al enviar los datos:', error);
+      });
+
   }
 
   const enviarDatos = (valor) => {
@@ -119,8 +131,9 @@ function App() {
   const reiniciar = () => {
     setPuntuacion(Array(datosPreguntas.preguntas.length).fill(-1))
     settextoInformativo("")
-    setPuntuacionTotal("")
+    setnumeroPersonasComoTu("")
     setimagen("")
+    setPuntuacionTotal("")
     setNumeroPregunta(0)
   }
 
@@ -137,6 +150,8 @@ function App() {
         {textoInformativo !== "" && <h2>{textoInformativo}</h2>}
         {/* Renderizado condicional, si la puntuacion contiene algo, mostrarlo*/}
         {puntuacionTotal !== "" && <h2>Tu puntuacion es de: {puntuacionTotal}</h2>}
+        {/* Renderizado condicional, si el numero de personas contiene algo, mostrarlo*/}
+        {numeroPersonasComoTu !== "" && <h2>Hay un total de {numeroPersonasComoTu} personas con el mismo fototipo que tu</h2>}
         {/* Renderizado condicional, si la imagen contiene algo, mostrarla*/}
         {imagen !== "" && <img src={imagen} alt='imagen visual de cual seria tu fototipo' />}
       </div>
