@@ -103,7 +103,7 @@ function App() {
     // mediante una peticion post, envio el numero de fototipo y recibo la cantidad de personas
     // que tienen el mismo fototipo menos esta persona
   
-    axios.post(urlBASECASA + "/gestionFototipos.php", numero).then(respuesta => {
+    axios.post(urlBASECLASE + "/gestionFototipos.php", numero).then(respuesta => {
 
       setnumeroPersonasComoTu(respuesta.data)
         
