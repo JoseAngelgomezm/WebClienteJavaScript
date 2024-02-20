@@ -1,0 +1,24 @@
+body{
+    background-color: black;
+}
+div#App{
+    text-align: center;
+    padding: 1rem;
+}
+button{
+    background-color: white; 
+    border: solid 1px rgb(255, 0, 0);
+    width: 4rem;
+    height: 4rem; 
+    padding: 1rem; 
+    font-weight: bold;
+}
+
+button:hover{
+    background-color: aquamarine;
+}
+
+button[disabled]{
+    background-color: red;
+    color: white;
+}
