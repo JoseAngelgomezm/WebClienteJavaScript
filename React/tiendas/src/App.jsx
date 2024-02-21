@@ -1,7 +1,10 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
+// 1 calcular la distancia
+// 2 Filtro saber la distancia
+// 3 dividir la poblacion
+// 4 a cada supermercado del filtro le sumo la poblacion
 
 function App() {
   const [poblacion, setPoblacion] = useState([
@@ -16,7 +19,7 @@ function App() {
     [1, 0, 12, 3, 0, 0, 21, 2, 2]])
 
   const [botonesSeleccionados, setBotonesSeleccionados] = useState([])
-
+  const[poblacionTotal, setPoblacionTotal] = useState([])
   const MostrarPoblacion = () => {
 
     return poblacion.map((e, fila) => {
@@ -29,7 +32,7 @@ function App() {
         // si lo contiene desabilitarlo
         if (fijarlo) {
 
-          return <button disabled onClick={() => fijarBoton(fila, columna)}>{e2}</button>
+          return <button disabled>{e2}</button>
 
         } else {
           return <button onClick={() => fijarBoton(fila, columna)}>{e2}</button>
@@ -42,19 +45,37 @@ function App() {
   }
 
   const fijarBoton = (fila, columna) => {
-    let copiaEstado = botonesSeleccionados
+    let copiaEstado = botonesSeleccionados.slice()
     copiaEstado.push([fila, columna])
     setBotonesSeleccionados(copiaEstado)
+    recalcular(fila,columna)
+  }
 
-    let sumaValores = 0
-    for (let i = 0; i < poblacion.length; i++) {
-      sumaValores += poblacion[i].reduce((e1, e2) => e1 + e2)
+  const recalcular = (fila, columna) => {
+    // sacar las tiendas que hay
+    let numeroTiendas = botonesSeleccionados.length
+    
+    // si hay mas de una, hacer los calculos
+    if (numeroTiendas >= 1) {
+      // saber la distancia entre tiendas
+      for(let i = 0; i<=numeroTiendas;i++){
+        // primera tienda
+        console.log(botonesSeleccionados[0][0],botonesSeleccionados[0][1])
+        
+      }
+
+    } else {
+      // calcular la poblacion total
+      let sumaValores = 0
+      for (let i = 0; i < poblacion.length; i++) {
+        sumaValores += poblacion[i].reduce((e1, e2) => e1 + e2)
+      }
+
+      let copiaPoblacion = poblacion.slice()
+      copiaPoblacion[fila][columna] = sumaValores
+      setPoblacion(copiaPoblacion)
+      setPoblacionTotal(sumaValores)
     }
-
-    let copiaPoblacion = poblacion
-    copiaPoblacion[fila][columna] = sumaValores
-    setPoblacion(copiaPoblacion)
-    console.log(sumaValores)
   }
 
 
@@ -62,6 +83,12 @@ function App() {
     <>
       <div id='App'>
         <MostrarPoblacion />
+      </div>
+      <div id='datos'>
+        <h1>Tiendas Asignadas</h1>
+        <ul>
+          {botonesSeleccionados.map((elemento) => <li>{elemento[0]},{elemento[1]}</li>)}
+        </ul>
       </div>
     </>
   )

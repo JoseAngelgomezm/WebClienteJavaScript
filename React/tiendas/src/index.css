@@ -5,6 +5,7 @@ div#App{
     text-align: center;
     padding: 1rem;
 }
+
 button{
     background-color: white; 
     border: solid 1px rgb(255, 0, 0);
@@ -22,3 +23,19 @@ button[disabled]{
     background-color: red;
     color: white;
 }
+
+div#datos{
+    text-align: center;
+    background-color: coral;
+}
+
+div#datos ul{
+    list-style: none;
+}
+
+div#datos ul li{
+    color:white;
+    font-weight: bold;
+}
+
+
