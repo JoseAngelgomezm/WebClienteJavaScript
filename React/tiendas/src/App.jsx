@@ -69,6 +69,7 @@ function App() {
   }
 
   const calcularPoblacion = () => {
+    console.log(posicionesTiendas)
     console.log(distanciasEntreTiendas)
   }
 
