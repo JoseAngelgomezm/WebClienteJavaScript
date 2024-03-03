@@ -18,8 +18,9 @@ function App() {
     [1, 2, 15, 43, 34, 2, 12, 2, 3],
     [1, 0, 12, 3, 0, 0, 21, 2, 2]])
 
-  const [botonesSeleccionados, setBotonesSeleccionados] = useState([])
-  const[poblacionTotal, setPoblacionTotal] = useState([])
+  const [posicionesTiendas, setposicionesTiendas] = useState([])
+  const [poblacionTotal, setPoblacionTotal] = useState([])
+  const [distanciasEntreTiendas, setDistanciasEntreTiendas] = useState([])
   const MostrarPoblacion = () => {
 
     return poblacion.map((e, fila) => {
@@ -27,7 +28,7 @@ function App() {
       return e.map((e2, columna) => {
 
         // comprobar si la matriz contiene los valores por el que voy
-        let fijarlo = botonesSeleccionados.some(arrayComprobar => JSON.stringify(arrayComprobar) === JSON.stringify([fila, columna]))
+        let fijarlo = posicionesTiendas.some(arrayComprobar => JSON.stringify(arrayComprobar) === JSON.stringify([fila, columna]))
 
         // si lo contiene desabilitarlo
         if (fijarlo) {
@@ -38,57 +39,92 @@ function App() {
           return <button onClick={() => fijarBoton(fila, columna)}>{e2}</button>
         }
 
-
       }).concat(<br></br>)
 
     })
   }
 
   const fijarBoton = (fila, columna) => {
-    let copiaEstado = botonesSeleccionados.slice()
+    let copiaEstado = posicionesTiendas.slice()
     copiaEstado.push([fila, columna])
-    setBotonesSeleccionados(copiaEstado)
-    recalcular(fila,columna)
+    setposicionesTiendas(copiaEstado)
+    recalcular(fila, columna)
+  }
+
+  // funcion que calcula la distancia desde la ultima tienda puesta a todas las demás
+  const calcularDistancia = (fila, columna) => {
+
+    let arrayDistancias = []
+    let numeroDistanciasAcalcular = posicionesTiendas.length
+    let posiciones1 = [fila, columna]
+    while (numeroDistanciasAcalcular !== 0) {
+      let posiciones2 = posicionesTiendas[numeroDistanciasAcalcular - 1]
+      let distancia = Math.abs(posiciones1[0] - posiciones2[0]) + Math.abs(posiciones1[1] - posiciones2[1])
+      arrayDistancias.push(distancia)
+      numeroDistanciasAcalcular--
+    }
+
+    setDistanciasEntreTiendas(arrayDistancias)
+
+  }
+
+  const calcularPoblacion = () => {
+    console.log(distanciasEntreTiendas)
   }
 
   const recalcular = (fila, columna) => {
     // sacar las tiendas que hay
-    let numeroTiendas = botonesSeleccionados.length
-    
-    // si hay mas de una, hacer los calculos
-    if (numeroTiendas >= 1) {
-      // saber la distancia entre tiendas
-      for(let i = 0; i<=numeroTiendas;i++){
-        // primera tienda
-        console.log(botonesSeleccionados[0][0],botonesSeleccionados[0][1])
-        
-      }
+    let numeroTiendas = posicionesTiendas.length
 
+    // si hay mas de una, hacer los calculos de las distancias
+    if (numeroTiendas >= 1) {
+      // calculamos la distancia 
+      calcularDistancia(fila, columna)
+      // establecemos la poblacion
+      calcularPoblacion()
     } else {
+
       // calcular la poblacion total
       let sumaValores = 0
+      let copiaPoblacion = poblacion.slice()
       for (let i = 0; i < poblacion.length; i++) {
         sumaValores += poblacion[i].reduce((e1, e2) => e1 + e2)
       }
 
-      let copiaPoblacion = poblacion.slice()
+      // poner todo a 0
+      for (var i = 0; i < copiaPoblacion.length; i++) {
+        for (var j = 0; j < copiaPoblacion[i].length; j++) {
+          copiaPoblacion[i][j] = 0;
+        }
+      }
+
+      // establecer en la actual la poblacion total
       copiaPoblacion[fila][columna] = sumaValores
       setPoblacion(copiaPoblacion)
       setPoblacionTotal(sumaValores)
     }
+
   }
+
 
 
   return (
     <>
       <div id='App'>
         <MostrarPoblacion />
-      </div>
-      <div id='datos'>
-        <h1>Tiendas Asignadas</h1>
-        <ul>
-          {botonesSeleccionados.map((elemento) => <li>{elemento[0]},{elemento[1]}</li>)}
-        </ul>
+        <div id='datos'>
+          <h1>Tiendas Asignadas</h1>
+          <ul>
+            {posicionesTiendas.map((elemento, indice) => <li>Tienda {indice + 1} alojada en {elemento[0]},{elemento[1]}</li>)}
+          </ul>
+        </div>
+
+        <div id='distancias'>
+          <h1>Distancias</h1>
+          <ul>
+            {distanciasEntreTiendas.length !== 0 && distanciasEntreTiendas.map((elemento, indice) => <li>Distancia entre tienda {posicionesTiendas.length} a {posicionesTiendas.length - 1 - indice} = {elemento}</li>)}
+          </ul>
+        </div>
       </div>
     </>
   )

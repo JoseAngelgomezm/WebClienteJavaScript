@@ -38,4 +38,14 @@ div#datos ul li{
     font-weight: bold;
 }
 
+div#distancias{
+    color: white;
+}
+
+div#distancias ul{
+    list-style: none;
+}
+
+
+
 
