@@ -20,7 +20,8 @@ function App() {
 
   const [posicionesTiendas, setposicionesTiendas] = useState([])
   const [poblacionTotal, setPoblacionTotal] = useState([])
-  const [distanciasEntreTiendas, setDistanciasEntreTiendas] = useState([])
+  const [tiendaPoblacion, setTiendaPoblacion] = useState([])
+
   const MostrarPoblacion = () => {
 
     return poblacion.map((e, fila) => {
@@ -44,70 +45,60 @@ function App() {
     })
   }
 
+  // funcion que fija el boton
   const fijarBoton = (fila, columna) => {
     let copiaEstado = posicionesTiendas.slice()
     copiaEstado.push([fila, columna])
     setposicionesTiendas(copiaEstado)
-    recalcular(fila, columna)
+    return recalcular()
   }
 
-  // funcion que calcula la distancia desde la ultima tienda puesta a todas las demás
-  const calcularDistancia = (fila, columna) => {
-
-    let arrayDistancias = []
-    let numeroDistanciasAcalcular = posicionesTiendas.length
-    let posiciones1 = [fila, columna]
-    while (numeroDistanciasAcalcular !== 0) {
-      let posiciones2 = posicionesTiendas[numeroDistanciasAcalcular - 1]
-      let distancia = Math.abs(posiciones1[0] - posiciones2[0]) + Math.abs(posiciones1[1] - posiciones2[1])
-      arrayDistancias.push(distancia)
-      numeroDistanciasAcalcular--
-    }
-
-    setDistanciasEntreTiendas(arrayDistancias)
-
-  }
-
-  const calcularPoblacion = () => {
-    console.log(posicionesTiendas)
-    console.log(distanciasEntreTiendas)
-  }
-
-  const recalcular = (fila, columna) => {
-    // sacar las tiendas que hay
+  // calcula la poblacion total la primera vez y la distancia que hay desde todas las 
+  // celdas a cada tienda
+  const recalcular = () => {
     let numeroTiendas = posicionesTiendas.length
 
-    // si hay mas de una, hacer los calculos de las distancias
-    if (numeroTiendas >= 1) {
-      // calculamos la distancia 
-      calcularDistancia(fila, columna)
-      // establecemos la poblacion
-      calcularPoblacion()
-    } else {
-
+    // si hay una tienda , calcular la posicion total
+    if (numeroTiendas === 1) {
       // calcular la poblacion total
       let sumaValores = 0
-      let copiaPoblacion = poblacion.slice()
       for (let i = 0; i < poblacion.length; i++) {
         sumaValores += poblacion[i].reduce((e1, e2) => e1 + e2)
       }
-
-      // poner todo a 0
-      for (var i = 0; i < copiaPoblacion.length; i++) {
-        for (var j = 0; j < copiaPoblacion[i].length; j++) {
-          copiaPoblacion[i][j] = 0;
-        }
-      }
-
-      // establecer en la actual la poblacion total
-      copiaPoblacion[fila][columna] = sumaValores
-      setPoblacion(copiaPoblacion)
+      // establecer la poblacion total
       setPoblacionTotal(sumaValores)
-    }
+      // calculamos las distancias de todas las casillas a las tiendas que hay
+      return calcularDistancia()
 
+    } else {
+      // calculamos las distancias de todas las casillas a las tiendas que hay
+      return calcularDistancia()
+    }
   }
 
-
+  // funcion que calcula la distancia de todas las casillas hasta las tiendas
+  const calcularDistancia = () => {
+    if(posicionesTiendas.length === 1){
+      let poblacionAtienda1 = "Tienda 1 : "+poblacionTotal+" personas";
+      let copia = tiendaPoblacion.slice()
+      copia.push(poblacionAtienda1)
+      setTiendaPoblacion(copia)
+    }
+    let arrayDistancias = []
+    // sacar las distancias desde cada una de las casillas hasta las tiendas
+    for (let i = 0; i < poblacion.length; i++) {
+      for (let j = 0; j < poblacion[i].length; j++) {
+        // calcular las distancias de la posicion actual a cada tienda
+        for (let k = 0; k < posicionesTiendas.length; k++) {
+          let tiendaAllegar = posicionesTiendas[k]
+          // por cada posicion, calcular la distancia a cada tienda
+          let distancia = Math.abs(tiendaAllegar[0] - i) + Math.abs(tiendaAllegar[1] - j)
+          arrayDistancias.push(distancia)
+        }
+      }
+    }
+    console.log(arrayDistancias)
+  }
 
   return (
     <>
@@ -121,9 +112,9 @@ function App() {
         </div>
 
         <div id='distancias'>
-          <h1>Distancias</h1>
+          <h1>Poblacion por tienda</h1>
           <ul>
-            {distanciasEntreTiendas.length !== 0 && distanciasEntreTiendas.map((elemento, indice) => <li>Distancia entre tienda {posicionesTiendas.length} a {posicionesTiendas.length - 1 - indice} = {elemento}</li>)}
+            {tiendaPoblacion.map((elemento) => <li>{elemento}</li>)}
           </ul>
         </div>
       </div>
