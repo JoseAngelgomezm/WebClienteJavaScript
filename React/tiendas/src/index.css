@@ -46,6 +46,9 @@ div#distancias ul{
     list-style: none;
 }
 
+div#App > h1{
+    color: white;
+}
 
 
 
