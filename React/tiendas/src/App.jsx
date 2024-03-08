@@ -7,6 +7,18 @@ import './App.css'
 // 4 a cada supermercado del filtro le sumo la poblacion
 
 function App() {
+  const poblacionNoTocar = 
+  [
+    [0, 5, 4, 2, 9, 8, 0, 8, 8],
+    [1, 7, 21, 23, 44, 5, 3, 4, 0],
+    [2, 6, 32, 22, 33, 8, 4, 2, 8],
+    [1, 2, 43, 4, 56, 65, 34, 11, 8],
+    [2, 22, 32, 3, 42, 62, 43, 21, 0],
+    [2, 2, 23, 34, 64, 24, 42, 15, 7],
+    [0, 2, 36, 43, 61, 26, 64, 12, 0],
+    [1, 2, 15, 43, 34, 2, 12, 2, 3],
+    [1, 0, 12, 3, 0, 0, 21, 2, 2]
+  ]
 
   const [poblacion, setPoblacion] = useState(
     [
@@ -72,65 +84,42 @@ function App() {
 
 
   const recalcular = (nuevasPosicionesTiendas) => {
-    // Copia de la población actual que no se modifica
-    let copiaPoblacion = poblacion.slice();
-    let poblacionTienda = 0;
-    
-    // Recorrer la matriz para calcular distancias y ajustar población
-    for (let i = 0; i < copiaPoblacion.length; i++) {
-      for (let j = 0; j < copiaPoblacion[i].length; j++) {
+    // Copia de la población actual
+    let copiaPoblacion = poblacionNoTocar.slice();
 
-        // Si la celda actual es una tienda, continuar
-        if (nuevasPosicionesTiendas.some(tienda => tienda[0] === i && tienda[1] === j)) {
-          continue;
-        }
+    // Recorrer la matriz para calcular distancias y ajustar población
+    for (let i = 0; i < poblacionNoTocar.length; i++) {
+      for (let j = 0; j < poblacionNoTocar[i].length; j++) {
 
         // si solo hay una tienda, añadir en esa tienda el contenido de esta celda
         if (nuevasPosicionesTiendas.length === 1) {
-          poblacionTienda += poblacion[i][j]
+          let tienda = nuevasPosicionesTiendas[0]
+          copiaPoblacion[tienda[0]][tienda[1]] += poblacionNoTocar[i][j]
 
           // si hay mas de una tienda
         } else {
           // recorrer las nuevas posiciones de las tiendas para calcular distancias
           // equivale al tercer bucle for, para calcular la distancia de una celda hasta las tiendas que hay
-          let distancias = nuevasPosicionesTiendas.map(tienda => Math.floor(Math.sqrt(Math.pow(tienda[0] - i, 2) + Math.pow(tienda[1] - j, 2))));         
-         
-          let minimas = []
-          let disc_minima = Infinity
-          distancias.map((valor, indice) => {
-            if (valor < disc_minima) {
-              minimas = []
-              minimas.push(indice)
-            } else if (valor === disc_minima) {
-              minimas.push(indice)
-            }
-          })
-          console.log(minimas)
+          let distancias = nuevasPosicionesTiendas.map(tienda => Math.floor(Math.sqrt(Math.pow(tienda[0] - i, 2) + Math.pow(tienda[1] - j, 2))));
+
           
-          // Obtener las coordenadas de las tiendas más cercanas
-          let TiendasMasCercanas = minimas.map((elemento) => nuevasPosicionesTiendas[elemento]);
+          let minimas = Math.min(distancias)
+          
 
-
-          if (TiendasMasCercanas.length - 1 > 0) {
+          if (minimas.length - 1 > 0) {
             // repartir la poblacion entre las tiendas mas cercanas
-            let repartoPoblacion = Math.floor(copiaPoblacion[i][j] / TiendasMasCercanas.length)
-
+            let repartoPoblacion = Math.floor(copiaPoblacion[i][j] / minimas.length)
             // a cada tienda, asignarle lo correspondiente
-            TiendasMasCercanas.map((elemento) => poblacionTienda[elemento] += repartoPoblacion)
-
+            minimas.map((elemento) => copiaPoblacion[elemento] += repartoPoblacion)
           } else {
-
-            TiendasMasCercanas.map((elemento) => copiaPoblacion[elemento[0]][elemento[1]] += poblacionNoTocar[i][j])
-
+            minimas.map((elemento) => copiaPoblacion[elemento[0]][elemento[1]] += poblacionNoTocar[i][j])
           }
-
-
         }
       }
     }
 
     // Actualizar el estado de la población
-    setTiendaPoblacion(poblacionTienda);
+    setTiendaPoblacion(copiaPoblacion);
   }
 
   return (
@@ -148,9 +137,6 @@ function App() {
 
         <div id='distancias'>
           {poblacionTotal !== undefined && <h2>Poblacion total : {poblacionTotal}</h2>}
-          <ul>
-            {tiendaPoblacion.map((elemento, indice = 200) => <li key={indice}>{elemento}</li>)}
-          </ul>
         </div>
       </div>
     </>
