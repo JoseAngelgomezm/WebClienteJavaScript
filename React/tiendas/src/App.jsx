@@ -7,18 +7,18 @@ import './App.css'
 // 4 a cada supermercado del filtro le sumo la poblacion
 
 function App() {
-  const poblacionNoTocar = 
-  [
-    [0, 5, 4, 2, 9, 8, 0, 8, 8],
-    [1, 7, 21, 23, 44, 5, 3, 4, 0],
-    [2, 6, 32, 22, 33, 8, 4, 2, 8],
-    [1, 2, 43, 4, 56, 65, 34, 11, 8],
-    [2, 22, 32, 3, 42, 62, 43, 21, 0],
-    [2, 2, 23, 34, 64, 24, 42, 15, 7],
-    [0, 2, 36, 43, 61, 26, 64, 12, 0],
-    [1, 2, 15, 43, 34, 2, 12, 2, 3],
-    [1, 0, 12, 3, 0, 0, 21, 2, 2]
-  ]
+  const poblacionNoTocar =
+    [
+      [0, 5, 4, 2, 9, 8, 0, 8, 8],
+      [1, 7, 21, 23, 44, 5, 3, 4, 0],
+      [2, 6, 32, 22, 33, 8, 4, 2, 8],
+      [1, 2, 43, 4, 56, 65, 34, 11, 8],
+      [2, 22, 32, 3, 42, 62, 43, 21, 0],
+      [2, 2, 23, 34, 64, 24, 42, 15, 7],
+      [0, 2, 36, 43, 61, 26, 64, 12, 0],
+      [1, 2, 15, 43, 34, 2, 12, 2, 3],
+      [1, 0, 12, 3, 0, 0, 21, 2, 2]
+    ]
 
   const [poblacion, setPoblacion] = useState(
     [
@@ -102,24 +102,33 @@ function App() {
           // equivale al tercer bucle for, para calcular la distancia de una celda hasta las tiendas que hay
           let distancias = nuevasPosicionesTiendas.map(tienda => Math.floor(Math.sqrt(Math.pow(tienda[0] - i, 2) + Math.pow(tienda[1] - j, 2))));
 
-          
-          let minimas = Math.min(distancias)
-          
+          // Encontrar el valor mínimo en el array
+          const minValor = Math.min(...distancias);
 
-          if (minimas.length - 1 > 0) {
+          // Encontrar los índices del valor mínimo
+          const minimas = [];
+          distancias.forEach((valor, indice) => {
+            if (valor === minValor) {
+              minimas.push(indice);
+            }
+          });
+
+          console.log(minimas)
+          if (minimas.length > 1) {
             // repartir la poblacion entre las tiendas mas cercanas
             let repartoPoblacion = Math.floor(copiaPoblacion[i][j] / minimas.length)
             // a cada tienda, asignarle lo correspondiente
             minimas.map((elemento) => copiaPoblacion[elemento] += repartoPoblacion)
           } else {
-            minimas.map((elemento) => copiaPoblacion[elemento[0]][elemento[1]] += poblacionNoTocar[i][j])
+            let tienda = nuevasPosicionesTiendas[0]
+            copiaPoblacion[tienda[0]][tienda[1]] += poblacionNoTocar[i][j]
           }
         }
       }
     }
 
     // Actualizar el estado de la población
-    setTiendaPoblacion(copiaPoblacion);
+    setPoblacion(copiaPoblacion);
   }
 
   return (
