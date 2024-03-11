@@ -114,20 +114,23 @@ function App() {
               minimas.push(indice);
             }
           });
-          
-          if (minimas.length > 1) {
+
+        
+          if (minimas.length >= 2) {
             // repartir la poblacion entre las tiendas mas cercanas
-            let repartoPoblacion = Math.floor(copiaPoblacion[i][j] / minimas.length)
+            let repartoPoblacion = Math.floor(poblacionNoTocar[i][j] / minimas.length)
             // a cada tienda, asignarle lo correspondiente
             nuevasPosicionesTiendas.map((elemento) => copiaPoblacion[elemento[0]][elemento[1]] += repartoPoblacion)
           } else {
-            let tienda = nuevasPosicionesTiendas[0]
-            copiaPoblacion[tienda[0]][tienda[1]] += poblacionNoTocar[i][j]
+            // quedarme con la tienda mas cercana con el indice de la tienda que tengo en minimas
+            let tiendaCercana = nuevasPosicionesTiendas[minimas[0]]
+            console.log(tiendaCercana)
+            // a esa tienda cercana le añado la poblacion
+            copiaPoblacion[tiendaCercana[0]][tiendaCercana[1]] += poblacionNoTocar[i][j]
           }
         }
       }
     }
-    console.log(copiaPoblacion)
     // Actualizar el estado de la población
     setPoblacion(copiaPoblacion);
   }
