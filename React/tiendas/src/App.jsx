@@ -36,7 +36,6 @@ function App() {
 
   const [posicionesTiendas, setPosicionesTiendas] = useState([])
   const [poblacionTotal, setPoblacionTotal] = useState()
-  const [tiendaPoblacion, setTiendaPoblacion] = useState([])
 
   const MostrarPoblacion = () => {
     let indice = 0
@@ -81,8 +80,6 @@ function App() {
     });
   }
 
-
-
   const recalcular = (nuevasPosicionesTiendas) => {
     // Copia de la población actual
     let copiaPoblacion = poblacionNoTocar.slice();
@@ -90,6 +87,11 @@ function App() {
     // Recorrer la matriz para calcular distancias y ajustar población
     for (let i = 0; i < poblacionNoTocar.length; i++) {
       for (let j = 0; j < poblacionNoTocar[i].length; j++) {
+
+        // Si la celda actual es una tienda, continuar
+        if (nuevasPosicionesTiendas.some(tienda => tienda[0] === i && tienda[1] === j)) {
+          continue;
+        }
 
         // si solo hay una tienda, añadir en esa tienda el contenido de esta celda
         if (nuevasPosicionesTiendas.length === 1) {
@@ -102,7 +104,7 @@ function App() {
           // equivale al tercer bucle for, para calcular la distancia de una celda hasta las tiendas que hay
           let distancias = nuevasPosicionesTiendas.map(tienda => Math.floor(Math.sqrt(Math.pow(tienda[0] - i, 2) + Math.pow(tienda[1] - j, 2))));
 
-          // Encontrar el valor mínimo en el array
+          // Encontrar el valor mínimo de distancias
           const minValor = Math.min(...distancias);
 
           // Encontrar los índices del valor mínimo
@@ -112,13 +114,12 @@ function App() {
               minimas.push(indice);
             }
           });
-
-          console.log(minimas)
+          
           if (minimas.length > 1) {
             // repartir la poblacion entre las tiendas mas cercanas
             let repartoPoblacion = Math.floor(copiaPoblacion[i][j] / minimas.length)
             // a cada tienda, asignarle lo correspondiente
-            minimas.map((elemento) => copiaPoblacion[elemento] += repartoPoblacion)
+            nuevasPosicionesTiendas.map((elemento) => copiaPoblacion[elemento[0]][elemento[1]] += repartoPoblacion)
           } else {
             let tienda = nuevasPosicionesTiendas[0]
             copiaPoblacion[tienda[0]][tienda[1]] += poblacionNoTocar[i][j]
@@ -126,7 +127,7 @@ function App() {
         }
       }
     }
-
+    console.log(copiaPoblacion)
     // Actualizar el estado de la población
     setPoblacion(copiaPoblacion);
   }
