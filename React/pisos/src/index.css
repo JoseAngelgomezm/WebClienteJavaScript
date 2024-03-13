@@ -46,3 +46,13 @@ form > div:nth-child(9) > input
 {
   padding: .5rem;
 }
+
+div#respuesta h1{
+  font-weight: bold;
+}
+
+div#respuesta h1 span{
+  font-weight: bold;
+  color: red;
+}
+

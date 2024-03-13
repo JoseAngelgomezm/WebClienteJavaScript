@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { useState, useEffect } from 'react'
 import { create, all } from 'mathjs'
 import { PISOS, PRECIOS } from './pisos.js'
-import { Modal, ModalHeader, ModalBody } from 'reactstrap'
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
 
 function Formulario ({ establecerDatos }) {
@@ -138,25 +137,11 @@ function Formulario ({ establecerDatos }) {
   )
 }
 
-function Ventana ({ modal, precio, toggle }) {
-  return (
-    <div>
-      <Modal isOpen={ modal } toggle={ toggle }>
-        <ModalHeader toggle={ toggle }>Resultado</ModalHeader>
-        <ModalBody>
-          El precio aproximado de tu vivienda es de { precio } €
-        </ModalBody>
-      </Modal>
-    </div>
-  )
-}
-
 function App() {
   const [vector, setVector] = useState()
   const [math] = useState(create(all, {}))
   const [datosUsuario, setDatosUsuario] = useState([])
   const [precio, setPrecio] = useState()
-  const [modal, setModal] = useState(false)
 
   // Calculo el vector de regresión multivariable
   useEffect(() => {
@@ -177,31 +162,25 @@ function App() {
         resultado += valor * datosUsuario[indice]
         return valor
       })
-      // Aproximo a las centésimas
-      resultado = Math.floor(resultado * 100) / 100
-      setPrecio(resultado)
+      // Formatear el número con separadores de miles
+      const numeroFormateado = resultado.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  
+      setPrecio(numeroFormateado)
     }
   }, [datosUsuario, vector])
 
-  useEffect(() => {
-    if (!isNaN(precio)) {
-      setModal(true)
-    }
-  }, [precio])
-
   function establecerDatos(datos) {
     setDatosUsuario(datos)
-    setModal(true)
-  }
 
-  function toggle() {
-    setModal(!modal)
   }
+   
 
   return (
     <div className="App">
       <Formulario establecerDatos={establecerDatos} />
-      {modal && <Ventana modal={modal} precio={precio} toggle={toggle} />}
+      <div id="respuesta">
+        {precio !== undefined && <h1>El precio estimado con los datos introducidos es de : <span>{precio}€</span></h1>}
+      </div>
     </div>
   )
 }
