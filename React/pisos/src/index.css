@@ -1,68 +1,48 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
+div.formulario {
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  flex-direction: column;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+form {
+  display: flex;
+  flex-direction: column;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+div.mb-3 {
+  display: flex;
+  flex-direction: row;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+div.mb-3:nth-child(1) {
+  margin-top: 2rem;
+}
+
+
+div.mb-3 label {
+  flex: 30% 0;
+  text-align: center;
+  border: black solid 1px;
+  margin-right: 1rem;
+}
+
+div.mb-3 input {
+  flex: 70% 0;
+  text-align: center;
+  border: black solid 1px;
+}
+
+form > div:nth-child(6) > label,
+form > div:nth-child(7) > label,
+form > div:nth-child(8) > label,
+form > div:nth-child(9) > label
+{
+  flex: 90% 0 0;
+}
+
+form > div:nth-child(6) > input,
+form > div:nth-child(7) > input,
+form > div:nth-child(8) > input,
+form > div:nth-child(9) > input
+{
+  padding: .5rem;
 }
